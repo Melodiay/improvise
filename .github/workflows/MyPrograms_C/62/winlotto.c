@@ -17,7 +17,7 @@ int main( void )
     Display *d; 
     Window w; 
     XEvent e; 
-    //char *msg = "Lotto Number Picker"; 
+     
     int s;
 
     int i, r, temp, nums[50];
