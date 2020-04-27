@@ -23,7 +23,9 @@ int main( void )
     int i, r, temp, nums[50];
 
     char buf[4], str[50] = { "Your Six Lucky Numbers Are: " };
-
+    
+    char *name = "Lotto Number Picker";	
+	
     srand(time(NULL));
 
     for(i = 0; i < 50; i++) { nums[i] = i; }
@@ -62,6 +64,7 @@ int main( void )
       XNextEvent( d, &e ); 
       if( e.type == Expose ) {                         // Перерисовать окно 
          XFillRectangle( d, w, DefaultGC( d, s ), 20, 20, 10, 10 ); 
+	 XStoreName(d, w, name);
          XDrawString( d, w, DefaultGC( d, s ), 50, 50, str, strlen( str ) ); 
       } 
       if( e.type == KeyPress )                         // При нажатии кнопки - выход 
