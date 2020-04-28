@@ -4,13 +4,13 @@ int main()
 {
 	int i;
 
-	float  s, x, y;
+	double  s, x, y;
 
 	char z;
 
 	printf("x znak y = ");
 
-	scanf("%f %c %f", &x, &z, &y);
+	scanf("%lf %c %lf", &x, &z, &y);
 
 	for (i=0; i<4; i++)
 
@@ -27,7 +27,7 @@ int main()
 		else (printf("Error"));
 
 
-	}	printf("%f \n", s);
+	}	printf("%lf \n", s);
 	
 	return 0;
 }
