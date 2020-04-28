@@ -64,8 +64,8 @@ int main( void )
       XNextEvent( d, &e ); 
       if( e.type == Expose ) {                         // Перерисовать окно 
          XFillRectangle( d, w, DefaultGC( d, s ), 20, 20, 10, 10 ); 
-	 XStoreName(d, w, name);
-         XDrawString( d, w, DefaultGC( d, s ), 50, 50, str, strlen( str ) ); 
+	 XStoreName(d, w, name);			// Задаем Заголовок окна
+         XDrawString( d, w, DefaultGC( d, s ), 50, 50, str, strlen( str ) ); // Выводим информацию в окно программы
       } 
       if( e.type == KeyPress )                         // При нажатии кнопки - выход 
          break; 
