@@ -27,7 +27,7 @@ int main()
 		else (printf("Error"));
 
 
-	}	printf("%lf \n", s);
+	}	printf("%lf %c %lf = %lf\n", x, z, y, s);
 	
 	return 0;
 }
