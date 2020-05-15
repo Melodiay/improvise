@@ -1,4 +1,8 @@
+// Linux libm -lm
+// gcc calc.c -o calc.exe -lm 
+
 #include <stdio.h>
+#include <math.h>
 
 int main()
 {
@@ -23,9 +27,10 @@ int main()
 		else if(z == '*' ) s = x * y;
 				  
 		else if(z == '/' ) s = x / y;
-				  
+		
+		else if(z == '^' ) s = powl(x, y);
+				
 		else (printf("Error"));
-
 
 	}	printf("%lf %c %lf = %lf\n", x, z, y, s);
 	
