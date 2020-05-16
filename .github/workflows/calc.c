@@ -6,33 +6,75 @@
 
 int main()
 {
-	int i;
-
+	int i, a, b, sm;
+	int num;
 	double  s, x, y;
 
-	char z;
+	char z;	
 
-	printf("x znak y = ");
+    while(1) {
+	
+	printf("\n");	
 
-	scanf("%lf %c %lf", &x, &z, &y);
+	printf("Enter 1 to calculate, use the following operations +, -, *, /, ^ \n");
+	
+	printf("Enter 2 to find out the remainder use the operation %% \n");
+	
+	printf("Enter 3 to exit!\n");
 
-	for (i=0; i<4; i++)
+	scanf("%d", &num);
 
+         
+
+	switch(num)		
 	{
+		case 1: printf("x znak y = "); 
+		{
+			scanf("%lf %c %lf", &x, &z, &y);
 
-		if(z == '+') s = x + y;
+		for (i=0; i<5; i++)
+
+			{
+
+			if(z == '+') s = x + y;
 			     
-		else if(z == '-' ) s = x - y;
+			else if(z == '-' ) s = x - y;
 				  
-		else if(z == '*' ) s = x * y;
+			else if(z == '*' ) s = x * y;
 				  
-		else if(z == '/' ) s = x / y;
-		
-		else if(z == '^' ) s = powl(x, y);
-				
-		else (printf("Error"));
+			else if(z == '/' ) s = x / y;
 
-	}	printf("%lf %c %lf = %lf\n", x, z, y, s);
+			else if(z == '^' ) s = powl(x, y);
+		  
+			else (printf("Error"));
+
+		}	printf("%lf %c %lf = %lf\n", x, z, y, s);
+		
+		} break;
+		
+		case 2: printf("x znak y = ");
+
+		{
+
+			scanf("%d %c %d", &a, &z, &b);
+
+			for (i=0; i<1; i++){
+	
+			if(z == '%' ) sm = a % b;
+		
+		}  printf("%d %c %d = %d\n", a, z, b, sm);	
+
+		
+		} break;
+		
+		case 3: printf("Exit"); { return 0; } break;		
+		
+		default: printf("The following commands are available 1, 2, 3\n");
+	}	
+
+	}	
 	
 	return 0;
 }
+
+
