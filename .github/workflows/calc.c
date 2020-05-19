@@ -67,7 +67,7 @@ int main()
 		
 		} break;
 		
-		case 3: printf("Exit"); { return 0; } break;		
+		case 3: printf("Exit\n"); { return 0; } break;		
 		
 		default: printf("The following commands are available 1, 2, 3\n");
 	}	
