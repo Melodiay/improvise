@@ -1,80 +1,78 @@
 // Linux libm -lm
-// gcc calc.c -o calc.exe -lm 
+// gcc calc.c -o calc.exe -lm
 
 #include <stdio.h>
 #include <math.h>
 
 int main()
 {
-	int i, a, b, sm;
-	int num;
-	double  s, x, y;
+    int i, a, b, sm = 0;
+    int num;
+    long double  s = 0, x, y;
 
-	char z;	
+    char z;
 
-    while(1) {
-	
-	printf("\n");	
+    while((num = 1) && (num = 2) &&  (num = 3)) {
 
-	printf("Enter 1 to calculate, use the following operations +, -, *, /, ^ \n");
-	
-	printf("Enter 2 to find out the remainder use the operation %% \n");
-	
-	printf("Enter 3 to exit!\n");
+    printf("\n");
 
-	scanf("%d", &num);
+    printf("Enter 1 to calculate, use the following operations +, -, *, /, ^ \n");
 
-         
+    printf("Enter 2 to find out the remainder use the operation %% \n");
 
-	switch(num)		
-	{
-		case 1: printf("x znak y = "); 
-		{
-			scanf("%lf %c %lf", &x, &z, &y);
+    printf("Enter 3 to exit!\n\n");
 
-		for (i=0; i<5; i++)
+    scanf("%d", &num);
 
-			{
+    switch(num)
+    {
+        case 1: printf("\nx znak y = ");
+        {
+            scanf("%Lf %c %Lf", &x, &z, &y);
 
-			if(z == '+') s = x + y;
-			     
-			else if(z == '-' ) s = x - y;
-				  
-			else if(z == '*' ) s = x * y;
-				  
-			else if(z == '/' ) s = x / y;
+        for (i=0; i<5; i++)
 
-			else if(z == '^' ) s = powl(x, y);
-		  
-			else (printf("Error"));
+            {
 
-		}	printf("%lf %c %lf = %lf\n", x, z, y, s);
-		
-		} break;
-		
-		case 2: printf("x znak y = ");
+            if(z == '+') s = x + y;
 
-		{
+            else if(z == '-' ) s = x - y;
 
-			scanf("%d %c %d", &a, &z, &b);
+            else if(z == '*' ) s = x * y;
 
-			for (i=0; i<1; i++){
-	
-			if(z == '%' ) sm = a % b;
-		
-		}  printf("%d %c %d = %d\n", a, z, b, sm);	
+            else if(z == '/' ) s = x / y;
 
-		
-		} break;
-		
-		case 3: printf("Exit\n"); { return 0; } break;		
-		
-		default: printf("The following commands are available 1, 2, 3\n");
-	}	
+            else if(z == '^' ) s = powl(x, y);
 
-	}	
-	
-	return 0;
+            else (printf("Error"));
+
+        }	printf("%Lf %c %Lf = %Lf\n", x, z, y, s);
+
+        } break;
+
+        case 2: printf("\nx znak y = ");
+
+        {
+
+            scanf("%d %c %d", &a, &z, &b);
+
+            for (i=0; i<1; i++){
+
+            if(z == '%' ) sm = a % b;
+
+        }  printf("%d %c %d = %d\n", a, z, b, sm);
+
+
+        } break;
+
+    case 3: printf("\nExit\n"); { return 0; } break;
+
+        default: printf("\nThe following commands are available 1, 2, 3\n");
+
+    }
+
+    }
+
 }
 
 
