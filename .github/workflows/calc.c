@@ -8,12 +8,16 @@
 int main()
 {
     int i, a, b, sm = 0;
+
     int num;
+
     long double  s = 0, x, y;
 
-    char z;
+    long double sqrtl (long double x);
 
-    while((num = 1) && (num = 2) &&  (num = 3)) {
+    char z, zi;
+
+    while( (num = 1) && (num = 2) && (num = 3) && (num = 4)) {
 
     printf("\n");
 
@@ -21,13 +25,16 @@ int main()
 
     printf("Enter 2 to find out the remainder use the operation %% \n");
 
-    printf("Enter 3 to exit!\n\n");
+    printf("Enter 3 to find out the remainder use the operation sqrt x (√x) \n");
+
+    printf("Enter 4 to exit!\n\n");
 
     scanf("%d", &num);
 
     switch(num)
     {
         case 1: printf("\nx znak y = ");
+
         {
             scanf("%Lf %c %Lf", &x, &z, &y);
 
@@ -43,7 +50,7 @@ int main()
 
             else if(z == '/' ) s = x / y;
 
-            else if(z == '^' ) s = powl(x, y);
+            else if(z == '^' ) s = powl(x, y);	
 
             else (printf("Error"));
 
@@ -66,7 +73,21 @@ int main()
 
         } break;
 
-    case 3: printf("\nExit\n"); { return 0; } break;
+	case 3: printf("\nsqrt x = ");
+        {
+            scanf("%s %Lf", &zi, &x);
+
+	    for (i=0; i<1; i++)
+
+            {
+
+		if(zi == 's', 'q', 'r', 't') s = sqrtl(x);
+
+	    }  printf("%s %Lf = %Lf\n",  &zi, x, s);
+
+	} break;
+
+    case 4: printf("\nExit\n"); { return 0; } break;
 
         default: printf("\nThe following commands are available 1, 2, 3\n");
 
@@ -75,5 +96,3 @@ int main()
     }
 
 }
-
-
