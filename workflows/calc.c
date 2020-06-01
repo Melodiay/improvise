@@ -25,7 +25,7 @@ int main()
 
     printf("Enter 2 to find out the remainder use the operation %% \n");
 
-    printf("Enter 3 to find out the remainder use the operation sqrt x (√x) \n");
+    printf("Enter 3 to calculate the root of x (√x) \n");
 
     printf("Enter 4 to exit!\n\n");
 
