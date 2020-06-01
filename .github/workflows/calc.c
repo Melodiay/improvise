@@ -15,7 +15,7 @@ int main()
 
     long double sqrtl (long double x);
 
-    char z, zi;
+    char z;
 
     while( (num = 1) && (num = 2) && (num = 3) && (num = 4)) {
 
@@ -75,15 +75,15 @@ int main()
 
 	case 3: printf("\nsqrt x = ");
         {
-            scanf("%s %Lf", &zi, &x);
+            scanf("%Lf", &x);
 
 	    for (i=0; i<1; i++)
 
             {
 
-		if(zi == 's', 'q', 'r', 't') s = sqrtl(x);
+		 s = sqrtl(x);
 
-	    }  printf("%s %Lf = %Lf\n",  &zi, x, s);
+	    }  printf("%Lf = %Lf\n", x, s);
 
 	} break;
 
