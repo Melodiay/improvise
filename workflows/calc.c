@@ -42,40 +42,38 @@ int main()
 
             {
 
-            if(z == '+') s = x + y;
+            if(z == '+') { s = x + y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
-            else if(z == '-' ) s = x - y;
+            else if(z == '-' ) { s = x - y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
-            else if(z == '*' ) s = x * y;
+            else if(z == '*' ) { s = x * y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
-            else if(z == '/' )  
+            else if(z == '/' ) 
 
-		 if ( y == 0 )
+		 if ( y != 0 ) 
 
 		 {	
-			s=0;			
-
-			printf("You can't divide by zero\n");break;
-						
-		 }
-
-		 else s = x / y;
-
-            else if(z == '^' ) 
-		 
-		 if (x == 0 && y == 0)
-
-		 {
-			 
-			printf("Zero to the zero degree is not defined\n");break;
+			
+			s = x / y;  printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break;	
 			
 		 }
 
-		 else s = powl(x, y);
-	
+		 else { s=0; printf("You can't divide by zero\n");break; }
+
+            else if(z == '^' ) 
+
+		 if ( x == 0 && y == 0 )
+
+		 {
+			printf("Zero to the zero degree is not defined\n");break;
+
+		 }
+
+		 else { s = powl(x, y); printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
+
             else (printf("Error"));
 
-        }	printf("%Lf %c %Lf = %Lf\n", x, z, y, s);
+        }
 
         } break;
 
