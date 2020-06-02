@@ -48,7 +48,18 @@ int main()
 
             else if(z == '*' ) s = x * y;
 
-            else if(z == '/' ) s = x / y;
+            else if(z == '/' )  
+
+		 if ( y == 0 )
+
+		 {	
+			s=0;			
+
+			printf("You can't divide by zero\n");break;
+						
+		 }
+
+		 else s = x / y;
 
             else if(z == '^' ) 
 		 
