@@ -50,8 +50,18 @@ int main()
 
             else if(z == '/' ) s = x / y;
 
-            else if(z == '^' ) s = powl(x, y);	
+            else if(z == '^' ) 
+		 
+		 if (x == 0 && y == 0)
 
+		 {
+			 
+			printf("Zero to the zero degree is not defined\n");break;
+			
+		 }
+
+		 else s = powl(x, y);
+	
             else (printf("Error"));
 
         }	printf("%Lf %c %Lf = %Lf\n", x, z, y, s);
