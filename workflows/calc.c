@@ -58,7 +58,7 @@ int main()
 			
 		 }
 
-		 else { s=0; printf("You can't divide by zero\n");break; }
+		 else { printf("You can't divide by zero\n");break; }
 
             else if(z == '^' ) 
 
