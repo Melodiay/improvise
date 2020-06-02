@@ -71,7 +71,7 @@ int main()
 
 		 else { s = powl(x, y); printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
-            else (printf("Error"));
+            else { printf("Error\n"); break; }
 
         }
 
