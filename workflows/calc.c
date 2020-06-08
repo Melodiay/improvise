@@ -1,7 +1,5 @@
 // Linux libm -lm // gcc calc.c -o calc.exe -lm
 
-// Windows gcc calc.c -o calc.exe
-
 #include <stdio.h>
 #include <math.h>
 
