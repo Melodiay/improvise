@@ -9,7 +9,9 @@ int main()
 
     int num;
 
-    long double  s = 0, x, y;
+    float  x, y;
+
+    long double  s = 0;
 
     long double sqrtl (long double x);
 
@@ -34,40 +36,43 @@ int main()
         case 1: printf("\nx znak y = ");
 
         {
-            scanf("%Lf %c %Lf", &x, &z, &y);
+            scanf("%f %c %f", &x, &z, &y);
 
         for (i=0; i<5; i++)
 
             {
 
-            if(z == '+') { s = x + y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
+            if(z == '+') { s = (long double)x + (long double)y; printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
 
-            else if(z == '-' ) { s = x - y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
+            else if(z == '-' ) { s = (long double)x - (long double)y; printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
 
-            else if(z == '*' ) { s = x * y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
+            else if(z == '*' ) { s = (long double)x * (long double)y; printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
 
-            else if(z == '/' ) 
+            else if(z == '/' )
 
-		 if ( y != 0 ) 
+                 if ( (int)y != 0 )
 
-		 {	
-			
-			s = x / y;  printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break;	
-			
-		 }
+                 {
 
-		 else { printf("You can't divide by zero\n");break; }
+                    s = (long double)x / (long double)y;  printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break;
 
-            else if(z == '^' ) 
+                 }
 
-		 if ( x == 0 && y == 0 )
+                    else { printf("You can't divide by zero\n");break; }
 
-		 {
-			printf("Zero to the zero degree is not defined\n");break;
 
-		 }
 
-		 else { s = powl(x, y); printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
+            else if(z == '^' )
+
+                 if ( (int)x == 0 && (int)y == 0 )
+
+                 {
+
+                     printf("Zero to the zero degree is not defined\n");break;
+
+                 }
+
+                 else { s = powl((long double)x, (long double)y); printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
 
             else { printf("Error\n"); break; }
 
@@ -90,23 +95,23 @@ int main()
 
         } break;
 
-	case 3: printf("\nsqrt x = ");
+    case 3: printf("\nsqrt x = ");
         {
-            scanf("%Lf", &x);
+            scanf("%f", &x);
 
-	    for (i=0; i<1; i++)
+        for (i=0; i<1; i++)
 
             {
 
-		 s = sqrtl(x);
+        s = sqrtl((long double)x);
 
-	    }  printf("%Lf = %Lf\n", x, s);
+        }  printf("%f = %Lf\n", (double)x, s);
 
-	} break;
+    } break;
 
-    case 4: printf("\nExit\n"); { return 0; } break;
+    case 4: printf("\nExit\n"); { return 0; }
 
-        default: printf("\nThe following commands are available 1, 2, 3\n");
+    default: printf("\nThe following commands are available 1, 2, 3\n");
 
     }
 
