@@ -78,10 +78,6 @@ int main( int argc, char *argv[] )
 
 {
 
-    Display *d; 
-    Window w; 
-    XEvent e; 
-     
     int s;
 
     int i, r, temp, nums[50];
