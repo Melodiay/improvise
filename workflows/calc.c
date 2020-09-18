@@ -9,7 +9,7 @@ int main()
 
     int num;
 
-    float  x, y;
+    long double x, y;
 
     long double  s = 0;
 
@@ -36,25 +36,25 @@ int main()
         case 1: printf("\nx znak y = ");
 
         {
-            scanf("%f %c %f", &x, &z, &y);
+            scanf("%Lf %c %Lf", &x, &z, &y);
 
         for (i=0; i<5; i++)
 
             {
 
-            if(z == '+') { s = (long double)x + (long double)y; printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
+            if(z == '+') { s = x + y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
-            else if(z == '-' ) { s = (long double)x - (long double)y; printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
+            else if(z == '-' ) { s = x - y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
-            else if(z == '*' ) { s = (long double)x * (long double)y; printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
+            else if(z == '*' ) { s = x * y; printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
             else if(z == '/' )
 
-                 if ( (int)y != 0 )
+                 if ( y != 0 )
 
                  {
 
-                    s = (long double)x / (long double)y;  printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break;
+                    s = x / y;  printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break;
 
                  }
 
@@ -64,7 +64,7 @@ int main()
 
             else if(z == '^' )
 
-                 if ( (int)x == 0 && (int)y == 0 )
+                 if ( x == 0 && y == 0 )
 
                  {
 
@@ -72,7 +72,7 @@ int main()
 
                  }
 
-                 else { s = powl((long double)x, (long double)y); printf("%f %c %f = %Lf\n", (double)x, z, (double)y, s); break; }
+                 else { s = powl(x, y); printf("%Lf %c %Lf = %Lf\n", x, z, y, s); break; }
 
             else { printf("Error\n"); break; }
 
@@ -97,15 +97,15 @@ int main()
 
     case 3: printf("\nsqrt x = ");
         {
-            scanf("%f", &x);
+            scanf("%Lf", &x);
 
         for (i=0; i<1; i++)
 
             {
 
-        s = sqrtl((long double)x);
+        s = sqrtl(x);
 
-        }  printf("%f = %Lf\n", (double)x, s);
+        }  printf("%Lf = %Lf\n", x, s);
 
     } break;
 
