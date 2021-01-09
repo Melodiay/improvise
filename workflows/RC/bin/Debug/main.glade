@@ -153,6 +153,7 @@
             <property name="secondary_icon_sensitive">True</property>
             <property name="adjustment">adj1</property>
             <property name="digits">2</property>
+            <property name="numeric">True</property>
           </object>
           <packing>
             <property name="x">70</property>
@@ -172,6 +173,7 @@
             <property name="secondary_icon_sensitive">True</property>
             <property name="adjustment">adj2</property>
             <property name="digits">2</property>
+            <property name="numeric">True</property>
           </object>
           <packing>
             <property name="x">70</property>

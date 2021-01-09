@@ -11,10 +11,11 @@ G_MODULE_EXPORT void on_button6_clicked (GtkButton *button, gpointer label)
     if (gtk_toggle_button_get_active(radiobutton1))
     {
 
-        double resis1_data = gtk_spin_button_get_value(Resis1);
-        double resis2_data = gtk_spin_button_get_value(Resis2);
+        double R1 = gtk_spin_button_get_value(Resis1);
+        double R2 = gtk_spin_button_get_value(Resis2);
 
-        NumOfPoints = resis1_data + resis2_data;
+        // Отображение Результата (Ответ)
+        NumOfPoints = R1 + R2;
 
         gtk_widget_queue_draw(area2);
 
@@ -22,10 +23,11 @@ G_MODULE_EXPORT void on_button6_clicked (GtkButton *button, gpointer label)
     else
     {
 
-        double resis1_data = gtk_spin_button_get_value(Resis1);
-        double resis2_data = gtk_spin_button_get_value(Resis2);
+        double R1 = gtk_spin_button_get_value(Resis1);
+        double R2 = gtk_spin_button_get_value(Resis2);
 
-        NumOfPoints = resis1_data * resis2_data/(resis1_data+resis2_data);
+        // Отображение Результата (Ответ)
+        NumOfPoints = R1 * R2/(R1+R2);
 
         gtk_widget_queue_draw(area2);
 
@@ -42,7 +44,7 @@ void ShowPoints(GtkWidget* widget)
     cairo_text_extents_t extents;
 
 
-    sprintf(buf, "%.3f",NumOfPoints);
+    sprintf(buf, "%.3f Om",NumOfPoints);
 
     cairo_set_source_rgb(cr, 0.2, 0.2, 0.2);
     cairo_paint(cr);
