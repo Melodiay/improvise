@@ -73,6 +73,9 @@ G_MODULE_EXPORT void on_draw2(GtkWidget* widget, cairo_t *cr)
 //  нопка ќчистить
 G_MODULE_EXPORT void on_button7_clicked (GtkButton *button, gpointer label)
 {
+    gtk_spin_button_set_value(Resis1, 0);
+    gtk_spin_button_set_value(Resis2, 0);
+
     NumOfPoints = 0.00;
     gtk_widget_queue_draw(area2);
 }
