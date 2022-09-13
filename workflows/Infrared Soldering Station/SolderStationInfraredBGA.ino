@@ -38,7 +38,7 @@ String string;
 
 float tempt1 = 0;      //  вывод температуры сдатчика на дисплей. облявляем переменную целочисленую для температуры 1, если нужно с дробной частью то объявляем float и переменной присваимваем 0
 float tempt2 = 0;      // вывод температуры сдатчика на дисплей. температура 2 целочисленная, для дробной заменить int на float и переменной присваимваем 0
-int temp = 0;
+int temp = 0; // temp используется для активации нужной страницы и подсчета наней температуры, если temp = 0, то температуру не подсчитываем 
 int temp1 = 225; // температура по умолчанию верхнего нагревателя 
 int temp2 = 160; // температура по умолчанию нижнего нагревателя
 int tempust1 = 0;     // установленая температура 'C градусов цельсия должна считываться с дисплея Nextion
@@ -352,13 +352,43 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 50; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 50; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       } else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 50; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
@@ -367,13 +397,43 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 80; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 80 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+        } else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+        }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 30; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 50; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
@@ -382,13 +442,43 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 100; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 100 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+        }else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 50; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
@@ -397,13 +487,43 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 120; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 120 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+        }else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
@@ -412,13 +532,43 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 140; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 140 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+        }else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
@@ -430,10 +580,40 @@ void AnalyseString(String incStr) {
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       } else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
@@ -442,31 +622,93 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+        } else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 150; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
+       
     } else if(shag == 7){
        sec=80;
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 180 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       } else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 165; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
+       
     } else if(shag == 8){
        sec=80;
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -475,63 +717,182 @@ void AnalyseString(String incStr) {
         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-       }
-    } else if(shag == 9){
-       sec=80;
-       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-       outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
-       if (termoprofily == 2){
-        profily="User 1";
+       } else if (termoprofily == 3){
+         profily="User 2";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 170; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
-    } else if(shag == 10){
        
+    } else if(shag == 9){
+       sec=80;
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       } else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 175; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 150; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
-       
-    }     
     } else if(shag == 10){
+       sec=80;
+       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
+       outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+       if (termoprofily == 2){
+         profily="User 1";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 180; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }
+       }
+    } else {
        shag = 0;
        sec=80;
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 2){
-        profily="User 1";
+         profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 50; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 3){
+         profily="User 2";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       } else if (termoprofily == 4){
+         profily="User 3";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+       }else if (termoprofily == 5){
+         profily="User 4";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
        }
-    }
-    
+    }  
   }
   if (incStr.indexOf("bs20") >= 0) {
     if (sec < 600){
@@ -931,7 +1292,7 @@ void AnalyseString(String incStr) {
          
       }else if (termoprofily == 5){
         profily="User 4";
-         String t13= "\"" + String(profily) + "\"";  // Отображение kd
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
           
       }
