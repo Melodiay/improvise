@@ -35,7 +35,6 @@ void outNumber(char *component, uint16_t number);
 String incStr;    // объявляем переменую типа String не путать со string
 String string;
 
-
 float tempt1 = 0;      //  вывод температуры сдатчика на дисплей. облявляем переменную целочисленую для температуры 1, если нужно с дробной частью то объявляем float и переменной присваимваем 0
 float tempt2 = 0;      // вывод температуры сдатчика на дисплей. температура 2 целочисленная, для дробной заменить int на float и переменной присваимваем 0
 int temp = 0; // temp используется для активации нужной страницы и подсчета наней температуры, если temp = 0, то температуру не подсчитываем 
@@ -67,6 +66,7 @@ int termoprofily = 0; // Номер термопрофиля по умолчан
 String profily="Lead-free"; // Загружает Бессвинцовый термопрофиль по умолчанию
 int shag = 0;
 int sec = 0;
+
 
 void setup(void) {
   Serial.begin(9600); // Указваем скорость UART 9600 бод
@@ -101,6 +101,8 @@ void loop(void) {
  
   if ((incStr.indexOf("00"))>=0){ // когда находимся на странице 0 обновляем компоненты
       temp = 1;
+      outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+      outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("termoprofily.temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       outNumber("termoprofily.temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("termoprofily.n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
@@ -130,6 +132,8 @@ void loop(void) {
       outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
       outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
+      outNumber("main.n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+      outNumber("main.n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       String t13= "\"" + String(profily) + "\"";  // Отображение 
       SendData("t13.txt", t13);
       outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -348,7 +352,7 @@ void AnalyseString(String incStr) {
       shag++;
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
       if(shag == 0){
-       sec=80;
+       sec=0;
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
@@ -1068,7 +1072,7 @@ void AnalyseString(String incStr) {
        }
     } else {
        shag = 0;
-       sec=80;
+       sec=0;
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
