@@ -1115,6 +1115,9 @@ void AnalyseString(String incStr) {
          tempust2 = temp2;
          if (reley_n==1){
            termoprofily10 = 1;
+           reley_n=0;
+           reley_n1=0;
+           reley_v=0;
          }
          
       } else if (termoprofily == 1){
@@ -1129,6 +1132,9 @@ void AnalyseString(String incStr) {
          tempust2 = temp2; 
          if (reley_n==1){
            termoprofily10 = 1;
+           reley_n=0;
+           reley_n1=0;
+           reley_v=0;
          }       
       } else if (termoprofily == 2){
          profily="User 1";
@@ -1142,6 +1148,9 @@ void AnalyseString(String incStr) {
          tempust2 = temp2;
          if (reley_n==1){
            termoprofily10 = 1;
+           reley_n=0;
+           reley_n1=0;
+           reley_v=0;
          }
        }else if (termoprofily == 3){
          profily="User 2";
