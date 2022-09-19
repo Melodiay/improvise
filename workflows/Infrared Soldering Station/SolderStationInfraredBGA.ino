@@ -1118,6 +1118,8 @@ void AnalyseString(String incStr) {
            reley_n=0;
            reley_n1=0;
            reley_v=0;
+           digitalWrite(nigniy_1, LOW);
+           digitalWrite(verhniy_1, LOW);
          }
          
       } else if (termoprofily == 1){
@@ -1135,6 +1137,8 @@ void AnalyseString(String incStr) {
            reley_n=0;
            reley_n1=0;
            reley_v=0;
+           digitalWrite(nigniy_1, LOW);
+           digitalWrite(verhniy_1, LOW);
          }       
       } else if (termoprofily == 2){
          profily="User 1";
@@ -1151,6 +1155,8 @@ void AnalyseString(String incStr) {
            reley_n=0;
            reley_n1=0;
            reley_v=0;
+           digitalWrite(nigniy_1, LOW);
+           digitalWrite(verhniy_1, LOW);
          }
        }else if (termoprofily == 3){
          profily="User 2";
