@@ -32,6 +32,8 @@ GyverRelay regulator2(REVERSE);
 
 void outNumber(char *component, uint16_t number);
 
+uint32_t myTimer1, myTimer2;
+
 String incStr;    // объявляем переменую типа String не путать со string
 String string;
 
@@ -65,8 +67,10 @@ int rtemp; // переменая где хранятся 100, 10, 1
 int termoprofily = 0; // Номер термопрофиля по умолчанию выбран 0
 String profily="Lead-free"; // Загружает Бессвинцовый термопрофиль по умолчанию
 int shag = 0;
-int sec = 0;
-
+uint32_t sec = 0;
+int termoprofily1_9 = 0;
+int termoprofily10 = 0;
+int timersec;
 
 void setup(void) {
   Serial.begin(9600); // Указваем скорость UART 9600 бод
@@ -224,9 +228,41 @@ void loop(void) {
   regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
   regulator2.dT = 500;       // установить время итерации для getResultTimer
 
+  if (termoprofily1_9 == 1){
+    if (millis() - myTimer1 >= 80000) {   // таймер на 500 мс (2 раза в сек)
+      myTimer1 = millis();
+      termoprofily_1_9();
+      termoprofily1_9 = 0;   // выполнить действие 1
+    }
+  }
+  if (termoprofily10 == 1){
+    if (millis() - myTimer2 >= 80000) {   // таймер на 500 мс (2 раза в сек)
+      myTimer1 = millis();
+      termoprofily_10();
+      termoprofily10 = 0;   // выполнить действие 1
+    }
+  }
+  
+  
+}
+
+void termoprofily_1_9(void){
+  page_termoprofily();
+  b4_click();
+  page_main();
+}
+void termoprofily_10(void){
+  page_termoprofily();
+  b4_click();
+  page_main();
+  bt0_click();
 }
 void bt0_click(void){
   Serial.print("click bt0,1");
+  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+  Serial.write(0xff);
+  Serial.write(0xff); 
+  Serial.print("click bt0,0");
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   Serial.write(0xff);
   Serial.write(0xff);  
@@ -402,10 +438,11 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
+           page_termoprofily();
            b4_click();
            page_main();
-           page_termoprofily();
          }
+         
          
       } else if (termoprofily == 1){
          sec=0;
@@ -421,9 +458,9 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
+           page_termoprofily();
            b4_click();
            page_main();
-           page_termoprofily();
          }       
       } else if (termoprofily == 2){
          sec=0;
@@ -439,9 +476,9 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
+           page_termoprofily();
            b4_click();
            page_main();
-           page_termoprofily();
          }
        } else if (termoprofily == 3){
          
@@ -454,7 +491,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -467,12 +504,13 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+            termoprofily1_9 = 1;
+            page_main();
+          
+           
          }
       } else if (termoprofily == 1){
-         sec=80;
+         sec=80; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
@@ -485,12 +523,11 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
+           termoprofily1_9 = 1;
            page_main();
-           page_termoprofily();
          }        
       } else if (termoprofily == 2){
-          sec=80;
+          sec=80; 
           outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
           outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
           profily="User 1";
@@ -503,9 +540,8 @@ void AnalyseString(String incStr) {
           outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
           tempust2 = temp2;
           if (reley_n==1){
-           b4_click();
+           termoprofily1_9 = 1;
            page_main();
-           page_termoprofily();
          }
         } else if (termoprofily == 3){
           
@@ -518,7 +554,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -531,9 +567,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -549,9 +584,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }        
       } else if (termoprofily == 2){
          sec=80;
@@ -567,9 +600,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
         }else if (termoprofily == 3){
          
@@ -583,7 +614,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -596,9 +627,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -614,9 +644,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;  
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }      
       } else if (termoprofily == 2){
          sec=80;
@@ -632,9 +660,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
         }else if (termoprofily == 3){
          
@@ -648,7 +674,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -661,9 +687,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -679,9 +704,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
          sec=80;
@@ -697,9 +720,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
         }else if (termoprofily == 3){
          
@@ -713,7 +734,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -726,9 +747,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -744,9 +764,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;   
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }     
       } else if (termoprofily == 2){
          sec=80;
@@ -762,9 +780,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
        } else if (termoprofily == 3){
          
@@ -778,7 +794,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -791,9 +807,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -809,9 +824,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }        
       } else if (termoprofily == 2){
          sec=80;
@@ -827,9 +840,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
         } else if (termoprofily == 3){
          
@@ -844,7 +855,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -857,9 +868,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -875,9 +885,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
          sec=80;
@@ -893,9 +901,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
        } else if (termoprofily == 3){
          
@@ -910,7 +916,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -923,9 +929,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -941,9 +946,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;   
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }     
       } else if (termoprofily == 2){
          sec=80;
@@ -959,9 +962,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
        } else if (termoprofily == 3){
          
@@ -976,7 +977,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -989,9 +990,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
+           
          }
       } else if (termoprofily == 1){
          sec=80;
@@ -1007,9 +1007,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
          sec=80;
@@ -1025,9 +1023,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           page_termoprofily();
+           termoprofily1_9 = 1;
          }
        } else if (termoprofily == 3){
          
@@ -1041,7 +1037,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=80;
+         sec=40;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -1054,10 +1050,11 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           bt0_click();
-         }
+          
+            termoprofily1_9 = 1;
+            
+                     
+          }
       } else if (termoprofily == 1){
          sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1072,9 +1069,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
-           b4_click();
-           page_main();
-           bt0_click();
+           termoprofily1_9 = 1;
          }    
       } else if (termoprofily == 2){
          sec=80;
@@ -1090,9 +1085,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           b4_click();
-           page_main();
-           bt0_click();
+           termoprofily1_9 = 1;
          }
        }else if (termoprofily == 3){
          
@@ -1108,6 +1101,9 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
+         sec=0;
+         outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
@@ -1117,6 +1113,10 @@ void AnalyseString(String incStr) {
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
+         if (reley_n==1){
+           termoprofily10 = 1;
+         }
+         
       } else if (termoprofily == 1){
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
@@ -1126,7 +1126,10 @@ void AnalyseString(String incStr) {
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;        
+         tempust2 = temp2; 
+         if (reley_n==1){
+           termoprofily10 = 1;
+         }       
       } else if (termoprofily == 2){
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
@@ -1137,6 +1140,9 @@ void AnalyseString(String incStr) {
          temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
+         if (reley_n==1){
+           termoprofily10 = 1;
+         }
        }else if (termoprofily == 3){
          profily="User 2";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
