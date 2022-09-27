@@ -255,15 +255,15 @@ void loop(void) {
   regulator2.dT = 500;       // установить время итерации для getResultTimer
 
   if (termoprofily1_9 == 1){ 
-    if (millis() > myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
+    if (millis() >= myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
       myTimer1 = millis();
       termoprofily_1_9();
       termoprofily1_9 = 0;   // выполнить действие 1
     }
   }
   if (termoprofily10 == 1){ 
-    if (millis() > myTimer2 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
-      myTimer1 = millis();
+    if (millis() >= myTimer2 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
+      myTimer2 = millis();
       termoprofily_10();
       termoprofily10 = 0;   // выполнить действие 1
     }
@@ -480,6 +480,8 @@ void AnalyseString(String incStr) {
   } else if (incStr.indexOf("bt0-off") >= 0) { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
     reley_n=0;
     shag = 0;
+    termoprofily1_9 = 0;
+    termoprofily10 = 0;
     if (termoprofily == 0){
          sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1135,11 +1137,8 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-          
-            termoprofily1_9 = 1;
-            
-                     
-          }
+           termoprofily1_9 = 1;
+         }
       } else if (termoprofily == 1){
          sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
