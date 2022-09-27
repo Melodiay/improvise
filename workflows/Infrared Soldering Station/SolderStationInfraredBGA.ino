@@ -36,7 +36,7 @@ void print_string(char *string);
 void print_dec(uint16_t data);
 void sendFFFFFF(void);
 
-uint32_t myTimer1, myTimer2, myTimer3; // автор https://alexgyver.ru/lessons/
+uint32_t myTimer1 = 0, myTimer2 = 0, myTimer3; // автор https://alexgyver.ru/lessons/
 
 String incStr;    // объявляем переменую типа String не путать со string
 String string;
@@ -138,11 +138,10 @@ void loop(void) {
   {
     temp = 1;
        for(int tm = 0; tm <= 165; ){
-          grafic_verh();
-          grafic_niz();
+            grafic_verh();
+            grafic_niz();
             tm++;
-          
-       } 
+      } 
      
   } else if((incStr.indexOf("02"))>=0)
   {
@@ -256,14 +255,14 @@ void loop(void) {
   regulator2.dT = 500;       // установить время итерации для getResultTimer
 
   if (termoprofily1_9 == 1){ 
-    if (millis() - myTimer1 >= 80000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
+    if (millis() > myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
       myTimer1 = millis();
       termoprofily_1_9();
       termoprofily1_9 = 0;   // выполнить действие 1
     }
   }
   if (termoprofily10 == 1){ 
-    if (millis() - myTimer2 >= 80000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
+    if (millis() > myTimer2 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
       myTimer1 = millis();
       termoprofily_10();
       termoprofily10 = 0;   // выполнить действие 1
@@ -272,11 +271,14 @@ void loop(void) {
   
   
 }
-
+void yield() {
+  // а тут можно опрашивать кнопку
+  // и не пропустить нажатия из за delay!
+   
+}
 
 void grafic_verh(void){
   print_string("add 3,0,");
-  //Serial.print("add 3,0,");
   print_dec(tempt1);
   sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   delay(8);
@@ -284,7 +286,6 @@ void grafic_verh(void){
 }
 void grafic_niz(void){
   print_string("add 3,1,");
-  //Serial.print("add 3,1,");
   print_dec(tempt2);
   sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   delay(8);
@@ -629,7 +630,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40;
+         sec=60;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -686,7 +687,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40; 
+         sec=60; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -740,7 +741,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40;  
+         sec=60;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -794,7 +795,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40;  
+         sec=60;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -848,7 +849,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40;  
+         sec=60;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -902,7 +903,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40; 
+         sec=60; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -911,7 +912,7 @@ void AnalyseString(String incStr) {
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 150; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -957,13 +958,13 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40; 
+         sec=60; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
@@ -1012,13 +1013,13 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40; 
+         sec=60; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
@@ -1067,13 +1068,13 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40; 
+         sec=60; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
@@ -1121,7 +1122,7 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=40;  
+         sec=60;  
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -1179,9 +1180,6 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=0;
-         outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
