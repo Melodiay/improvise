@@ -1048,7 +1048,7 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }     
       } else if (termoprofily == 2){
-         sec=80;
+         sec=60;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
@@ -1156,7 +1156,7 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }    
       } else if (termoprofily == 2){
-         sec=0;
+         sec=5;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
