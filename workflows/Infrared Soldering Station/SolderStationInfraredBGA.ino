@@ -64,9 +64,9 @@ int reley_n1; // Нижний нагреатель включение отдел
 int ph; //  пидрегулирование или гистерезис переключение между ПИД и Гистерезис регулирование
 int pidn; // ПИД нижнего нагревателя
 int hestn; // Гистерезис нижнего нагревателя
-float r100; //  увеличивается или уменьшается сотнями то есть +100 или -100
-float r10;  //  увеличивается или уменьшается десятками то есть +10 или -10
-float r1;   //  увеличивается или уменьшается единицами то есть +1 или -1
+int r100; //  увеличивается или уменьшается сотнями то есть +100 или -100
+int r10;  //  увеличивается или уменьшается десятками то есть +10 или -10
+int r1;   //  увеличивается или уменьшается единицами то есть +1 или -1
 float r01;
 float r001;
 float rtemp; // переменая где хранятся 100, 10, 1, 0.1, 0.01, 0.001, 0.0001
@@ -117,32 +117,37 @@ void loop(void) {
   }
  
   if ((incStr.indexOf("00"))>=0){ // когда находимся на странице 0 обновляем компоненты
+      
       temp = 1;
       outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
-      outNumber("termoprofily.temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-      outNumber("termoprofily.temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
+      
+      /**
+      //outNumber("termoprofily.temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+      //outNumber("termoprofily.temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("termoprofily.n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
       outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
       outNumber("watt.pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
       outNumber("watt.pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
       String t13= "\"" + String(profily) + "\"";  // Отображение 
       SendData("termoprofily.t13.txt", t13);
-      String t24 = "\"" + String(kp) + "\"";  // выводим пропорциональное
+      String t24 = "\"" + String(Kp) + "\"";  // выводим пропорциональное
       SendData("pid.t24.txt", t24);
-      String t25 = "\"" + String(ki) + "\"";  // выводим интегральное
+      String t25 = "\"" + String(Ki) + "\"";  // выводим интегральное
       SendData("pid.t25.txt", t25);
-      String t26= "\"" + String(kd) + "\"";  // выводим дефференциальное
-      SendData("pid.t26.txt", t26);      
+      String t26= "\"" + String(Kd) + "\"";  // выводим дефференциальное
+      SendData("pid.t26.txt", t26);  
+      **/    
   } else if((incStr.indexOf("01"))>=0)
   {
-    temp = 1;
+    temp = 0;
+    /**
        for(int tm = 0; tm <= 165; ){
             grafic_verh();
             grafic_niz();
             tm++;
       } 
-     
+     **/
   } else if((incStr.indexOf("02"))>=0)
   {
       temp = 0;
@@ -151,30 +156,26 @@ void loop(void) {
       temp = 0;
   }else if((incStr.indexOf("04"))>=0) // когда находимся на странице 4 обновляем компоненты
   {
-      if(reley_n==1){
-          temp = 1;
-          tsw_termoprofily_off();
-       }else{
-          temp = 0;
-          tsw_termoprofily_on();
-       }
+      temp = 0;
+      
       outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
-      outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-      outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
-      outNumber("main.n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-      outNumber("main.n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       String t13= "\"" + String(profily) + "\"";  // Отображение 
       SendData("t13.txt", t13);
-      outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+      outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+      outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
+      outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+      
+      if(reley_n==1){
+          tsw_termoprofily_off();
+       }else{
+          tsw_termoprofily_on();
+       } 
+      
       
   }else if((incStr.indexOf("05"))>=0) // когда находимся на странице 5 обновляем компоненты
   {
-      if(reley_n==1){
-          temp = 1;
-       }else{
-          temp = 0;
-       }
+      temp = 0;
       outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
       outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
   }else if((incStr.indexOf("06"))>=0)
@@ -182,18 +183,14 @@ void loop(void) {
       temp = 0;
   }else if((incStr.indexOf("07"))>=0) // когда находимся на странице 7 обновляем компоненты
   { 
-      if(reley_n==1){
-          temp = 1;
-       }else{
-          temp = 0;
-       }
+       temp = 0;
+       String t24 = "\"" + String(Kp) + "\"";  // выводим пропорциональное
+       SendData("t24.txt", t24);
+       String t25 = "\"" + String(Ki) + "\"";  // выводим интегральное
+       SendData("t25.txt", t25);
+       String t26= "\"" + String(Kd) + "\"";  // выводим дефференциальное
+       SendData("t26.txt", t26);
       
-      String t24 = "\"" + String(kp) + "\"";  // выводим пропорциональное
-      SendData("t24.txt", t24);
-      String t25 = "\"" + String(ki) + "\"";  // выводим интегральное
-      SendData("t25.txt", t25);
-      String t26= "\"" + String(kd) + "\"";  // выводим дефференциальное
-      SendData("t26.txt", t26);
   }
   
   if (temp==1){
@@ -350,12 +347,14 @@ void termoprofily_1_9(void){
   page_termoprofily();
   b4_click();
   page_main();
+  
 }
 void termoprofily_10(void){
   page_termoprofily();
   b4_click();
   page_main();
   bt0_click();
+  
 }
 void bt0_click(void){
   Serial.print("click bt0,1");
@@ -480,6 +479,7 @@ void AnalyseString(String incStr) {
   } else if (incStr.indexOf("bt0-off") >= 0) { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
     reley_n=0;
     shag = 0;
+    sec=0;
     termoprofily1_9 = 0;
     termoprofily10 = 0;
     if (termoprofily == 0){
@@ -1257,11 +1257,11 @@ void AnalyseString(String incStr) {
     
   }
   if (incStr.indexOf("b6") >= 0) {
-    if (temp1 < 300){
+    if (temp1 <= 300){
       temp1=temp1+rtemp;
       outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       tempust1 = temp1;
-    } else if(temp1 == 300){
+    } else if(temp1 <= 300){
         temp1 = 0;
        outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
        tempust1 = temp1;
@@ -1269,11 +1269,11 @@ void AnalyseString(String incStr) {
     
   }
     if (incStr.indexOf("b7") >= 0) {
-    if (temp1 > 0 ){
+    if (temp1 >= 0 ){
       temp1=temp1-rtemp;
       outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       tempust1 = temp1;
-    } else if (temp1 == 0){
+    } else if (temp1 >= 0){
         temp1 = 300;
        outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
        tempust1 = temp1;
@@ -1281,11 +1281,11 @@ void AnalyseString(String incStr) {
     
   }
     if (incStr.indexOf("b8") >= 0) {
-    if (temp2 < 300){
+    if (temp2 <= 300){
       temp2=temp2+rtemp;
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       tempust2 = temp2;
-    } else if (temp2 == 300){
+    } else if (temp2 <= 300){
         temp2 = 0;
        outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
        tempust2 = temp2;
@@ -1293,11 +1293,11 @@ void AnalyseString(String incStr) {
     
   }
     if (incStr.indexOf("b9") >= 0) {
-    if (temp2 > 0){
+    if (temp2 >= 0){
       temp2=temp2-rtemp;
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       tempust2 = temp2;
-    } else if (temp2 == 0){
+    } else if (temp2 >= 0){
        temp2 = 300;
        outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
        tempust2 = temp2;
@@ -1334,7 +1334,7 @@ void AnalyseString(String incStr) {
       outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
       pwmust2 = pwmn;
     } else if(pwmn == 255){
-        pwmn = 0;
+       pwmn = 0;
        outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
        pwmust2 = pwmn;
     }
@@ -1450,22 +1450,22 @@ void AnalyseString(String incStr) {
   }     
   
    if (incStr.indexOf("r1") >= 0) {
-    r1=1.0;
+    r1=1;
     rtemp=r1;
   }   
     if (incStr.indexOf("r10") >= 0) {
-    r10=10.0;
+    r10=10;
     rtemp=r10;
   }  
-    if (incStr.indexOf("r100") >= 0) {
-    r100=100.0;
+    if (incStr.indexOf("ro10") >= 0) {
+    r100=100;
     rtemp=r100;
   }    
   if (incStr.indexOf("r01") >= 0) {
     r01=0.1;
     rtemp=r01;
   }   
-    if (incStr.indexOf("r001") >= 0) {
+    if (incStr.indexOf("ro01") >= 0) {
     r001=0.01;
     rtemp=r001;
   }     
