@@ -64,9 +64,9 @@ int reley_n1; // Нижний нагреатель включение отдел
 int ph; //  пидрегулирование или гистерезис переключение между ПИД и Гистерезис регулирование
 int pidn; // ПИД нижнего нагревателя
 int hestn; // Гистерезис нижнего нагревателя
-int r100; //  увеличивается или уменьшается сотнями то есть +100 или -100
-int r10;  //  увеличивается или уменьшается десятками то есть +10 или -10
-int r1;   //  увеличивается или уменьшается единицами то есть +1 или -1
+float r100; //  увеличивается или уменьшается сотнями то есть +100 или -100
+float r10;  //  увеличивается или уменьшается десятками то есть +10 или -10
+float r1;   //  увеличивается или уменьшается единицами то есть +1 или -1
 float r01;
 float r001;
 float rtemp; // переменая где хранятся 100, 10, 1, 0.1, 0.01, 0.001, 0.0001
@@ -1360,7 +1360,7 @@ void AnalyseString(String incStr) {
       SendData("t24.txt", t24);
       
     } else if(kp == 10000.0){
-        kp = 0.01;
+        kp = 0.00;
         Kp = kp;
       String t24 = "\"" + String(kp) + "\"";  // Отображение kp
       SendData("t24.txt", t24);
@@ -1369,13 +1369,13 @@ void AnalyseString(String incStr) {
     
   }
     if (incStr.indexOf("b15") >= 0) {
-    if (kp > 0.01 ){
+    if (kp > 0.00 ){
       kp=kp-rtemp; 
       Kp = kp; 
       String t24 = "\"" + String(kp) + "\"";  // Отображение kp
       SendData("t24.txt", t24);
       
-    } else if (kp == 0.01){
+    } else if (kp == 0.00){
         kp = 10000.0;
         Kp = kp;
         String t24 = "\"" + String(kp) + "\"";  // Отображение kp
@@ -1392,7 +1392,7 @@ void AnalyseString(String incStr) {
       SendData("t25.txt", t25);
       
     } else if(ki == 10000.0){
-        ki = 0.01;
+        ki = 0.00;
         Ki = ki;
         String t25 = "\"" + String(ki) + "\"";  // Отображение ki
         SendData("t25.txt", t25);
@@ -1401,13 +1401,13 @@ void AnalyseString(String incStr) {
     
   }
     if (incStr.indexOf("b17") >= 0) {
-    if (ki > 0.01 ){
+    if (ki > 0.00 ){
       ki=ki-rtemp;
       Ki = ki;
       String t25 = "\"" + String(ki) + "\"";  // Отображение ki
       SendData("t25.txt", t25);
       
-    } else if (ki == 0.01){
+    } else if (ki == 0.00){
        ki = 10000.0;
        Ki = ki;
        String t25 = "\"" + String(ki) + "\"";  // Отображение ki
@@ -1424,7 +1424,7 @@ void AnalyseString(String incStr) {
       SendData("t26.txt", t26);
       
     } else if(kd == 10000.0){
-        kd = 0.01;
+        kd = 0.00;
         Kd = kd;
       String t26= "\"" + String(kd) + "\"";  // Отображение kd
       SendData("t26.txt", t26);
@@ -1433,13 +1433,13 @@ void AnalyseString(String incStr) {
     
   }
     if (incStr.indexOf("b19") >= 0) {
-    if (kd > 0.01 ){
+    if (kd > 0.00 ){
       kd=kd-rtemp;
       Kd = kd;
       String t26= "\"" + String(kd) + "\"";  // Отображение kd
       SendData("t26.txt", t26);
       
-    } else if (kd == 0.01){
+    } else if (kd == 0.00){
         kd = 10000.0;
         Kd = kd;
        String t26= "\"" + String(kd) + "\"";  // Отображение kd
@@ -1450,15 +1450,15 @@ void AnalyseString(String incStr) {
   }     
   
    if (incStr.indexOf("r1") >= 0) {
-    r1=1;
+    r1=1.0;
     rtemp=r1;
   }   
     if (incStr.indexOf("r10") >= 0) {
-    r10=10;
+    r10=10.0;
     rtemp=r10;
   }  
     if (incStr.indexOf("ro10") >= 0) {
-    r100=100;
+    r100=100.0;
     rtemp=r100;
   }    
   if (incStr.indexOf("r01") >= 0) {
