@@ -500,14 +500,14 @@ void verhniy(){
 // Гистерезис нижний нагреватель
 void reguln(){
     regulator2.input =  tempt2; 
-    digitalWrite(nigniy_1, regulator2.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
+    digitalWrite(nigniy_1, dimmer[0] = regulator2.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
  
 }
 // Гистерезис верхний нагреватель
 void regul() {
   
     regulator.input =  tempt1;
-    digitalWrite(verhniy_1, regulator.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
+    digitalWrite(verhniy_1, dimmer[1] = regulator.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
   
 }
 
