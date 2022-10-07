@@ -1,13 +1,19 @@
 
-#include <GyverMAX6675.h> // Подключаем библиотеку работы с микросхемой MAX6675 автор https://alexgyver.ru/lessons/
+#include <GyverMAX6675.h> // Подключаем библиотеку работы с микросхемой MAX6675   автор https://alexgyver.ru/lessons/
 
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
+#define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
 #define verhniy_1 5 // указываем верхний нагреватель порт 5 вывода с ШИМ
 #define coolerv 9   // Кулер встроеный в верхний нагреватель 
 #define cooler 10  // Для подключения кулера с ШИМ, для охлаждения всей платы
 #define lampa 11   // Для подключения лампы с ШИМ, подстветка при пайке
+#define DIM_AMOUNT 2  // количество диммеров
+const byte dimPins[] = {3, 5}; // их пины
+#include <GyverTimers.h>    // библиотека таймера
 
+int dimmer[DIM_AMOUNT];     // переменная диммера
+volatile int counter = 0;   // счётчик цикла
 // объединяем порт 8 и 4 на ардуино для двух термопар, в месте подключаем
 // Пины модуля MAX6675K
 #define CLK_PIN   8  // Пин SCK  указываем вывводы для программного ICP
@@ -29,6 +35,7 @@ GyverMAX6675<CLK_PIN2, DATA_PIN2, CS_PIN2> sens2;
 // установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
 GyverRelay regulator(REVERSE); 
 GyverRelay regulator2(REVERSE);
+
 
 void outNumber(char *component, uint16_t number);
 void outText(char *component, char *text);
@@ -77,18 +84,29 @@ uint32_t sec = 0;
 int termoprofily1_9 = 0;
 int termoprofily10 = 0;
 
+
 void setup(void) {
-  Serial.begin(9600); // Указваем скорость UART 9600 бод
+  pinMode(ZERO_PIN, INPUT_PULLUP);
+  for (byte i = 0; i < DIM_AMOUNT; i++) pinMode(dimPins[i], OUTPUT);
+  attachInterrupt(INT_NUM, isr, FALLING); // для самодельной схемы ставь RISING
+  Timer2.disableISR();
+  // 37 мкс - период прерываний для 255 шагов и 50 Гц
+  // для 60 Гц ставь число 31
+  Timer2.setPeriod(37); 
   
+  Serial.begin(9600); // Указваем скорость UART 9600 бод
+
   pinMode(nigniy_1, OUTPUT); // нижний нагреватель номер 1 настраиваем на выход
   digitalWrite(nigniy_1, LOW); // отключаем выход
   pinMode(verhniy_1, OUTPUT); // верхний нагреватель настраиваем на выход
   digitalWrite(verhniy_1, LOW); // отключаем выход, то есть не подаем пять вольт, подовать будем поже
+  pinMode(coolerv, OUTPUT);    // тоже самое настраиваем вывод на выход
+  digitalWrite(coolerv, LOW);  // отключаем вывод
   pinMode(cooler, OUTPUT);    // тоже самое настраиваем вывод на выход
   digitalWrite(cooler, LOW);  // отключаем вывод
   pinMode(lampa, OUTPUT);    // тоже самое настраиваем вывод на выход
   digitalWrite(lampa, LOW);  // отключаем вывод
-  pinMode(ZERO_PIN, INPUT); // настраиваем вывод на вход
+ 
   tempust1 = temp1;
   tempust2 = temp2;
   pwmust1 = pwmv;
@@ -115,7 +133,7 @@ void loop(void) {
        inc = "";
     }
   }
- 
+                               
   if ((incStr.indexOf("00"))>=0){ // когда находимся на странице 0 обновляем компоненты
       
       temp = 1;
@@ -221,24 +239,32 @@ void loop(void) {
           
       }
   }
+
+  // задаём значение
+  //dimmer[0] = map(analogRead(A0), 0, 1023, 0, 9500);
+  //dimmer[0] = 50;
+  //dimmer[1] = 120;
+  //delay(100); // в реальном коде задержек быть не должно
   
    if (ph==1){
         if(reley_n==1){
+          Timer2.enableISR();
           if (reley_n1==1){
-            nigniye(); // Пид регулирование
+             nigniye(); // Пид регулирование
           }
        }
        if(reley_v==1){
-         verhniy(); // Пид регулирование
+          verhniy(); // Пид регулирование
        }
    }else {
        if(reley_n==1){
+          Timer2.enableISR();
           if (reley_n1==1){
             reguln();  // Гистерезис
           }
       }
       if(reley_v==1){
-        regul();   // Гистерезис
+         regul();   // Гистерезис
       }
   }
   
@@ -265,9 +291,24 @@ void loop(void) {
       termoprofily10 = 0;   // выполнить действие 1
     }
   }
-  
+
   
 }
+
+// прерывание детектора нуля
+void isr() {
+  counter = 255;
+  Timer2.restart();
+}
+// прерывание таймера
+ISR(TIMER2_A) {
+  for (byte i = 0; i < DIM_AMOUNT; i++) {
+    if (counter == dimmer[i]) digitalWrite(dimPins[i], 1);  // на текущем тике включаем
+    else if (counter == dimmer[i] - 1) digitalWrite(dimPins[i], 0);  // на следующем выключаем
+  }
+  counter--;
+}
+
 void yield() {
   // а тут можно опрашивать кнопку
   // и не пропустить нажатия из за delay!
@@ -446,14 +487,14 @@ void sendFFFFFF(void){
 } // Здесь закачивается код Максима Селиванова 
 // Пид регулирование нижний нагреватель
 void nigniye(){
-    // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-  analogWrite(nigniy_1, NizPID(tempt2, tempust2, Kp, Ki, Kd, 0.02, 0, pwmust2)); 
+  // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
+  analogWrite(nigniy_1, dimmer[0] = NizPID(tempt2, tempust2, Kp, Ki, Kd, 0.02, 0, pwmust2)); 
   delay(20); 
 }
 // Пид регулирование верхний нагреватель
 void verhniy(){
      // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-     analogWrite(verhniy_1, VerhPID(tempt1, tempust1, Kp, Ki, Kd, 0.02, 0, pwmust1)); 
+     analogWrite(verhniy_1, dimmer[1] = VerhPID(tempt1, tempust1, Kp, Ki, Kd, 0.02, 0, pwmust1)); 
      delay(20);
 }
 // Гистерезис нижний нагреватель
@@ -478,6 +519,7 @@ void AnalyseString(String incStr) {
     //digitalWrite(nigniy_1, HIGH);
   } else if (incStr.indexOf("bt0-off") >= 0) { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
     reley_n=0;
+    Timer2.disableISR();
     shag = 0;
     sec=0;
     termoprofily1_9 = 0;
