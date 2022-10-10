@@ -1,6 +1,9 @@
 
+#include <EEPROM.h>
 #include <GyverMAX6675.h> // Подключаем библиотеку работы с микросхемой MAX6675   автор https://alexgyver.ru/lessons/
 
+#define INIT_ADDR 1023  // номер резервной ячейки
+#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
 #define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
@@ -106,7 +109,23 @@ void setup(void) {
   digitalWrite(cooler, LOW);  // отключаем вывод
   pinMode(lampa, OUTPUT);    // тоже самое настраиваем вывод на выход
   digitalWrite(lampa, LOW);  // отключаем вывод
- 
+
+  if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
+    EEPROM.write(INIT_ADDR, INIT_KEY);    // записали ключ
+    // записали стандартное значение пид
+    // в данном случае это значение переменной, объявленное выше
+    EEPROM.put(0, pwmv);
+    EEPROM.put(2, pwmn);
+    EEPROM.put(7, kp);
+    EEPROM.put(12, ki);
+    EEPROM.put(17, kd);
+  }
+
+  EEPROM.get(0, pwmv);
+  EEPROM.get(2, pwmn);
+  EEPROM.get(7, kp);
+  EEPROM.get(12, ki);
+  EEPROM.get(17, kd);
   tempust1 = temp1;
   tempust2 = temp2;
   pwmust1 = pwmv;
@@ -194,6 +213,8 @@ void loop(void) {
   }else if((incStr.indexOf("05"))>=0) // когда находимся на странице 5 обновляем компоненты
   {
       temp = 0;
+      EEPROM.get(0, pwmv);
+      EEPROM.get(2, pwmn);
       outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
       outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
   }else if((incStr.indexOf("06"))>=0)
@@ -202,6 +223,9 @@ void loop(void) {
   }else if((incStr.indexOf("07"))>=0) // когда находимся на странице 7 обновляем компоненты
   { 
        temp = 0;
+       EEPROM.get(7, kp);
+       EEPROM.get(12, ki);
+       EEPROM.get(17, kd);
        String t24 = "\"" + String(Kp) + "\"";  // выводим пропорциональное
        SendData("t24.txt", t24);
        String t25 = "\"" + String(Ki) + "\"";  // выводим интегральное
@@ -600,12 +624,22 @@ void AnalyseString(String incStr) {
   }  else if (incStr.indexOf("bt1-off") >= 0) {
      digitalWrite(lampa, LOW);
   }
-   if (incStr.indexOf("pid") >= 0) {     // выбиран пид регулирование
+   if (incStr.indexOf("pid") >= 0) {     // выбран пид регулирование
      ph=1;
     
   } else if (incStr.indexOf("hesterezis") >= 0) { // выбран гистерезис
      ph=0;
   }
+  if (incStr.indexOf("wattsave") >= 0) {     // Сохранение Мощности в eeprom память по умолчанию
+      EEPROM.put(0, pwmv);
+       EEPROM.put(2, pwmn);
+    
+  } 
+  if (incStr.indexOf("pidsave") >= 0) {     // Сохранение ПИД регулирование, П И Д составляющих в eeprom память по умолчанию
+     EEPROM.put(7, kp);
+     EEPROM.put(12, ki);
+     EEPROM.put(17, kd);
+  } 
   if (incStr.indexOf("b4") >= 0) {
     if (shag < 10){
       shag++;
