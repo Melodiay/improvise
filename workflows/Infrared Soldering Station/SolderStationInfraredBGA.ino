@@ -612,16 +612,19 @@ void AnalyseString(String incStr) {
          outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2         
     } else if (termoprofily == 2){
-         sec=0;
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
+         //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+        // temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+        // temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
@@ -1715,11 +1718,14 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
          
       }else if (termoprofily == 2){
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
          profily="User 1";
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
@@ -1752,11 +1758,14 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
          
       }else if (termoprofily == 2){
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
          profily="User 1";
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
@@ -1793,11 +1802,14 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
           
       }else if (termoprofily == 2){
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
          profily="User 1";
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
@@ -1830,11 +1842,14 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
           
       }else if (termoprofily == 2){
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
          profily="User 1";
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
