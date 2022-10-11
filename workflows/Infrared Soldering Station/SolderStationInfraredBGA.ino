@@ -54,8 +54,8 @@ String string;
 float tempt1 = 0;      //  вывод температуры сдатчика на дисплей. облявляем переменную целочисленую для температуры 1, если нужно с дробной частью то объявляем float и переменной присваимваем 0
 float tempt2 = 0;      // вывод температуры сдатчика на дисплей. температура 2 целочисленная, для дробной заменить int на float и переменной присваимваем 0
 int temp = 0; // temp используется для активации нужной страницы и подсчета наней температуры, если temp = 0, то температуру не подсчитываем 
-int temp1 = 225; // температура по умолчанию верхнего нагревателя 
-int temp2 = 160; // температура по умолчанию нижнего нагревателя
+int temp1 = 0; // температура по умолчанию верхнего нагревателя 
+int temp2 = 0; // температура по умолчанию нижнего нагревателя
 int tempust1 = 0;     // установленая температура 'C градусов цельсия должна считываться с дисплея Nextion
 int tempust2 = 0;     // установленая температура 'C градусов цельсия должна считываться с дисплея Nextion 
 int pwmv = 76; // ШИМ верхнего нагревателя по умолчанию 30% == в ШИМ = 76 дробную часть отбрасываем 76,5
@@ -119,6 +119,39 @@ void setup(void) {
     EEPROM.put(7, kp);
     EEPROM.put(12, ki);
     EEPROM.put(17, kd);
+    EEPROM.put(82, sec);
+    EEPROM.put(84, temp1);
+    EEPROM.put(86, temp2);
+    EEPROM.put(22, sec);
+    EEPROM.put(24, temp1);
+    EEPROM.put(26, temp2);
+    EEPROM.put(28, sec);
+    EEPROM.put(30, temp1);
+    EEPROM.put(32, temp2);
+    EEPROM.put(34, sec);
+    EEPROM.put(36, temp1);
+    EEPROM.put(38, temp2);
+    EEPROM.put(40, sec);
+    EEPROM.put(42, temp1);
+    EEPROM.put(44, temp2);
+    EEPROM.put(46, sec);
+    EEPROM.put(48, temp1);
+    EEPROM.put(50, temp2);
+    EEPROM.put(52, sec);
+    EEPROM.put(54, temp1);
+    EEPROM.put(56, temp2);
+    EEPROM.put(58, sec);
+    EEPROM.put(60, temp1);
+    EEPROM.put(62, temp2);
+    EEPROM.put(64, sec);
+    EEPROM.put(66, temp1);
+    EEPROM.put(68, temp2);
+    EEPROM.put(70, sec);
+    EEPROM.put(72, temp1);
+    EEPROM.put(74, temp2);
+    EEPROM.put(76, sec);
+    EEPROM.put(78, temp1);
+    EEPROM.put(80, temp2);
   }
 
   EEPROM.get(0, pwmv);
@@ -640,6 +673,80 @@ void AnalyseString(String incStr) {
      EEPROM.put(12, ki);
      EEPROM.put(17, kd);
   } 
+  if (incStr.indexOf("termosave") >= 0) {     // Сохранение ПИД регулирование, П И Д составляющих в eeprom память по умолчанию
+     if(shag == 0){
+       if (termoprofily == 2){
+          EEPROM.put(82, sec);
+          EEPROM.put(84, temp1);
+          EEPROM.put(86, temp2);
+       } 
+    } else if(shag == 1){
+       if (termoprofily == 2){
+          EEPROM.put(22, sec);
+          EEPROM.put(24, temp1);
+          EEPROM.put(26, temp2);
+      
+        } 
+    } else if(shag == 2){
+       if (termoprofily == 2){
+         EEPROM.put(28, sec);
+         EEPROM.put(30, temp1);
+         EEPROM.put(32, temp2);
+        }
+    } else if(shag == 3){
+       if (termoprofily == 2){
+          EEPROM.put(34, sec);
+          EEPROM.put(36, temp1);
+          EEPROM.put(38, temp2);
+        }
+    } else if(shag == 4){
+       if (termoprofily == 2){
+          EEPROM.put(40, sec);
+          EEPROM.put(42, temp1);
+          EEPROM.put(44, temp2);
+        }
+    } else if(shag == 5){
+       if (termoprofily == 2){
+          EEPROM.put(46, sec);
+          EEPROM.put(48, temp1);
+          EEPROM.put(50, temp2);
+       } 
+    } else if(shag == 6){
+       if (termoprofily == 2){
+          EEPROM.put(52, sec);
+          EEPROM.put(54, temp1);
+          EEPROM.put(56, temp2);
+        } 
+       
+    } else if(shag == 7){
+       if (termoprofily == 2){
+          EEPROM.put(58, sec);
+          EEPROM.put(60, temp1);
+          EEPROM.put(62, temp2);
+       } 
+       
+    } else if(shag == 8){
+       if (termoprofily == 2){
+          EEPROM.put(64, sec);
+          EEPROM.put(66, temp1);
+          EEPROM.put(68, temp2);
+       } 
+       
+    } else if(shag == 9){
+       if (termoprofily == 2){
+          EEPROM.put(70, sec);
+          EEPROM.put(72, temp1);
+          EEPROM.put(74, temp2);
+       } 
+    } else if(shag == 10){
+        if (termoprofily == 2){
+          EEPROM.put(76, sec);
+          EEPROM.put(78, temp1);
+          EEPROM.put(80, temp2);
+       }
+    } 
+     
+  } 
   if (incStr.indexOf("b4") >= 0) {
     if (shag < 10){
       shag++;
@@ -686,16 +793,19 @@ void AnalyseString(String incStr) {
            page_main();
          }       
       } else if (termoprofily == 2){
-         sec=0;
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
+         //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -744,16 +854,19 @@ void AnalyseString(String incStr) {
            page_main();
          }        
       } else if (termoprofily == 2){
-          sec=80; 
+          EEPROM.get(22, sec);
+          EEPROM.get(24, temp1);
+          EEPROM.get(26, temp2);
+          //sec=80; 
           outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
           outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
           profily="User 1";
           String t13= "\"" + String(profily) + "\"";  // Отображение 
           SendData("t13.txt", t13);
-          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
           outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
           tempust1 = temp1;
-          temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 80 'C градусов
+          //temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 80 'C градусов
           outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
           tempust2 = temp2;
           if (reley_n==1){
@@ -798,16 +911,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }        
       } else if (termoprofily == 2){
-         sec=80;
+         EEPROM.get(28, sec);
+         EEPROM.get(30, temp1);
+         EEPROM.get(32, temp2);
+         //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 100 'C градусов
+         //temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 100 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -852,16 +968,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }      
       } else if (termoprofily == 2){
-         sec=80;
+          EEPROM.get(34, sec);
+          EEPROM.get(36, temp1);
+          EEPROM.get(38, temp2);
+         //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 120 'C градусов
+         //temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 120 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -906,16 +1025,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
-         sec=80;
+          EEPROM.get(40, sec);
+          EEPROM.get(42, temp1);
+          EEPROM.get(44, temp2);
+         //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 140 'C градусов
+         //temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 140 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -960,16 +1082,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }     
       } else if (termoprofily == 2){
-         sec=80;
+          EEPROM.get(46, sec);
+          EEPROM.get(48, temp1);
+          EEPROM.get(50, temp2);
+         //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -1014,16 +1139,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }        
       } else if (termoprofily == 2){
-         sec=80;
+          EEPROM.get(52, sec);
+          EEPROM.get(54, temp1);
+          EEPROM.get(56, temp2);
+         //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 160 'C градусов
+         //temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -1069,16 +1197,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
-         sec=80;
+          EEPROM.get(58, sec);
+          EEPROM.get(60, temp1);
+          EEPROM.get(62, temp2);
+         //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 180 'C градусов
+        //temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 180 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -1124,16 +1255,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }     
       } else if (termoprofily == 2){
-         sec=60;
+          EEPROM.get(64, sec);
+          EEPROM.get(66, temp1);
+          EEPROM.get(68, temp2);
+         //sec=60;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
+         //temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+        //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -1179,16 +1313,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
-         sec=60;
+          EEPROM.get(70, sec);
+          EEPROM.get(72, temp1);
+          EEPROM.get(74, temp2);
+         //sec=60;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
+         //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -1232,16 +1369,19 @@ void AnalyseString(String incStr) {
            termoprofily1_9 = 1;
          }    
       } else if (termoprofily == 2){
-         sec=5;
+          EEPROM.get(76, sec);
+          EEPROM.get(78, temp1);
+          EEPROM.get(80, temp2);
+         //sec=5;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
+         //temp2 = 0; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
@@ -1292,13 +1432,16 @@ void AnalyseString(String incStr) {
            digitalWrite(verhniy_1, LOW);
          }       
       } else if (termoprofily == 2){
+          EEPROM.get(82, sec);
+          EEPROM.get(84, temp1);
+          EEPROM.get(86, temp2);
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
+        // temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
