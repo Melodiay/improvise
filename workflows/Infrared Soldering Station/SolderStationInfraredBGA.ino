@@ -62,6 +62,10 @@ int pwmv = 76; // ШИМ верхнего нагревателя по умолч
 int pwmn = 76; // ШИМ нижнего нагревателя по умолчанию 30% == в ШИМ = 76 дробную часть отбрасываем 76,5
 int pwmust1 = 0; // Установленый ШИМ
 int pwmust2 = 0; // Установленый ШИМ
+int coolervh = 76;
+int coolerp = 76;
+int coolvust1 = 0;
+int coolpust2 = 0;
 float kp = 1.0; // ПИД регулирование порпорциональное   значение по умолчанию
 float ki = 2.0; // ПИД регулирование интегральное       значение по умолчанию 
 float kd = 3.0;  // ПИД регулирование дифферинциальное   значение по умолчанию
@@ -104,9 +108,9 @@ void setup(void) {
   pinMode(verhniy_1, OUTPUT); // верхний нагреватель настраиваем на выход
   digitalWrite(verhniy_1, LOW); // отключаем выход, то есть не подаем пять вольт, подовать будем поже
   pinMode(coolerv, OUTPUT);    // тоже самое настраиваем вывод на выход
-  digitalWrite(coolerv, LOW);  // отключаем вывод
+  analogWrite(coolerv, 0);  // отключаем вывод
   pinMode(cooler, OUTPUT);    // тоже самое настраиваем вывод на выход
-  digitalWrite(cooler, LOW);  // отключаем вывод
+  analogWrite(cooler, 0);  // отключаем вывод
   pinMode(lampa, OUTPUT);    // тоже самое настраиваем вывод на выход
   digitalWrite(lampa, LOW);  // отключаем вывод
 
@@ -116,8 +120,8 @@ void setup(void) {
     // в данном случае это значение переменной, объявленное выше
     temp1 = 0; // температура по умолчанию верхнего нагревателя 
     temp2 = 0; // температура по умолчанию нижнего нагревателя
-    EEPROM.put(0, pwmv);
-    EEPROM.put(2, pwmn);
+    EEPROM.put(187, pwmv);
+    EEPROM.put(192, pwmn);
     EEPROM.put(7, kp);
     EEPROM.put(12, ki);
     EEPROM.put(17, kd);
@@ -165,20 +169,26 @@ void setup(void) {
     EEPROM.put(172, sec);
     EEPROM.put(177, temp1);
     EEPROM.put(182, temp2);
+
+    EEPROM.put(197, coolervh);
+    EEPROM.put(202, coolerp);
   }
 
-  EEPROM.get(0, pwmv);
-  EEPROM.get(2, pwmn);
+  EEPROM.get(187, pwmv);
+  EEPROM.get(192, pwmn);
   EEPROM.get(7, kp);
   EEPROM.get(12, ki);
   EEPROM.get(17, kd);
-  
+  EEPROM.get(197, coolervh);
+  EEPROM.get(202, coolerp);
   temp1 = 225; // температура по умолчанию верхнего нагревателя 
   temp2 = 160; // температура по умолчанию нижнего нагревателя
   tempust1 = temp1;
   tempust2 = temp2;
   pwmust1 = pwmv;
   pwmust2 = pwmn;
+  coolvust1 = coolervh;
+  coolpust2 = coolerp;
   Kp = kp;
   Ki = ki;
   Kd = kd;
@@ -262,8 +272,8 @@ void loop(void) {
   }else if((incStr.indexOf("05"))>=0) // когда находимся на странице 5 обновляем компоненты
   {
       temp = 0;
-      EEPROM.get(0, pwmv);
-      EEPROM.get(2, pwmn);
+      EEPROM.get(187, pwmv);
+      EEPROM.get(192, pwmn);
       outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
       outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
   }else if((incStr.indexOf("06"))>=0)
@@ -282,6 +292,13 @@ void loop(void) {
        String t26= "\"" + String(Kd) + "\"";  // выводим дефференциальное
        SendData("t26.txt", t26);
       
+  }else if((incStr.indexOf("08"))>=0) // когда находимся на странице 7 обновляем компоненты
+  { 
+       temp = 0;
+       EEPROM.get(197, coolervh);
+       EEPROM.get(202, coolerp);
+       outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
+       outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
   }
   
   if (temp==1){
@@ -662,14 +679,14 @@ void AnalyseString(String incStr) {
     digitalWrite(verhniy_1, LOW);
   }
   if (incStr.indexOf("coolerv-on") >= 0) {      // тоже самое что и bt0
-     digitalWrite(coolerv, HIGH);
+      analogWrite(coolerv, coolvust1);
   }  else if (incStr.indexOf("coolerv-off") >= 0) {
-     digitalWrite(coolerv, LOW);
+      analogWrite(coolerv, 0);
   }
   if (incStr.indexOf("cooler-on") >= 0) {      // тоже самое что и bt0
-     digitalWrite(cooler, HIGH);
+     analogWrite(cooler, coolpust2);
   }  else if (incStr.indexOf("cooler-off") >= 0) {
-     digitalWrite(cooler, LOW);
+     analogWrite(cooler, 0);
   }
   if (incStr.indexOf("bt1-on") >= 0) {      // тоже самое что и bt0
      digitalWrite(lampa, HIGH);
@@ -683,8 +700,13 @@ void AnalyseString(String incStr) {
      ph=0;
   }
   if (incStr.indexOf("wattsave") >= 0) {     // Сохранение Мощности в eeprom память по умолчанию
-       EEPROM.put(0, pwmv);
-       EEPROM.put(2, pwmn);
+       EEPROM.put(187, pwmv);
+       EEPROM.put(192, pwmn);
+    
+  } 
+  if (incStr.indexOf("coolerssave") >= 0) {     // Сохранение Мощности в eeprom память по умолчанию
+       EEPROM.put(197, coolervh);
+       EEPROM.put(202, coolerp);
     
   } 
   if (incStr.indexOf("pidsave") >= 0) {     // Сохранение ПИД регулирование, П И Д составляющих в eeprom память по умолчанию
@@ -1681,6 +1703,55 @@ void AnalyseString(String incStr) {
     }
     
   }     
+  if (incStr.indexOf("bcv") >= 0) {
+    if (coolervh < 255){
+      coolervh=coolervh+rtemp;
+      outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
+      coolvust1 = coolervh;
+    } else if(coolervh == 255){
+        coolervh = 0;
+       outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
+       coolvust1 = coolervh;
+    }
+    
+  }
+    if (incStr.indexOf("bv2") >= 0) {
+    if (coolervh > 0 ){
+      coolervh=coolervh-rtemp;
+      outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
+      coolvust1 = coolervh;
+    } else if (coolerv == 0){
+       coolervh = 255;
+       outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
+       coolvust1 = coolervh;
+    }
+    
+  }
+
+  if (incStr.indexOf("bcp") >= 0) {
+    if (coolerp < 255){
+      coolerp=coolerp+rtemp;
+      outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
+      coolpust2 = coolerp;
+    } else if(coolerp == 255){
+        coolerp = 0;
+       outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
+       coolpust2 = coolerp;
+    }
+    
+  }
+    if (incStr.indexOf("bp2") >= 0) {
+    if (coolerp > 0 ){
+      coolerp=coolerp-rtemp;
+      outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
+      coolpust2 = coolerp;
+    } else if (coolerp == 0){
+        coolerp = 255;
+       outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
+       coolpust2 = coolerp;
+    }
+    
+  }
   
    if (incStr.indexOf("r1") >= 0) {
     r1=1.0;
