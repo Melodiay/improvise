@@ -104,9 +104,9 @@ void setup(void) {
   Serial.begin(9600); // Указваем скорость UART 9600 бод
 
   pinMode(nigniy_1, OUTPUT); // нижний нагреватель номер 1 настраиваем на выход
-  digitalWrite(nigniy_1, LOW); // отключаем выход
+  analogWrite(nigniy_1, 0); // отключаем выход
   pinMode(verhniy_1, OUTPUT); // верхний нагреватель настраиваем на выход
-  digitalWrite(verhniy_1, LOW); // отключаем выход, то есть не подаем пять вольт, подовать будем поже
+  analogWrite(verhniy_1, 0); // отключаем выход, то есть не подаем пять вольт, подовать будем поже
   pinMode(coolerv, OUTPUT);    // тоже самое настраиваем вывод на выход
   analogWrite(coolerv, 0);  // отключаем вывод
   pinMode(cooler, OUTPUT);    // тоже самое настраиваем вывод на выход
@@ -237,13 +237,7 @@ void loop(void) {
   } else if((incStr.indexOf("01"))>=0)
   {
     temp = 0;
-    /**
-       for(int tm = 0; tm <= 165; ){
-            grafic_verh();
-            grafic_niz();
-            tm++;
-      } 
-     **/
+    
   } else if((incStr.indexOf("02"))>=0)
   {
       temp = 0;
@@ -381,8 +375,22 @@ void loop(void) {
       termoprofily10 = 0;   // выполнить действие 1
     }
   }
-
-  
+  /**
+  if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
+     
+     int Value1 = tempt1;
+     print_string("add 3,0,");
+     print_dec(Value1);
+     sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+     delay(8);
+        
+     int Value2 = tempt2;
+     print_string("add 3,1,");
+     print_dec(Value2);
+     sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+     delay(8);
+  }
+  **/
 }
 
 // прерывание детектора нуля
@@ -405,20 +413,7 @@ void yield() {
    
 }
 
-void grafic_verh(void){
-  print_string("add 3,0,");
-  print_dec(tempt1);
-  sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  delay(8);
-  
-}
-void grafic_niz(void){
-  print_string("add 3,1,");
-  print_dec(tempt2);
-  sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  delay(8);
-  
-}
+
 void tsw_termoprofily_on(void){
   Serial.print("tsw b2,1");
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
@@ -669,14 +664,14 @@ void AnalyseString(String incStr) {
     reley_n1=1;
   } else if (incStr.indexOf("c0-off") >= 0) {
     reley_n1=0;
-    digitalWrite(nigniy_1, LOW);
+    analogWrite(nigniy_1, 0);
   }
   if ((incStr.indexOf("c3-on")) >= 0) { 
     reley_v=1;
     //digitalWrite(verhniy_1, HIGH);// тоже самое что и bt0
   } else if ((incStr.indexOf("c3-off")) >= 0) {
     reley_v=0;
-    digitalWrite(verhniy_1, LOW);
+    analogWrite(verhniy_1, 0);
   }
   if (incStr.indexOf("coolerv-on") >= 0) {      // тоже самое что и bt0
       analogWrite(coolerv, coolvust1);
@@ -1445,8 +1440,8 @@ void AnalyseString(String incStr) {
            reley_n=0;
            reley_n1=0;
            reley_v=0;
-           digitalWrite(nigniy_1, LOW);
-           digitalWrite(verhniy_1, LOW);
+           analogWrite(nigniy_1, 0);
+           analogWrite(verhniy_1, 0);
          }
          
       } else if (termoprofily == 1){
@@ -1464,8 +1459,8 @@ void AnalyseString(String incStr) {
            reley_n=0;
            reley_n1=0;
            reley_v=0;
-           digitalWrite(nigniy_1, LOW);
-           digitalWrite(verhniy_1, LOW);
+           analogWrite(nigniy_1, 0);
+           analogWrite(verhniy_1, 0);
          }       
       } else if (termoprofily == 2){
          EEPROM.get(22, sec);
@@ -1485,8 +1480,8 @@ void AnalyseString(String incStr) {
            reley_n=0;
            reley_n1=0;
            reley_v=0;
-           digitalWrite(nigniy_1, LOW);
-           digitalWrite(verhniy_1, LOW);
+           analogWrite(nigniy_1, 0);
+           analogWrite(verhniy_1, 0);
          }
        }
     }  
