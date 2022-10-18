@@ -1,4 +1,3 @@
-
 #include <EEPROM.h>
 #include <GyverMAX6675.h> // Подключаем библиотеку работы с микросхемой MAX6675   автор https://alexgyver.ru/lessons/
 
@@ -90,6 +89,7 @@ int shag = 0;
 uint32_t sec = 0;
 int termoprofily1_9 = 0;
 int termoprofily10 = 0;
+bool bt0 = 0;
 
 
 void setup(void) {
@@ -211,6 +211,7 @@ void loop(void) {
        inc = "";
     }
   }
+  
                                
   if ((incStr.indexOf("00"))>=0){ // когда находимся на странице 0 обновляем компоненты
       
@@ -306,8 +307,12 @@ void loop(void) {
           } else {
             String t1 = "\"" + String(tempt1) + "Error\"";  // если произошла ошибка выодим Error
             SendData("t0.txt", t1);
-            page_main();
-            bt0_click();
+            if(bt0==1) // Кнопка bt0 равна 1
+            {
+              page_main();
+              bt0_click();
+              bt0 = 0;
+            }
           }
           delay(1000);   // задержка в 1 секунду, так как нужно примерно 750 мс чтобы считать температуру успешно
     
@@ -320,8 +325,12 @@ void loop(void) {
           } else {
             String t1 = "\"" + String(tempt2) + "Error\"";  // если произошла ошибка выодим Error
             SendData("t1.txt", t1);
-            page_main();
-            bt0_click();
+            if(bt0==1) // Кнопка bt0 равна 1
+            {
+              page_main();
+              bt0_click();
+              bt0 = 0;
+            }
           }
           delay(1000); 
           
@@ -486,6 +495,11 @@ void termoprofily_10(void){
   bt0_click();
   
 }
+
+
+
+
+
 void bt0_click(void){
   Serial.print("click bt0,1");
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
@@ -605,9 +619,11 @@ void AnalyseString(String incStr) {
     reley_n=1;
     page_termoprofily();
     b4_click();
+    bt0 = 1;
     //digitalWrite(nigniy_1, HIGH);
   } else if (incStr.indexOf("bt0-off") >= 0) { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
     reley_n=0;
+    bt0 = 0;
     Timer2.disableISR();
     shag = 0;
     sec=0;
