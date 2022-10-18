@@ -306,6 +306,8 @@ void loop(void) {
           } else {
             String t1 = "\"" + String(tempt1) + "Error\"";  // если произошла ошибка выодим Error
             SendData("t0.txt", t1);
+            page_main();
+            bt0_click();
           }
           delay(1000);   // задержка в 1 секунду, так как нужно примерно 750 мс чтобы считать температуру успешно
     
@@ -318,6 +320,8 @@ void loop(void) {
           } else {
             String t1 = "\"" + String(tempt2) + "Error\"";  // если произошла ошибка выодим Error
             SendData("t1.txt", t1);
+            page_main();
+            bt0_click();
           }
           delay(1000); 
           
