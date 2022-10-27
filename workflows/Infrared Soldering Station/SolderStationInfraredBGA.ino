@@ -27,8 +27,8 @@ GyverMAX6675<CLK_PIN, DATA_PIN, CS_PIN> sens; // sens, CLK, DATA, CS если б
                                               // незабывать обращаться к sens1, а не к sens - это если не одна термопара
 // Пины модуля MAX6675K
 #define CLK_PIN2  8  // Пин SCK указываем вывводы для программного ICP
-#define DATA_PIN2  4  // Пин SO
-#define CS_PIN2    13  // Пин CS
+#define DATA_PIN2 4  // Пин SO
+#define CS_PIN2   12  // Пин CS
 
 // указываем пины в порядке SCK SO CS
 GyverMAX6675<CLK_PIN2, DATA_PIN2, CS_PIN2> sens2;
@@ -90,7 +90,6 @@ uint32_t sec = 0;
 int termoprofily1_9 = 0;
 int termoprofily10 = 0;
 bool bt0 = 0;
-
 
 void setup(void) {
   pinMode(ZERO_PIN, INPUT_PULLUP);
@@ -803,6 +802,7 @@ void AnalyseString(String incStr) {
     } 
      
   } 
+  
   if (incStr.indexOf("b4") >= 0) {
     if (shag < 10){
       shag++;
