@@ -34,7 +34,7 @@ enum
 static void DrawPageBook(GtkPrintOperation *op, GtkPrintContext *context, int page_nr)
 {
     cairo_t *cr;
-    gchar buf[1000];
+    gchar buf[1200];
     cr = gtk_print_context_get_cairo_context (context);
 
     strcpy(last_name_data, gtk_entry_get_text(GTK_ENTRY(gLast_Name)));
