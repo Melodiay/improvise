@@ -118,7 +118,7 @@ void PrintBook()
 int DrawPageBooks(GtkPrintOperation *op, GtkPrintContext *context, int page_nr)
 {
     cairo_t *cr;
-    gchar buf[1000];
+    gchar buf[1200];
 
     cr = gtk_print_context_get_cairo_context (context);
 
