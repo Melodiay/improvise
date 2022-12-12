@@ -2,7 +2,7 @@
 #include <GyverMAX6675.h> // Подключаем библиотеку работы с микросхемой MAX6675   автор https://alexgyver.ru/lessons/
 
 #define INIT_ADDR 1023  // номер резервной ячейки
-#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
+#define INIT_KEY 100     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
 #define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
@@ -181,9 +181,45 @@ void setup(void) {
   EEPROM.get(17, kd);
   EEPROM.get(197, coolervh);
   EEPROM.get(202, coolerp);
-  EEPROM.get(207, termoprofily);
-  temp1 = 225; // температура по умолчанию верхнего нагревателя 
-  temp2 = 160; // температура по умолчанию нижнего нагревателя
+  //EEPROM.get(207, termoprofily);
+  if (EEPROM.get(207, termoprofily) == 0){
+         profily="Lead-free"; 
+         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         
+  } else if (EEPROM.get(207, termoprofily) == 1){
+         profily="Lead"; // Термопрофиль Свинец
+         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;        
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         
+  }else if (EEPROM.get(207, termoprofily) == 2){
+         EEPROM.get(22, sec);
+         EEPROM.get(27, temp1);
+         EEPROM.get(32, temp2);
+         profily="User 1";
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+  }
+  //temp1 = 225; // температура по умолчанию верхнего нагревателя 
+  //temp2 = 160; // температура по умолчанию нижнего нагревателя
   tempust1 = temp1;
   tempust2 = temp2;
   pwmust1 = pwmv;
@@ -249,7 +285,43 @@ void loop(void) {
   }else if((incStr.indexOf("04"))>=0) // когда находимся на странице 4 обновляем компоненты
   {
       temp = 0;
-      
+      /**
+      if (EEPROM.get(207, termoprofily) == 0){
+         profily="Lead-free"; 
+         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         
+      } else if (EEPROM.get(207, termoprofily) == 1){
+         profily="Lead"; // Термопрофиль Свинец
+         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;        
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         
+      }else if (EEPROM.get(207, termoprofily) == 2){
+         EEPROM.get(22, sec);
+         EEPROM.get(27, temp1);
+         EEPROM.get(32, temp2);
+         profily="User 1";
+         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+      }**/
       outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
       String t13= "\"" + String(profily) + "\"";  // Отображение 
       SendData("t13.txt", t13);
@@ -502,10 +574,6 @@ void termoprofily_10(void){
   bt0_click();
   
 }
-
-
-
-
 
 void bt0_click(void){
   Serial.print("click bt0,1");
@@ -907,7 +975,7 @@ void AnalyseString(String incStr) {
          if (reley_n==1){
             termoprofily1_9 = 1;
             page_main();
-            delay(10);
+            
           
            
          }
@@ -927,7 +995,7 @@ void AnalyseString(String incStr) {
          if (reley_n==1){
            termoprofily1_9 = 1;
            page_main();
-           delay(10);
+           
          }        
       } else if (termoprofily == 2){
           EEPROM.get(37, sec);
@@ -948,7 +1016,7 @@ void AnalyseString(String incStr) {
           if (reley_n==1){
            termoprofily1_9 = 1;
            page_main();
-           delay(10);
+           
          }
         } 
     } else if(shag == 2){
