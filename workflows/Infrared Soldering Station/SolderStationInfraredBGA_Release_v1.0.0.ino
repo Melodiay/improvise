@@ -257,13 +257,13 @@ void loop(void) {
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
       outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
-      
+      /**  // В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
       if(reley_n==1){
           tsw_termoprofily_off();
        }else{
           tsw_termoprofily_on();
        } 
-      
+      **/
       
   }else if((incStr.indexOf("05"))>=0) // когда находимся на странице 5 обновляем компоненты
   {
@@ -427,7 +427,7 @@ void yield() {
    
 }
 
-
+// В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
 void tsw_termoprofily_on(void){
   Serial.print("tsw b2,1");
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
@@ -454,7 +454,7 @@ void tsw_termoprofily_on(void){
   Serial.write(0xff);
   Serial.write(0xff);  
 }
-
+// В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
 void tsw_termoprofily_off(void){
   Serial.print("tsw b2,0");
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
@@ -482,17 +482,21 @@ void tsw_termoprofily_off(void){
   Serial.write(0xff);  
 }
 
-
+// этот код и остальной нужен
 void termoprofily_1_9(void){
   page_termoprofily();
+  delay(10);
   b4_click();
   page_main();
+  delay(10);
   
 }
 void termoprofily_10(void){
   page_termoprofily();
+  delay(10);
   b4_click();
   page_main();
+  delay(10);
   bt0_click();
   
 }
