@@ -257,7 +257,7 @@ void loop(void) {
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
       outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
-      /**  // В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
+      /**
       if(reley_n==1){
           tsw_termoprofily_off();
        }else{
@@ -427,6 +427,7 @@ void yield() {
    
 }
 
+/**
 // В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
 void tsw_termoprofily_on(void){
   Serial.print("tsw b2,1");
@@ -454,7 +455,7 @@ void tsw_termoprofily_on(void){
   Serial.write(0xff);
   Serial.write(0xff);  
 }
-// В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
+
 void tsw_termoprofily_off(void){
   Serial.print("tsw b2,0");
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
@@ -481,8 +482,9 @@ void tsw_termoprofily_off(void){
   Serial.write(0xff);
   Serial.write(0xff);  
 }
-
+**/
 // этот код и остальной нужен
+
 void termoprofily_1_9(void){
   page_termoprofily();
   delay(10);
@@ -623,6 +625,7 @@ void AnalyseString(String incStr) {
   if (incStr.indexOf("bt0-on") >= 0) {     // слушаем UART на передачу команды bt0-on подаем 5 вольт на вывод
     reley_n=1;
     page_termoprofily();
+    delay(10);
     b4_click();
     bt0 = 1;
     //digitalWrite(nigniy_1, HIGH);
@@ -834,8 +837,10 @@ void AnalyseString(String incStr) {
          tempust2 = temp2;
          if (reley_n==1){
            page_termoprofily();
+           delay(10);
            b4_click();
            page_main();
+           delay(10);
          }
          
          
@@ -854,8 +859,10 @@ void AnalyseString(String incStr) {
          tempust2 = temp2; 
          if (reley_n==1){
            page_termoprofily();
+           delay(10);
            b4_click();
            page_main();
+           delay(10);
          }       
       } else if (termoprofily == 2){
           EEPROM.get(22, sec);
@@ -875,8 +882,10 @@ void AnalyseString(String incStr) {
          tempust2 = temp2;
          if (reley_n==1){
            page_termoprofily();
+           delay(10);
            b4_click();
            page_main();
+           delay(10);
          }
        } 
     } else if(shag == 1){
@@ -898,6 +907,7 @@ void AnalyseString(String incStr) {
          if (reley_n==1){
             termoprofily1_9 = 1;
             page_main();
+            delay(10);
           
            
          }
@@ -917,6 +927,7 @@ void AnalyseString(String incStr) {
          if (reley_n==1){
            termoprofily1_9 = 1;
            page_main();
+           delay(10);
          }        
       } else if (termoprofily == 2){
           EEPROM.get(37, sec);
@@ -937,6 +948,7 @@ void AnalyseString(String incStr) {
           if (reley_n==1){
            termoprofily1_9 = 1;
            page_main();
+           delay(10);
          }
         } 
     } else if(shag == 2){
