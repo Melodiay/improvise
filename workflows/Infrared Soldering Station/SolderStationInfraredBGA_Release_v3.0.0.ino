@@ -474,10 +474,10 @@ void loop(void) {
 
   if (tempust1 == 0){
       reley_v=0; analogWrite(verhniy_1, 0);
-    } else { reley_v=1; }  
+    } else if(incStr.indexOf("c3-on") >= 0) { reley_v=1; }  
   if (tempust2 == 0){
       reley_n1=0; analogWrite(nigniy_1, 0);
-    } else { reley_n1=1; }
+    } else if(incStr.indexOf("c0-on") >= 0) { reley_n1=1; }    
   /**
   if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
      
@@ -782,17 +782,13 @@ void AnalyseString(String incStr) {
     //digitalWrite(nigniy_1, LOW);
   }
   if (incStr.indexOf("c0-on") >= 0) {      // тоже самое что и bt0
-    if (tempust2 == 0){
-      reley_n1=0; analogWrite(nigniy_1, 0);
-    } else { reley_n1=1; }
+    reley_n1=1;
   } else if (incStr.indexOf("c0-off") >= 0) {
     reley_n1=0;
     analogWrite(nigniy_1, 0);
   }
-  if ((incStr.indexOf("c3-on")) >= 0) { 
-    if (tempust1 == 0){
-      reley_v=0; analogWrite(verhniy_1, 0);
-    } else { reley_v=1; }
+  if (incStr.indexOf("c3-on") >= 0) { 
+    reley_v=1;
   } else if ((incStr.indexOf("c3-off")) >= 0) {
     reley_v=0;
     analogWrite(verhniy_1, 0);
