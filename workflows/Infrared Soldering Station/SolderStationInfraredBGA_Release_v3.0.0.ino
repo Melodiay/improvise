@@ -418,25 +418,25 @@ void loop(void) {
   //dimmer[1] = 120;
   //delay(100); // в реальном коде задержек быть не должно
   
-   if (ph==1){
+  if (ph==1){
         if(reley_n==1){
           //Timer2.enableISR();
           if (reley_n1==1){
-             nigniye(); // Пид регулирование
+            nigniye(); // Пид регулирование
           }
-       }
-       if(reley_v==1){
-          verhniy(); // Пид регулирование
-       }
-   }else {
-       if(reley_n==1){
+          if(reley_v==1){
+            verhniy(); // Пид регулирование
+          } 
+        }
+  }else {
+      if(reley_n==1){
           //Timer2.enableISR();
-          if (reley_n1==1){
-            reguln();  // Гистерезис
-          }
-      }
-      if(reley_v==1){
-         regul();   // Гистерезис
+        if (reley_n1==1){
+          reguln();  // Гистерезис
+        }          
+        if(reley_v==1){
+          regul();   // Гистерезис      
+        }
       }
   }
   
@@ -471,6 +471,13 @@ void loop(void) {
       delay(10);
       sound_click();   
   }
+
+  if (tempust1 == 0){
+      reley_v=0; analogWrite(verhniy_1, 0);
+    } else { reley_v=1; }  
+  if (tempust2 == 0){
+      reley_n1=0; analogWrite(nigniy_1, 0);
+    } else { reley_n1=1; }
   /**
   if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
      
@@ -775,14 +782,17 @@ void AnalyseString(String incStr) {
     //digitalWrite(nigniy_1, LOW);
   }
   if (incStr.indexOf("c0-on") >= 0) {      // тоже самое что и bt0
-    reley_n1=1;
+    if (tempust2 == 0){
+      reley_n1=0; analogWrite(nigniy_1, 0);
+    } else { reley_n1=1; }
   } else if (incStr.indexOf("c0-off") >= 0) {
     reley_n1=0;
     analogWrite(nigniy_1, 0);
   }
   if ((incStr.indexOf("c3-on")) >= 0) { 
-    reley_v=1;
-    //digitalWrite(verhniy_1, HIGH);// тоже самое что и bt0
+    if (tempust1 == 0){
+      reley_v=0; analogWrite(verhniy_1, 0);
+    } else { reley_v=1; }
   } else if ((incStr.indexOf("c3-off")) >= 0) {
     reley_v=0;
     analogWrite(verhniy_1, 0);
