@@ -457,16 +457,18 @@ void loop(void) {
 
   if (termoprofily1_9 == 1){ 
     if (millis() >= myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
-      myTimer1 = millis();
+      //myTimer1 = millis();
       termoprofily_1_9();
       termoprofily1_9 = 0;   // выполнить действие 1
+      myTimer1 = millis();
     }
   }
   if (termoprofily10 == 1){ 
     if (millis() >= myTimer2 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
-      myTimer2 = millis();
+      //myTimer2 = millis();
       termoprofily_10();
       termoprofily10 = 0;   // выполнить действие 1
+      myTimer2 = millis();
     }
   }
   // при достижении температуры 190 и 220 градусов ордуино кликает кнопку sound после чего начинает работать либо светодиод либо пищалка
