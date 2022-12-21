@@ -184,8 +184,10 @@ void setup(void) {
   EEPROM.get(202, coolerp);
   //EEPROM.get(207, termoprofily);
   if (EEPROM.get(207, termoprofily) == 0){
-         //outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         //outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         shag = 0;
+         sec = 3;    
+         outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
@@ -197,8 +199,10 @@ void setup(void) {
          SendData("t13.txt", t13);
          
   } else if (EEPROM.get(207, termoprofily) == 1){
-         //outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         //outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         shag = 0;
+         sec = 3;
+         outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
@@ -213,8 +217,9 @@ void setup(void) {
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
-         //outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         //outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         shag = 0;
+         outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
@@ -278,7 +283,7 @@ void loop(void) {
       SendData("pid.t25.txt", t25);
       String t26= "\"" + String(Kd) + "\"";  // выводим дефференциальное
       SendData("pid.t26.txt", t26);  
-      **/    
+      **/   
   } else if((incStr.indexOf("01"))>=0)
   {
     temp = 0;
@@ -292,50 +297,14 @@ void loop(void) {
   }else if((incStr.indexOf("04"))>=0) // когда находимся на странице 4 обновляем компоненты
   {
       temp = 0;
-      /**
-      if (EEPROM.get(207, termoprofily) == 0){
-         profily="Lead-free"; 
-         temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
-         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-         tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
-         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-         String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
-         
-      } else if (EEPROM.get(207, termoprofily) == 1){
-         profily="Lead"; // Термопрофиль Свинец
-         temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
-         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-         tempust1 = temp1;
-         temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
-         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;        
-         String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
-         
-      }else if (EEPROM.get(207, termoprofily) == 2){
-         EEPROM.get(22, sec);
-         EEPROM.get(27, temp1);
-         EEPROM.get(32, temp2);
-         profily="User 1";
-         //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
-         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-         tempust1 = temp1;
-         //temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
-         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-         String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
-      }**/
+      
       outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
       String t13= "\"" + String(profily) + "\"";  // Отображение 
       SendData("t13.txt", t13);
       outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-      outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+      //outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
       /**
       if(reley_n==1){
           tsw_termoprofily_off();
@@ -489,6 +458,7 @@ void loop(void) {
   if(reley_n==1){
     if ((tempust1 == 0) && (tempust2 == 0)){
       termoprofily10 = 1;
+      shag = 0;
       reley_n=0;
       reley_n1=0;
       reley_v=0;
@@ -745,13 +715,14 @@ void AnalyseString(String incStr) {
     bt0 = 0;
     Timer2.disableISR();
     shag = 0;
-    sec=0;
+    //sec=0;
     termoprofily1_9 = 0;
     termoprofily10 = 0;
     if (termoprofily == 0){
-         sec=0;
-         outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         shag = 0;
+         sec=3;
+         outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
@@ -764,9 +735,10 @@ void AnalyseString(String incStr) {
          outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
     } else if (termoprofily == 1){
-         sec=0;
-         outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         shag = 0;      
+         sec=3;
+         outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
@@ -782,9 +754,10 @@ void AnalyseString(String incStr) {
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
+         shag = 0;         
          //sec=0;
-         outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-         outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
@@ -933,7 +906,8 @@ void AnalyseString(String incStr) {
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=0;
+         //shag = 0;
+         sec=3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -952,10 +926,9 @@ void AnalyseString(String incStr) {
            page_main();
            delay(10);
          }
-         
-         
       } else if (termoprofily == 1){
-         sec=0;
+         //shag = 0;
+         sec=3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
@@ -978,6 +951,7 @@ void AnalyseString(String incStr) {
           EEPROM.get(22, sec);
           EEPROM.get(27, temp1);
           EEPROM.get(32, temp2);
+         // shag = 0;
          //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -1577,7 +1551,7 @@ void AnalyseString(String incStr) {
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
          shag = 0;
-         sec=0;
+         sec=3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -1600,7 +1574,7 @@ void AnalyseString(String incStr) {
          
       } else if (termoprofily == 1){
          shag = 0;
-         sec=0;
+         sec=3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
@@ -1935,6 +1909,8 @@ void AnalyseString(String incStr) {
       termoprofily++;
       outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
       if (termoprofily == 0){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -1948,6 +1924,8 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
          
       } else if (termoprofily == 1){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec        
          profily="Lead"; // Термопрофиль Свинец
@@ -1964,6 +1942,7 @@ void AnalyseString(String incStr) {
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
+         shag = 0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
          profily="User 1";
@@ -1981,6 +1960,8 @@ void AnalyseString(String incStr) {
        termoprofily = 0;
        outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
        if (termoprofily == 0){
+         shag = 0;
+         sec = 3;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
          profily="Lead-free"; // Термопрофиль Бессвинец
@@ -1994,6 +1975,8 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
          
       } else if (termoprofily == 1){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec        
          profily="Lead"; // Термопрофиль Свинец
@@ -2010,6 +1993,7 @@ void AnalyseString(String incStr) {
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
+         shag = 0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
          profily="User 1";
@@ -2031,6 +2015,8 @@ void AnalyseString(String incStr) {
       termoprofily--;
       outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
       if (termoprofily == 0){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec        
          profily="Lead-free"; // Термопрофиль Бессвинец
@@ -2044,6 +2030,8 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
          
       } else if (termoprofily == 1){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec        
          profily="Lead"; // Термопрофиль Свинец
@@ -2060,6 +2048,7 @@ void AnalyseString(String incStr) {
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
+         shag = 0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
          profily="User 1";
@@ -2077,6 +2066,8 @@ void AnalyseString(String incStr) {
        termoprofily = 2;
        outNumber("n2.val", termoprofily);  // Отображение числа в числовом компоненте n2
        if (termoprofily == 0){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
          profily="Lead-free"; // Термопрофиль Бессвинец
@@ -2090,6 +2081,8 @@ void AnalyseString(String incStr) {
          SendData("t13.txt", t13);
           
       } else if (termoprofily == 1){
+         shag = 0;
+         sec = 3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec        
          profily="Lead";  // Термопрофиль Свинец
@@ -2106,6 +2099,7 @@ void AnalyseString(String incStr) {
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
+         shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
          profily="User 1";
