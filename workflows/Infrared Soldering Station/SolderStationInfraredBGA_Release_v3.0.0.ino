@@ -655,12 +655,8 @@ void regul() {
 void AnalyseString(String incStr) {
   if (incStr.indexOf("bt0-on") >= 0) {     // слушаем UART на передачу команды bt0-on подаем 5 вольт на вывод
     reley_n=1;
-    page_termoprofily();
-    delay(10);
-    b4_click();
-    delay(10);
-    page_main();
-    delay(10);
+    sec = 3;
+    termoprofily1_9 = 1;
     bt0 = 1;
     //digitalWrite(nigniy_1, HIGH);
   } else if (incStr.indexOf("bt0-off") >= 0) { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
