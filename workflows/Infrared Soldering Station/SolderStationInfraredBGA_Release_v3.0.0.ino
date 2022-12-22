@@ -425,18 +425,12 @@ void loop(void) {
   regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
   regulator2.dT = 500;       // установить время итерации для getResultTimer
   
-  if (termoprofily0_1 == 1){
-    if (millis() >= myTimer0 + sec*1000) { 
-      page_termo_b4_main();
-      termoprofily0_1 = 0;
-      myTimer0 = millis();
-    }
-  }
+  
     
   if (termoprofily1_9 == 1){ 
     if (millis() >= myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
       //myTimer1 = millis();
-      termoprofily_1_9();
+      termoprofily0_1_9();
       termoprofily1_9 = 0;   // выполнить действие 1
       myTimer1 = millis();
     }
@@ -514,68 +508,14 @@ void yield() {
    
 }
 
-/**
-// В релизной сборки дисплея это включено по умолчанию, этот код можно удалить
-void tsw_termoprofily_on(void){
-  Serial.print("tsw b2,1");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw b3,1");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw c8,1");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw bs20,1");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw bs21,1");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw b5,1");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);  
-}
 
-void tsw_termoprofily_off(void){
-  Serial.print("tsw b2,0");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw b3,0");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw c8,0");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw bs20,0");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw bs21,0");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);
-  Serial.print("tsw b5,0");
-  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-  Serial.write(0xff);
-  Serial.write(0xff);  
-}
-**/
 // этот код и остальной нужен
 
-void termoprofily_1_9(void){
+void termoprofily0_1_9(void){
   page_termoprofily();
   delay(10);
   b4_click();
+  delay(10);
   page_main();
   delay(10);
   
@@ -584,10 +524,10 @@ void termoprofily_10(void){
   page_termoprofily();
   delay(10);
   b4_click();
+  delay(10);
   page_main();
   delay(10);
-  bt0_click();
-  
+  bt0_click();  
 }
 
 void sound_click(void){
@@ -626,13 +566,6 @@ void page_termoprofily(void){
   Serial.write(0xff);
 }
 
-void page_termo_b4_main(void){
-  page_termoprofily();
-  delay(10);
-  b4_click();
-  page_main();
-  delay(10);
-}
 
 // Автор Максим Селиванов
 void outNumber(char *component, uint16_t number){
@@ -725,6 +658,9 @@ void AnalyseString(String incStr) {
     page_termoprofily();
     delay(10);
     b4_click();
+    delay(10);
+    page_main();
+    delay(10);
     bt0 = 1;
     //digitalWrite(nigniy_1, HIGH);
   } else if (incStr.indexOf("bt0-off") >= 0) { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
@@ -937,7 +873,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           termoprofily0_1 = 1;
+           termoprofily1_9 = 1;
          }
       } else if (termoprofily == 1){
          //shag = 0;
@@ -954,7 +890,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
-           termoprofily0_1 = 1;
+           termoprofily1_9 = 1;
          }       
       } else if (termoprofily == 2){
           EEPROM.get(22, sec);
@@ -974,14 +910,14 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           termoprofily0_1 = 1;
+           termoprofily1_9 = 1;
          }
        } 
-    } else if(shag == 1){
+     } else if(shag == 1){
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0){
-         sec=60;
+         sec=60; 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -994,14 +930,10 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-            termoprofily1_9 = 1;
-            page_main();
-            
-          
-           
+           termoprofily1_9 = 1;
          }
       } else if (termoprofily == 1){
-         sec=80; 
+         sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
@@ -1015,31 +947,27 @@ void AnalyseString(String incStr) {
          tempust2 = temp2;
          if (reley_n==1){
            termoprofily1_9 = 1;
-           page_main();
-           
          }        
       } else if (termoprofily == 2){
-          EEPROM.get(37, sec);
-          EEPROM.get(42, temp1);
-          EEPROM.get(47, temp2);
-          //sec=80; 
-          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
-          profily="User 1";
-          String t13= "\"" + String(profily) + "\"";  // Отображение 
-          SendData("t13.txt", t13);
-          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
-          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-          tempust1 = temp1;
-          //temp2 = 80; // Нижний нагреватель Бессвинецовый выбрано 80 'C градусов
-          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-          tempust2 = temp2;
-          if (reley_n==1){
+         EEPROM.get(37, sec);
+         EEPROM.get(42, temp1);
+         EEPROM.get(47, temp2);
+         //sec=80;
+         outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
+         outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+         profily="User 1";
+         String t13= "\"" + String(profily) + "\"";  // Отображение 
+         SendData("t13.txt", t13);
+         //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
+         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
+         tempust1 = temp1;
+         //temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 100 'C градусов
+         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
+         tempust2 = temp2;
+         if (reley_n==1){
            termoprofily1_9 = 1;
-           page_main();
-           
          }
-        } 
+        }
     } else if(shag == 2){
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -1058,7 +986,6 @@ void AnalyseString(String incStr) {
          tempust2 = temp2;
          if (reley_n==1){
            termoprofily1_9 = 1;
-           
          }
       } else if (termoprofily == 1){
          sec=80;
