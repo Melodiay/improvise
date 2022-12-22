@@ -45,7 +45,7 @@ void print_string(char *string);
 void print_dec(uint16_t data);
 void sendFFFFFF(void);
 
-uint32_t myTimer1 = 0, myTimer2 = 0, myTimer3; // автор https://alexgyver.ru/lessons/
+uint32_t myTimer0 = 0, myTimer1 = 0, myTimer2 = 0; // автор https://alexgyver.ru/lessons/
 
 String incStr;    // объявляем переменую типа String не путать со string
 String string;
@@ -87,8 +87,9 @@ int termoprofily = 0; // Номер термопрофиля по умолчан
 String profily="Lead-free"; // Загружает Бессвинцовый термопрофиль по умолчанию
 int shag = 0;
 uint32_t sec = 0;
-int termoprofily1_9 = 0;
-int termoprofily10 = 0;
+bool termoprofily0_1 = 0;
+bool termoprofily1_9 = 0;
+bool termoprofily10 = 0;
 bool bt0 = 0;
 
 void setup(void) {
@@ -423,7 +424,15 @@ void loop(void) {
   regulator2.hysteresis = 0.25;   // ширина гистерезиса
   regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
   regulator2.dT = 500;       // установить время итерации для getResultTimer
-
+  
+  if (termoprofily0_1 == 1){
+    if (millis() >= myTimer0 + sec*1000) { 
+      page_termo_b4_main();
+      termoprofily0_1 = 0;
+      myTimer0 = millis();
+    }
+  }
+    
   if (termoprofily1_9 == 1){ 
     if (millis() >= myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
       //myTimer1 = millis();
@@ -615,6 +624,14 @@ void page_termoprofily(void){
   Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   Serial.write(0xff);
   Serial.write(0xff);
+}
+
+void page_termo_b4_main(void){
+  page_termoprofily();
+  delay(10);
+  b4_click();
+  page_main();
+  delay(10);
 }
 
 // Автор Максим Селиванов
@@ -920,11 +937,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           page_termoprofily();
-           delay(10);
-           b4_click();
-           page_main();
-           delay(10);
+           termoprofily0_1 = 1;
          }
       } else if (termoprofily == 1){
          //shag = 0;
@@ -941,11 +954,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          if (reley_n==1){
-           page_termoprofily();
-           delay(10);
-           b4_click();
-           page_main();
-           delay(10);
+           termoprofily0_1 = 1;
          }       
       } else if (termoprofily == 2){
           EEPROM.get(22, sec);
@@ -965,11 +974,7 @@ void AnalyseString(String incStr) {
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
          if (reley_n==1){
-           page_termoprofily();
-           delay(10);
-           b4_click();
-           page_main();
-           delay(10);
+           termoprofily0_1 = 1;
          }
        } 
     } else if(shag == 1){
