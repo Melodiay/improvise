@@ -65,8 +65,8 @@ byte coolervh = 76;
 byte coolerp = 76;
 byte coolvust1 = 0;
 byte coolpust2 = 0;
-float kp = 1.00; // ПИД регулирование порпорциональное   значение по умолчанию
-float ki = 2.00; // ПИД регулирование интегральное       значение по умолчанию 
+float kp = 5.00; // ПИД регулирование порпорциональное   значение по умолчанию
+float ki = 3.00; // ПИД регулирование интегральное       значение по умолчанию 
 float kd = 3.00;  // ПИД регулирование дифферинциальное   значение по умолчанию
 float Kp = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Ki = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
@@ -318,8 +318,6 @@ void loop(void) {
   }else if((incStr.indexOf("05"))>=0) // когда находимся на странице 5 обновляем компоненты
   {
       temp = 0;
-      EEPROM.get(187, pwmv);
-      EEPROM.get(192, pwmn);
       outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
       outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmn
   }else if((incStr.indexOf("06"))>=0)
@@ -328,9 +326,6 @@ void loop(void) {
   }else if((incStr.indexOf("07"))>=0) // когда находимся на странице 7 обновляем компоненты
   { 
        temp = 0;
-       EEPROM.get(7, kp);
-       EEPROM.get(12, ki);
-       EEPROM.get(17, kd);
        String t24 = "\"" + String(Kp) + "\"";  // выводим пропорциональное
        SendData("t24.txt", t24);
        String t25 = "\"" + String(Ki) + "\"";  // выводим интегральное
@@ -341,8 +336,6 @@ void loop(void) {
   }else if((incStr.indexOf("08"))>=0) // когда находимся на странице 7 обновляем компоненты
   { 
        temp = 0;
-       EEPROM.get(197, coolervh);
-       EEPROM.get(202, coolerp);
        outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
        outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
   }
