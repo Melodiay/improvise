@@ -395,7 +395,20 @@ void loop(void) {
   //dimmer[1] = 120;
   //delay(100); // в реальном коде задержек быть не должно
   
-  if (ph==1){
+  
+  
+  regulator.setpoint = tempust1;    // установка (температуры)
+  regulator.hysteresis = 0.25;   // ширина гистерезиса
+  regulator.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
+  regulator.dT = 500;       // установить время итерации для getResultTimer
+  regulator2.setpoint = tempust2;    // установка (температуры)
+  regulator2.hysteresis = 0.25;   // ширина гистерезиса
+  regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
+  regulator2.dT = 500;       // установить время итерации для getResultTimer
+  
+  if (millis() >= myTimer0 + 1*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
+      //myTimer2 = millis();
+      if (ph==1){
         if(reley_n==1){
           //Timer2.enableISR();
           if (reley_n1==1){
@@ -416,17 +429,8 @@ void loop(void) {
         }
       }
   }
-  
-  regulator.setpoint = tempust1;    // установка (температуры)
-  regulator.hysteresis = 0.25;   // ширина гистерезиса
-  regulator.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
-  regulator.dT = 500;       // установить время итерации для getResultTimer
-  regulator2.setpoint = tempust2;    // установка (температуры)
-  regulator2.hysteresis = 0.25;   // ширина гистерезиса
-  regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
-  regulator2.dT = 500;       // установить время итерации для getResultTimer
-  
-  
+      myTimer0 = millis();
+    }
     
   if (termoprofily1_9 == 1){ 
     if (millis() >= myTimer1 + sec*1000) {   // таймер на 80000 мс (1 раза в 80 сек) автор таймера https://alexgyver.ru/lessons/
@@ -631,13 +635,13 @@ void sendFFFFFF(void){
 void nigniye(){
   // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
   analogWrite(nigniy_1, NizPID(tempt2, tempust2, Kp, Ki, Kd, 0.02, 0, pwmust2)); 
-  delay(20); 
+  //delay(20); 
 }
 // Пид регулирование верхний нагреватель
 void verhniy(){
      // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
      analogWrite(verhniy_1, VerhPID(tempt1, tempust1, Kp, Ki, Kd, 0.02, 0, pwmust1)); 
-     delay(20);
+     //delay(20);
 }
 // Гистерезис нижний нагреватель
 void reguln(){
