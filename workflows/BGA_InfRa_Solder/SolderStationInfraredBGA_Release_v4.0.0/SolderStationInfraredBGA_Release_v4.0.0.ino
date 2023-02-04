@@ -104,7 +104,8 @@ bool termoprofily1_9 = 0;
 bool termoprofily10 = 0;
 bool bt0 = 0;
 
-void setup(void) {
+void setup(void) 
+{
   /**
   //детектор нуля
   pinMode(ZERO_PIN, INPUT_PULLUP);
@@ -129,7 +130,8 @@ void setup(void) {
   pinMode(lampa, OUTPUT);    // тоже самое настраиваем вывод на выход
   digitalWrite(lampa, LOW);  // отключаем вывод
 
-  if (EEPROM.read(INIT_ADDR) != INIT_KEY) { // первый запуск
+  if (EEPROM.read(INIT_ADDR) != INIT_KEY) 
+  { // первый запуск
     EEPROM.write(INIT_ADDR, INIT_KEY);    // записали ключ
     // записали стандартное значение пид
     // в данном случае это значение переменной, объявленное выше
