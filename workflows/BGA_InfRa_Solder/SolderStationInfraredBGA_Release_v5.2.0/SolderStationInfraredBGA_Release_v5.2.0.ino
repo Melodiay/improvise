@@ -6,7 +6,7 @@
 #define nexSerial Serial1
 
 #define INIT_ADDR 1023  // номер резервной ячейки
-#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
+#define INIT_KEY 150     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
 #define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
@@ -63,12 +63,12 @@ unsigned int temp1 = 225; // температура по умолчанию ве
 unsigned int temp2 = 160; // температура по умолчанию нижнего нагревателя
 unsigned int tempust1 = 0;     // установленая температура 'C градусов цельсия должна считываться с дисплея Nextion
 unsigned int tempust2 = 0;     // установленая температура 'C градусов цельсия должна считываться с дисплея Nextion 
-byte pwmv = 76; // ШИМ верхнего нагревателя по умолчанию 30% == в ШИМ = 76 дробную часть отбрасываем 76,5
-byte pwmn = 76; // ШИМ нижнего нагревателя по умолчанию 30% == в ШИМ = 76 дробную часть отбрасываем 76,5
+byte pwmv = 255; // ШИМ верхнего нагревателя по умолчанию 100% == в ШИМ = 255 
+byte pwmn = 255; // ШИМ нижнего нагревателя по умолчанию 100% == в ШИМ = 255 
 byte pwmust1 = 0; // Установленый ШИМ
 byte pwmust2 = 0; // Установленый ШИМ
-byte coolervh = 76;
-byte coolerp = 76;
+byte coolervh = 255; // ШИМ верхнего кулера в нагревателе 100% == ШИМ 255
+byte coolerp = 255;  // ШИМ верхнего кулера в нагревателе 100% == ШИМ 255
 byte coolvust1 = 0;
 byte coolpust2 = 0;
 float kpv = 0.00; // ПИД регулирование порпорциональное   значение по умолчанию
@@ -83,6 +83,10 @@ float kdn = 0.00;  // ПИД регулирование дифферинциал
 float Kpn = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kin = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kdn = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
+float dtv = 0.02;  // dt верхнего нагревателя в ПИД регулировании поумлочанию 20 мк секунд
+float Dtv = 0.00;  // dt верхнего нагревателя в ПИД регулировании, в переменную будет записываться dtv
+float dtn = 0.02;  // dt нижнего нагревателя в ПИД регулировании поумлочанию 20 мк секунд
+float Dtn = 0.00;  // dt нижнего нагревателя в ПИД регулировании, в переменную будет записываться dtn
 bool reley_v; // Верхний нагреватель включение отдельно
 bool reley_n; // Нижний нагреватель переменная для включения паяльной станции верхний нагреватель нижний нагреватель, либо по отдельности Верх нагр. Нижний нагр.
 bool reley_n1; // Нижний нагреатель включение отдельно
@@ -193,7 +197,10 @@ void setup(void)
 
     EEPROM.put(212, kpn);
     EEPROM.put(217, kin);
-    EEPROM.put(222, kdn);    
+    EEPROM.put(222, kdn); 
+
+    EEPROM.put(227, dtv); 
+    EEPROM.put(232, dtn); 
   }
 
   EEPROM.get(187, pwmv);
@@ -204,6 +211,8 @@ void setup(void)
   EEPROM.get(212, kpn);
   EEPROM.get(217, kin);
   EEPROM.get(222, kdn);
+  EEPROM.get(227, dtv); 
+  EEPROM.get(232, dtn); 
   EEPROM.get(197, coolervh);
   EEPROM.get(202, coolerp);
   if (EEPROM.get(207, termoprofily) == 0)
@@ -269,6 +278,8 @@ void setup(void)
   Kpn = kpn;
   Kin = kin;
   Kdn = kdn;
+  Dtv = dtv;
+  Dtn = dtn;
   shag = 0;
   sec = 0;
   
@@ -364,16 +375,17 @@ void loop(void)
        SendData("t25.txt", t25);
        String t26= "\"" + String(Kdv) + "\"";  // выводим дефференциальное
        SendData("t26.txt", t26);
-      
-  }else if((incStr.indexOf("08"))>=0) // когда находимся на странице 7 обновляем компоненты
+       String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+       SendData("t57.txt", t57);
+  }else if((incStr.indexOf("08"))>=0) // когда находимся на странице 8 обновляем компоненты
   { 
        temp = 0;
        outNumber("coolervh.val", coolervh);  // Отображение числа в числовом компоненте coolervh
        outNumber("coolerp.val", coolerp);  // Отображение числа в числовом компоненте coolerp
-  }else if((incStr.indexOf("09"))>=0) // когда находимся на странице 7 обновляем компоненты
+  }else if((incStr.indexOf("09"))>=0) // когда находимся на странице 9 обновляем компоненты
   { 
        temp = 0;      
-  }else if((incStr.indexOf("10"))>=0) // когда находимся на странице 7 обновляем компоненты
+  }else if((incStr.indexOf("10"))>=0) // когда находимся на странице 10 обновляем компоненты
   { 
        temp = 0;
       
@@ -383,7 +395,8 @@ void loop(void)
        SendData("t55.txt", t55);
        String t56= "\"" + String(Kdn) + "\"";  // выводим дефференциальное
        SendData("t56.txt", t56);
-      
+       String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+       SendData("t58.txt", t58);
   }
   
   if (temp==1)
@@ -826,14 +839,14 @@ void sendFFFFFF(void)
 void nigniye()
 {
   // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-  analogWrite(nigniy_1, NizPID(tempt2, tempust2, Kpn, Kin, Kdn, 0.02, 0, pwmust2)); 
+  analogWrite(nigniy_1, NizPID(tempt2, tempust2, Kpn, Kin, Kdn, Dtn, 0, pwmust2)); 
   //delay(20); 
 }
 // Пид регулирование верхний нагреватель
 void verhniy()
 {
      // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-     analogWrite(verhniy_1, VerhPID(tempt1, tempust1, Kpv, Kiv, Kdv, 0.02, 0, pwmust1)); 
+     analogWrite(verhniy_1, VerhPID(tempt1, tempust1, Kpv, Kiv, Kdv, Dtv, 0, pwmust1)); 
      //delay(20);
 }
 
@@ -858,14 +871,14 @@ void regul()
 void nigniye()
 {
   // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-  analogWrite(nigniy_1, dimmer[0] = NizPID(tempt2, tempust2, Kpn, Kin, Kdn, 0.02, 0, pwmust2)); 
+  analogWrite(nigniy_1, dimmer[0] = NizPID(tempt2, tempust2, Kpn, Kin, Kdn, Dtn, 0, pwmust2)); 
   //delay(20); 
 }
 // Пид регулирование верхний нагреватель
 void verhniy()
 {
      // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-     analogWrite(verhniy_1, dimmer[1] = VerhPID(tempt1, tempust1, Kpv, Kiv, Kdv, 0.02, 0, pwmust1)); 
+     analogWrite(verhniy_1, dimmer[1] = VerhPID(tempt1, tempust1, Kpv, Kiv, Kdv, Dtv, 0, pwmust1)); 
      //delay(20);
 }
 
@@ -1022,16 +1035,19 @@ void AnalyseString(String incStr)
     
   } 
   if (incStr.indexOf("pidvsave") >= 0) 
-  {     // Сохранение ПИД регулирование, П И Д составляющих в eeprom память по умолчанию
+  {     // Сохранение ПИД регулирование, П И Д составляющих и dt в eeprom память по умолчанию
      EEPROM.put(7, kpv);
      EEPROM.put(12, kiv);
      EEPROM.put(17, kdv);
+     EEPROM.put(227, dtv); 
+    
   } 
   if (incStr.indexOf("pidnsave") >= 0) 
-  {     // Сохранение ПИД регулирование, П И Д составляющих в eeprom память по умолчанию
+  {     // Сохранение ПИД регулирование, П И Д составляющих  и dt в eeprom память по умолчанию
      EEPROM.put(212, kpn);
      EEPROM.put(217, kin);
      EEPROM.put(222, kdn);
+     EEPROM.put(232, dtn); 
   } 
   if (incStr.indexOf("termosave") >= 0) 
   {     // Сохранение ПИД регулирование, П И Д составляющих в eeprom память по умолчанию
@@ -2269,6 +2285,70 @@ void AnalyseString(String incStr)
          Kdn = kdn;
          String t56 = "\"" + String(kdn) + "\"";  // Отображение kd
          SendData("t56.txt", t56);
+      }
+    }     
+    if (incStr.indexOf("b26") >= 0) 
+    {
+      if (dtv < 10.0)
+      {
+        dtv=dtv+rtemp;
+        Dtv = dtv;
+        String t57 = "\"" + String(dtv) + "\"";  // Отображение kd
+        SendData("t57.txt", t57);
+      } else if(dtv == 10.0)
+      {
+        dtv = 0.00;
+        Dtv = dtv;
+        String t57 = "\"" + String(dtv) + "\"";  // Отображение kd
+        SendData("t57.txt", t57);
+      }
+    }
+    if (incStr.indexOf("27") >= 0) 
+    {
+      if (dtv > 0.00 )
+      {
+        dtv=dtv-rtemp;
+        Dtv = dtv;
+        String t57 = "\"" + String(dtv) + "\"";  // Отображение kd
+        SendData("t57.txt", t57);
+      } else if (dtv == 0.00)
+      {
+         dtv = 10.0;
+         Dtv = dtv;
+         String t57 = "\"" + String(dtv) + "\"";  // Отображение kd
+         SendData("t57.txt", t57);
+      }
+    }     
+    if (incStr.indexOf("b28") >= 0) 
+    {
+      if (dtn < 10.0)
+      {
+        dtn=dtn+rtemp;
+        Dtn = dtn;
+        String t58 = "\"" + String(dtn) + "\"";  // Отображение kd
+        SendData("t58.txt", t58);
+      } else if(dtn == 10.0)
+      {
+        dtn = 0.00;
+        Dtn = dtn;
+        String t58 = "\"" + String(dtn) + "\"";  // Отображение kd
+        SendData("t58.txt", t58);
+      }
+    }
+    if (incStr.indexOf("29") >= 0) 
+    {
+      if (dtn > 0.00 )
+      {
+        dtn=dtn-rtemp;
+        Dtn = dtn;
+        String t58 = "\"" + String(dtn) + "\"";  // Отображение kd
+        SendData("t58.txt", t58);
+      } else if (dtn == 0.00)
+      {
+         dtn = 10.0;
+         Dtn = dtn;
+         String t58 = "\"" + String(dtn) + "\"";  // Отображение kd
+         SendData("t58.txt", t58);
       }
     }     
 
