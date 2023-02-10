@@ -59,7 +59,7 @@ String string;
 
 char znak1 = '+';
 char znak2 = '+';
-char znak = '+';
+//char znak = '+';
 float comptempt1 = 0.00; // Компенсация термопары номер 1, то есть верхнего нагревателя
 float comptempt2 = 0.00; // Компенсация нижнего нагревателя термапара 2
 float tempt1 = 0;      //  вывод температуры сдатчика на дисплей. облявляем переменную целочисленую для температуры 1, если нужно с дробной частью то объявляем float и переменной присваимваем 0
@@ -414,8 +414,6 @@ void loop(void)
   }else if((incStr.indexOf("11"))>=0) // когда находимся на странице 10 обновляем компоненты
   { 
         temp = 0;
-        EEPROM.get(247, znak1);
-        EEPROM.get(252, znak2);
         String t61 = "\"" + String(znak1) + String(comptempt1) + "\"";  
         SendData("t61.txt", t61);  
         String t62 = "\"" + String(znak2) + String(comptempt2) + "\"";  
@@ -2470,7 +2468,7 @@ void AnalyseString(String incStr)
     
     }
 
-    if (incStr.indexOf("b30") >= 0) 
+    if (incStr.indexOf("ct0") >= 0) 
     {
       if (comptempt1 < 100.0)
       {
@@ -2486,7 +2484,7 @@ void AnalyseString(String incStr)
         SendData("t61.txt", t61);
       }
     }
-    if (incStr.indexOf("31") >= 0) 
+    if (incStr.indexOf("ct1") >= 0) 
     {
       if (comptempt1 > 0.00 )
       {
@@ -2503,7 +2501,7 @@ void AnalyseString(String incStr)
       }
     }     
 	
-    if (incStr.indexOf("b32") >= 0) 
+    if (incStr.indexOf("ct2") >= 0) 
     {
       if (comptempt2 < 100.0)
       {
@@ -2519,7 +2517,7 @@ void AnalyseString(String incStr)
         SendData("t62.txt", t62);
       }
     }
-    if (incStr.indexOf("33") >= 0) 
+    if (incStr.indexOf("ct3") >= 0) 
     {
       if (comptempt2 > 0.00 )
       {
@@ -2535,7 +2533,7 @@ void AnalyseString(String incStr)
          SendData("t62.txt", t62);
       }
     }    
-    if (incStr.indexOf("34") >= 0) 
+    if (incStr.indexOf("ct4") >= 0) 
     {
       znak1 = '+';
       znak2 = '+';
@@ -2553,7 +2551,7 @@ void AnalyseString(String incStr)
           
       }
     }
-    if (incStr.indexOf("35") >= 0) 
+    if (incStr.indexOf("ct5") >= 0) 
     {
 		
       znak1 = '-';
