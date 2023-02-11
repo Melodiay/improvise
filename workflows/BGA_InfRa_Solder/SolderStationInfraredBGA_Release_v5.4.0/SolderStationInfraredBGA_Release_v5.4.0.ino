@@ -121,8 +121,8 @@ void setup(void)
   for (byte i = 0; i < DIM_AMOUNT; i++) pinMode(dimPins[i], OUTPUT);
   attachInterrupt(INT_NUM, isr, FALLING); // для самодельной схемы ставь RISING
   Timer2.disableISR();
-  // 37 мкс - период прерываний для 255 шагов и 50 Гц
-  // для 60 Гц ставь число 31
+  // 37 мкс - период прерываний для 255 шагов и 50 Гц  // Мягкое включение реле, жесткое включение строго перехода через ноль, попробовать поставить здесь 40 мкс
+  // для 60 Гц ставь число 31 
   Timer2.setPeriod(37); 
   
   
@@ -2078,7 +2078,7 @@ void AnalyseString(String incStr)
      }
     
    }
-    if (incStr.indexOf("b10") >= 0) 
+    if (incStr.indexOf("watt10") >= 0) 
     {
       if (pwmv < 255){
         pwmv=pwmv+rtemp;
@@ -2092,7 +2092,7 @@ void AnalyseString(String incStr)
       }
     
     }
-    if (incStr.indexOf("b11") >= 0) 
+    if (incStr.indexOf("watt11") >= 0) 
     {
       if (pwmv > 0 )
       {
@@ -2107,7 +2107,7 @@ void AnalyseString(String incStr)
       }
     
     }
-    if (incStr.indexOf("b12") >= 0) 
+    if (incStr.indexOf("watt12") >= 0) 
     {
       if (pwmn < 255)
       {
@@ -2122,7 +2122,7 @@ void AnalyseString(String incStr)
       }
     
     }
-    if (incStr.indexOf("b13") >= 0) 
+    if (incStr.indexOf("watt13") >= 0) 
     {
       if (pwmn > 0 )
       {
@@ -2137,7 +2137,7 @@ void AnalyseString(String incStr)
       }
     
     }  
-    if (incStr.indexOf("b14") >= 0) 
+    if (incStr.indexOf("pid14") >= 0) 
     {
       if (kpv < 10000.0)
       {
@@ -2156,7 +2156,7 @@ void AnalyseString(String incStr)
       }
     
     }
-    if (incStr.indexOf("b15") >= 0) 
+    if (incStr.indexOf("pid15") >= 0) 
     {
       if (kpv > 0.00 )
       {
@@ -2175,7 +2175,7 @@ void AnalyseString(String incStr)
       }
     
     }   
-    if (incStr.indexOf("b16") >= 0) 
+    if (incStr.indexOf("pid16") >= 0) 
     {
       if (kiv < 10000.0)
       {
@@ -2194,7 +2194,7 @@ void AnalyseString(String incStr)
       }
     
     }
-    if (incStr.indexOf("b17") >= 0) 
+    if (incStr.indexOf("pid17") >= 0) 
     {
       if (kiv > 0.00 )
       {
@@ -2213,7 +2213,7 @@ void AnalyseString(String incStr)
       }
     
     }    
-  if (incStr.indexOf("b18") >= 0) 
+  if (incStr.indexOf("pid18") >= 0) 
   {
     if (kdv < 10000.0)
     {
@@ -2231,7 +2231,7 @@ void AnalyseString(String incStr)
     }
     
   }
-    if (incStr.indexOf("b19") >= 0) 
+    if (incStr.indexOf("pid19") >= 0) 
     {
       if (kdv > 0.00 )
       {
@@ -2248,7 +2248,7 @@ void AnalyseString(String incStr)
        
       }
     } 
-    if (incStr.indexOf("b20") >= 0) 
+    if (incStr.indexOf("pid20") >= 0) 
     {
       if (kpn < 10000.0)
       {
@@ -2265,7 +2265,7 @@ void AnalyseString(String incStr)
        SendData("t54.txt", t54);
       }
     }
-    if (incStr.indexOf("b21") >= 0) 
+    if (incStr.indexOf("pid21") >= 0) 
     {
       if (kpn > 0.00 )
       {
@@ -2281,7 +2281,7 @@ void AnalyseString(String incStr)
         SendData("t54.txt", t54);
       }
     }   
-    if (incStr.indexOf("b22") >= 0) 
+    if (incStr.indexOf("pid22") >= 0) 
     {
       if (kin < 10000.0)
       {
@@ -2297,7 +2297,7 @@ void AnalyseString(String incStr)
         SendData("t55.txt", t55);
       }
     }
-    if (incStr.indexOf("b23") >= 0) 
+    if (incStr.indexOf("pid23") >= 0) 
     {
       if (kin > 0.00 )
       {
@@ -2313,7 +2313,7 @@ void AnalyseString(String incStr)
         SendData("t55.txt", t55);
       }
     }    
-    if (incStr.indexOf("b24") >= 0) 
+    if (incStr.indexOf("pid24") >= 0) 
     {
       if (kdn < 10000.0)
       {
@@ -2329,7 +2329,7 @@ void AnalyseString(String incStr)
         SendData("t56.txt", t56);
       }
     }
-    if (incStr.indexOf("25") >= 0) 
+    if (incStr.indexOf("pid25") >= 0) 
     {
       if (kdn > 0.00 )
       {
@@ -2345,7 +2345,7 @@ void AnalyseString(String incStr)
          SendData("t56.txt", t56);
       }
     }     
-    if (incStr.indexOf("b26") >= 0) 
+    if (incStr.indexOf("pid26") >= 0) 
     {
       if (dtv < 10.0)
       {
@@ -2361,7 +2361,7 @@ void AnalyseString(String incStr)
         SendData("t57.txt", t57);
       }
     }
-    if (incStr.indexOf("27") >= 0) 
+    if (incStr.indexOf("pid27") >= 0) 
     {
       if (dtv > 0.00 )
       {
@@ -2377,7 +2377,7 @@ void AnalyseString(String incStr)
          SendData("t57.txt", t57);
       }
     }     
-    if (incStr.indexOf("b28") >= 0) 
+    if (incStr.indexOf("pid28") >= 0) 
     {
       if (dtn < 10.0)
       {
@@ -2393,7 +2393,7 @@ void AnalyseString(String incStr)
         SendData("t58.txt", t58);
       }
     }
-    if (incStr.indexOf("29") >= 0) 
+    if (incStr.indexOf("pid29") >= 0) 
     {
       if (dtn > 0.00 )
       {
