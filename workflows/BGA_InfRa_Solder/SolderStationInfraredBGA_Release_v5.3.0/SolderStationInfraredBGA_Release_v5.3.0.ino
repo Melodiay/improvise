@@ -2325,7 +2325,7 @@ void AnalyseString(String incStr)
         SendData("t56.txt", t56);
       }
     }
-    if (incStr.indexOf("25") >= 0) 
+    if (incStr.indexOf("b25") >= 0) 
     {
       if (kdn > 0.00 )
       {
@@ -2357,7 +2357,7 @@ void AnalyseString(String incStr)
         SendData("t57.txt", t57);
       }
     }
-    if (incStr.indexOf("27") >= 0) 
+    if (incStr.indexOf("b27") >= 0) 
     {
       if (dtv > 0.00 )
       {
@@ -2389,7 +2389,7 @@ void AnalyseString(String incStr)
         SendData("t58.txt", t58);
       }
     }
-    if (incStr.indexOf("29") >= 0) 
+    if (incStr.indexOf("b29") >= 0) 
     {
       if (dtn > 0.00 )
       {
