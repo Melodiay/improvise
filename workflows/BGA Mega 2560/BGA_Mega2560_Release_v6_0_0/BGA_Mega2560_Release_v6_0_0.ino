@@ -14,6 +14,8 @@
 #define coolerv 5   // Кулер встроеный в верхний нагреватель 
 #define cooler 6  // Для подключения кулера с ШИМ, для охлаждения всей платы
 #define lampa 7   // Для подключения лампы с ШИМ, подстветка при пайке
+#define btn_start 8 // Подключение кнопки старт, Запускает пайку
+#define btn_stop 9  // Останавливает пайку
 #define DIM_AMOUNT 2  // количество диммеров для детектора нуля
 const byte dimPins[] = {3, 4}; // их пины для детектора нуля
 
@@ -112,6 +114,9 @@ bool termoprofily0_1 = 0;
 bool termoprofily1_9 = 0;
 bool termoprofily10 = 0;
 bool bt0 = 0;
+bool flag = false;
+uint32_t btnTimer = 0;
+bool btnState;
 
 void setup(void) 
 {
@@ -138,6 +143,8 @@ void setup(void)
   analogWrite(cooler, 0);  // отключаем вывод
   pinMode(lampa, OUTPUT);    // тоже самое настраиваем вывод на выход
   digitalWrite(lampa, LOW);  // отключаем вывод
+  pinMode(btn_start, INPUT_PULLUP);
+  pinMode(btn_stop, INPUT_PULLUP);
 
   if (EEPROM.read(INIT_ADDR) != INIT_KEY) 
   { // первый запуск
@@ -297,6 +304,8 @@ void setup(void)
   sec = 0;
   
 }
+
+
 
 void loop(void) 
 {
@@ -695,6 +704,47 @@ void loop(void)
       analogWrite(verhniy_1, 0);
     }
   } 
+
+  // читаем инвертированное значение для удобства
+  btnState = !digitalRead(btn_start);
+  if (btnState && !flag && millis() - btnTimer > 3000) {
+    flag = true;
+    btnTimer = millis();
+    //Serial.println("press");
+    btn_start_click();
+  }
+  if (btnState && flag && millis() - btnTimer > 5000) {
+    btnTimer = millis();
+    //Serial.println("press hold");
+
+  }
+  if (!btnState && flag && millis() - btnTimer > 5000) {
+    flag = false;
+    btnTimer = millis();
+    //Serial.println("release");
+  }
+
+// читаем инвертированное значение для удобства
+  btnState = !digitalRead(btn_stop);
+  if (btnState && !flag && millis() - btnTimer > 3000) {
+    flag = true;
+    btnTimer = millis();
+    //Serial.println("press");
+    btn_stop_click();
+  }
+  if (btnState && flag && millis() - btnTimer > 5000) {
+    btnTimer = millis();
+    //Serial.println("press hold");
+
+  }
+  if (!btnState && flag && millis() - btnTimer > 5000) {
+    flag = false;
+    btnTimer = millis();
+    //Serial.println("release");
+
+  }
+
+
   /**
   if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
      
@@ -785,6 +835,19 @@ void sound_click(void){
   nexSerial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   nexSerial.write(0xff);
   nexSerial.write(0xff);  
+}
+
+void btn_start_click(void){
+  nexSerial.print("click btnstart,1");
+  nexSerial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+  nexSerial.write(0xff);
+  nexSerial.write(0xff); 
+}
+void btn_stop_click(void){
+  nexSerial.print("click btnstop,1");
+  nexSerial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+  nexSerial.write(0xff);
+  nexSerial.write(0xff); 
 }
 
 void bt0_click(void){
@@ -951,14 +1014,14 @@ void regul()
 **/
 void AnalyseString(String incStr) 
 {
-  if (incStr.indexOf("bt0-on") >= 0) 
+  if ((incStr.indexOf("bt0-on") >= 0) || (incStr.indexOf("btn_start") >= 0))
   {     // слушаем UART на передачу команды bt0-on подаем 5 вольт на вывод
     reley_n=1;
     sec = 3;
     termoprofily1_9 = 1;
     bt0 = 1;
     //digitalWrite(nigniy_1, HIGH);
-  } else if (incStr.indexOf("bt0-off") >= 0) 
+  } else if ((incStr.indexOf("bt0-off") >= 0) || (incStr.indexOf("btn_stop") >= 0))
   { //слушаем UART на команду bt0-off и снимаем 5 вольт с вывода
     reley_n=0;
     bt0 = 0;
