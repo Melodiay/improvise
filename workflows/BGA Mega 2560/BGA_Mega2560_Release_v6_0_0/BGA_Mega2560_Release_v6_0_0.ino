@@ -105,6 +105,9 @@ float r10;  //  увеличивается или уменьшается дес�
 float r1;   //  увеличивается или уменьшается единицами то есть +1 или -1
 float r01;
 float r001;
+float r0001;
+float r00001;
+float r000001;
 float rtemp; // переменая где хранятся 100, 10, 1, 0.1, 0.01
 int termoprofily = 0; // Номер термопрофиля по умолчанию выбран 0
 String profily="Lead-free"; // Загружает Бессвинцовый термопрофиль по умолчанию
@@ -392,11 +395,12 @@ void loop(void)
   }else if((incStr.indexOf("07"))>=0) // когда находимся на странице 7 обновляем компоненты
   { 
        temp = 0;
-       String t24 = "\"" + String(Kpv) + "\"";  // выводим пропорциональное
+       
+       String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
        SendData("t24.txt", t24);
-       String t25 = "\"" + String(Kiv) + "\"";  // выводим интегральное
+       String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
        SendData("t25.txt", t25);
-       String t26= "\"" + String(Kdv) + "\"";  // выводим дефференциальное
+       String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
        SendData("t26.txt", t26);
        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
        SendData("t57.txt", t57);
@@ -412,11 +416,11 @@ void loop(void)
   { 
        temp = 0;
       
-       String t54 = "\"" + String(Kpn) + "\"";  // выводим пропорциональное
+       String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
        SendData("t54.txt", t54);
-       String t55 = "\"" + String(Kin) + "\"";  // выводим интегральное
+       String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
        SendData("t55.txt", t55);
-       String t56= "\"" + String(Kdn) + "\"";  // выводим дефференциальное
+       String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
        SendData("t56.txt", t56);
        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
        SendData("t58.txt", t58);
@@ -2210,14 +2214,14 @@ void AnalyseString(String incStr)
       {
          kpv=kpv+rtemp;
          Kpv = kpv;
-         String t24 = "\"" + String(kpv) + "\"";  // Отображение kp
+         String t24 = "\"" + String(kpv,5) + "\"";  // Отображение kp
          SendData("t24.txt", t24);
       
       } else if(kpv == 10000.0)
       {
         kpv = 0.00;
         Kpv = kpv;
-        String t24 = "\"" + String(kpv) + "\"";  // Отображение kp
+        String t24 = "\"" + String(kpv,5) + "\"";  // Отображение kp
         SendData("t24.txt", t24);
       
       }
@@ -2229,14 +2233,14 @@ void AnalyseString(String incStr)
       {
         kpv=kpv-rtemp; 
         Kpv = kpv; 
-        String t24 = "\"" + String(kpv) + "\"";  // Отображение kp
+        String t24 = "\"" + String(kpv,5) + "\"";  // Отображение kp
         SendData("t24.txt", t24);
       
       } else if (kpv == 0.00)
       {
         kpv = 10000.0;
         Kpv = kpv;
-        String t24 = "\"" + String(kpv) + "\"";  // Отображение kp
+        String t24 = "\"" + String(kpv,5) + "\"";  // Отображение kp
         SendData("t24.txt", t24);
         
       }
@@ -2248,14 +2252,14 @@ void AnalyseString(String incStr)
       {
         kiv=kiv+rtemp;
         Kiv = kiv;
-        String t25 = "\"" + String(kiv) + "\"";  // Отображение ki
+        String t25 = "\"" + String(kiv,5) + "\"";  // Отображение ki
         SendData("t25.txt", t25);
       
       } else if(kiv == 10000.0)
       {
         kiv = 0.00;
         Kiv = kiv;
-        String t25 = "\"" + String(kiv) + "\"";  // Отображение ki
+        String t25 = "\"" + String(kiv,5) + "\"";  // Отображение ki
         SendData("t25.txt", t25);
         
       }
@@ -2267,14 +2271,14 @@ void AnalyseString(String incStr)
       {
         kiv=kiv-rtemp;
         Kiv = kiv;
-        String t25 = "\"" + String(kiv) + "\"";  // Отображение ki
+        String t25 = "\"" + String(kiv,5) + "\"";  // Отображение ki
         SendData("t25.txt", t25);
       
       } else if (kiv == 0.00)
       {
         kiv = 10000.0;
         Kiv = kiv;
-        String t25 = "\"" + String(kiv) + "\"";  // Отображение ki
+        String t25 = "\"" + String(kiv,5) + "\"";  // Отображение ki
         SendData("t25.txt", t25);
        
       }
@@ -2286,13 +2290,13 @@ void AnalyseString(String incStr)
     {
       kdv=kdv+rtemp;
       Kdv = kdv;
-      String t26 = "\"" + String(kdv) + "\"";  // Отображение kd
+      String t26 = "\"" + String(kdv,5) + "\"";  // Отображение kd
       SendData("t26.txt", t26);
     } else if(kdv == 10000.0)
     {
         kdv = 0.00;
         Kdv = kdv;
-        String t26 = "\"" + String(kdv) + "\"";  // Отображение kd
+        String t26 = "\"" + String(kdv,5) + "\"";  // Отображение kd
         SendData("t26.txt", t26);
         
     }
@@ -2304,13 +2308,13 @@ void AnalyseString(String incStr)
       {
         kdv=kdv-rtemp;
         Kdv = kdv;
-        String t26 = "\"" + String(kdv) + "\"";  // Отображение kd
+        String t26 = "\"" + String(kdv,5) + "\"";  // Отображение kd
         SendData("t26.txt", t26);
       } else if (kdv == 0.00)
       {
          kdv = 10000.0;
          Kdv = kdv;
-         String t26 = "\"" + String(kdv) + "\"";  // Отображение kd
+         String t26 = "\"" + String(kdv,5) + "\"";  // Отображение kd
          SendData("t26.txt", t26);
        
       }
@@ -2321,14 +2325,14 @@ void AnalyseString(String incStr)
       {
         kpn=kpn+rtemp;
         Kpn = kpn;
-        String t54 = "\"" + String(kpn) + "\"";  // Отображение kp
+        String t54 = "\"" + String(kpn,5) + "\"";  // Отображение kp
        SendData("t54.txt", t54);
       
       } else if(kpn == 10000.0)
       {
         kpn = 0.00;
         Kpn = kpn;
-        String t54 = "\"" + String(kpn) + "\"";  // Отображение kp
+        String t54 = "\"" + String(kpn,5) + "\"";  // Отображение kp
        SendData("t54.txt", t54);
       }
     }
@@ -2338,13 +2342,13 @@ void AnalyseString(String incStr)
       {
         kpn=kpn-rtemp; 
         Kpn = kpn; 
-        String t54 = "\"" + String(kpn) + "\"";  // Отображение kp
+        String t54 = "\"" + String(kpn,5) + "\"";  // Отображение kp
         SendData("t54.txt", t54);
       } else if (kpn == 0.00)
       {
         kpn = 10000.0;
         Kpn = kpn;
-        String t54 = "\"" + String(kpn) + "\"";  // Отображение kp
+        String t54 = "\"" + String(kpn,5) + "\"";  // Отображение kp
         SendData("t54.txt", t54);
       }
     }   
@@ -2354,13 +2358,13 @@ void AnalyseString(String incStr)
       {
         kin=kin+rtemp;
         Kin = kin;
-        String t55 = "\"" + String(kin) + "\"";  // Отображение ki
+        String t55 = "\"" + String(kin,5) + "\"";  // Отображение ki
         SendData("t55.txt", t55);
       } else if(kin == 10000.0)
       {
         kin = 0.00;
         Kin = kin;
-        String t55 = "\"" + String(kin) + "\"";  // Отображение ki
+        String t55 = "\"" + String(kin,5) + "\"";  // Отображение ki
         SendData("t55.txt", t55);
       }
     }
@@ -2370,13 +2374,13 @@ void AnalyseString(String incStr)
       {
         kin=kin-rtemp;
         Kin = kin;
-        String t55 = "\"" + String(kin) + "\"";  // Отображение ki
+        String t55 = "\"" + String(kin,5) + "\"";  // Отображение ki
         SendData("t55.txt", t55);
       } else if (kin == 0.00)
       {
         kin = 10000.0;
         Kin = kin;
-        String t55 = "\"" + String(kin) + "\"";  // Отображение ki
+        String t55 = "\"" + String(kin,5) + "\"";  // Отображение ki
         SendData("t55.txt", t55);
       }
     }    
@@ -2386,13 +2390,13 @@ void AnalyseString(String incStr)
       {
         kdn=kdn+rtemp;
         Kdn = kdn;
-        String t56 = "\"" + String(kdn) + "\"";  // Отображение kd
+        String t56 = "\"" + String(kdn,5) + "\"";  // Отображение kd
         SendData("t56.txt", t56);
       } else if(kdn == 10000.0)
       {
         kdn = 0.00;
         Kdn = kdn;
-        String t56 = "\"" + String(kdn) + "\"";  // Отображение kd
+        String t56 = "\"" + String(kdn,5) + "\"";  // Отображение kd
         SendData("t56.txt", t56);
       }
     }
@@ -2402,13 +2406,13 @@ void AnalyseString(String incStr)
       {
         kdn=kdn-rtemp;
         Kdn = kdn;
-        String t56 = "\"" + String(kdn) + "\"";  // Отображение kd
+        String t56 = "\"" + String(kdn,5) + "\"";  // Отображение kd
         SendData("t56.txt", t56);
       } else if (kdn == 0.00)
       {
          kdn = 10000.0;
          Kdn = kdn;
-         String t56 = "\"" + String(kdn) + "\"";  // Отображение kd
+         String t56 = "\"" + String(kdn,5) + "\"";  // Отображение kd
          SendData("t56.txt", t56);
       }
     }     
@@ -2667,7 +2671,23 @@ void AnalyseString(String incStr)
   {
     r001=0.01;
     rtemp=r001;
-  }     
+  } 
+  if (incStr.indexOf("rt1") >= 0) 
+  {
+    r0001=0.001;
+    rtemp=r0001;
+  }       
+  if (incStr.indexOf("rdt1") >= 0) 
+  {
+    r00001=0.0001;
+    rtemp=r00001;
+  }  
+  if (incStr.indexOf("rst1") >= 0) 
+  {
+    r000001=0.00001;
+    rtemp=r000001;
+  }   
+   
   if (incStr.indexOf("b2") >= 0) 
   {
     if (termoprofily < 2)
