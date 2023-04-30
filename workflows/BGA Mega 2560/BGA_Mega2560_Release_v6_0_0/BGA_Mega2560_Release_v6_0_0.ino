@@ -711,7 +711,7 @@ void loop(void)
 
   // читаем инвертированное значение для удобства
   btnState = !digitalRead(btn_start);
-  if (btnState && !flag && millis() - btnTimer > 3000) {
+  if (btnState && !flag && millis() - btnTimer >= 3000) {
     flag = true;
     btnTimer = millis();
     //Serial.println("press");
@@ -730,7 +730,7 @@ void loop(void)
 
 // читаем инвертированное значение для удобства
   btnState = !digitalRead(btn_stop);
-  if (btnState && !flag && millis() - btnTimer > 3000) {
+  if (btnState && !flag && millis() - btnTimer >= 3000) {
     flag = true;
     btnTimer = millis();
     //Serial.println("press");
