@@ -735,7 +735,8 @@ void loop(void)
     btnTimer = millis();
     //Serial.println("press");
     btn_stop_click();
-    termoprofily10 = 1;
+    termoprofily1_9 = 0;
+    termoprofily10 = 0;
     Timer2.disableISR();
     shag = 0;
     reley_n=0;
