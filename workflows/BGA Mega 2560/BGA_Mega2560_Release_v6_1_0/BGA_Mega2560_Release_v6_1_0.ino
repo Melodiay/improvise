@@ -709,7 +709,50 @@ void loop(void)
     }
   } 
 
-  // читаем инвертированное значение для удобства
+ 
+
+
+  /**
+  if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
+     
+     int Value1 = tempt1;
+     print_string("add 3,0,");
+     print_dec(Value1);
+     sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+     delay(8);
+        
+     int Value2 = tempt2;
+     print_string("add 3,1,");
+     print_dec(Value2);
+     sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+     delay(8);
+  }
+  **/
+}
+
+// прерывание детектора нуля
+void isr() 
+{
+  counter = 255;
+  Timer2.restart();
+}
+// прерывание таймера
+ISR(TIMER2_A) 
+{
+  for (byte i = 0; i < DIM_AMOUNT; i++) 
+  {
+    if (counter == dimmer[i]) digitalWrite(dimPins[i], 1);  // на текущем тике включаем
+    else if (counter == dimmer[i] - 1) digitalWrite(dimPins[i], 0);  // на следующем выключаем
+  }
+  counter--;
+}
+
+
+void yield() {
+  // а тут можно опрашивать кнопку
+  // и не пропустить нажатия из за delay!
+  
+    // читаем инвертированное значение для удобства
   btnState = !digitalRead(btn_start);
   if (btnState && !flag && millis() - btnTimer >= 3000) {
     flag = true;
@@ -756,50 +799,8 @@ void loop(void)
     //Serial.println("release");
 
   }
-
-
-  /**
-  if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
-     
-     int Value1 = tempt1;
-     print_string("add 3,0,");
-     print_dec(Value1);
-     sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-     delay(8);
-        
-     int Value2 = tempt2;
-     print_string("add 3,1,");
-     print_dec(Value2);
-     sendFFFFFF();  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
-     delay(8);
-  }
-  **/
 }
 
-// прерывание детектора нуля
-void isr() 
-{
-  counter = 255;
-  Timer2.restart();
-}
-// прерывание таймера
-ISR(TIMER2_A) 
-{
-  for (byte i = 0; i < DIM_AMOUNT; i++) 
-  {
-    if (counter == dimmer[i]) digitalWrite(dimPins[i], 1);  // на текущем тике включаем
-    else if (counter == dimmer[i] - 1) digitalWrite(dimPins[i], 0);  // на следующем выключаем
-  }
-  counter--;
-}
-
-/**
-void yield() {
-  // а тут можно опрашивать кнопку
-  // и не пропустить нажатия из за delay!
-   
-}
-**/
 
 // этот код и остальной нужен
 // компенсация термопары
