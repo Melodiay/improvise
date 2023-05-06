@@ -758,18 +758,18 @@ void yield() {
   
 // читаем инвертированное значение для удобства
   btnState = !digitalRead(btn_start);
-  if (btnState && !flag && millis() - btnTimer >= 3000) {
+  if (btnState && !flag && millis() - btnTimer >= 300) {
     flag = true;
     btnTimer = millis();
     //Serial.println("press");
-    btn_start_click();
+    
   }
-  if (btnState && flag && millis() - btnTimer > 5000) {
+  if (btnState && flag && millis() - btnTimer > 3000) {
     btnTimer = millis();
     //Serial.println("press hold");
-
+    btn_start_click();
   }
-  if (!btnState && flag && millis() - btnTimer > 5000) {
+  if (!btnState && flag && millis() - btnTimer > 3000) {
     flag = false;
     btnTimer = millis();
     //Serial.println("release");
@@ -777,10 +777,15 @@ void yield() {
 
 // читаем инвертированное значение для удобства
   btnState = !digitalRead(btn_stop);
-  if (btnState && !flag && millis() - btnTimer >= 3000) {
+  if (btnState && !flag && millis() - btnTimer >= 300) {
     flag = true;
     btnTimer = millis();
     //Serial.println("press");
+
+  }
+  if (btnState && flag && millis() - btnTimer > 3000) {
+    btnTimer = millis();
+    //Serial.println("press hold");
     btn_stop_click();
     termoprofily1_9 = 0;
     termoprofily10 = 0;
@@ -792,12 +797,7 @@ void yield() {
     analogWrite(nigniy_1, 0);
     analogWrite(verhniy_1, 0);
   }
-  if (btnState && flag && millis() - btnTimer > 5000) {
-    btnTimer = millis();
-    //Serial.println("press hold");
-
-  }
-  if (!btnState && flag && millis() - btnTimer > 5000) {
+  if (!btnState && flag && millis() - btnTimer > 3000) {
     flag = false;
     btnTimer = millis();
     //Serial.println("release");
