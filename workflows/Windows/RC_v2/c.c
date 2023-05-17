@@ -23,8 +23,8 @@ G_MODULE_EXPORT void on_button8_clicked (GtkButton *button, gpointer label)
     else
     {
 
-        double C1 = gtk_spin_button_get_value(Conden1);
-        double C2 = gtk_spin_button_get_value(Conden2);
+        gdouble C1 = gtk_spin_button_get_value(Conden1);
+        gdouble C2 = gtk_spin_button_get_value(Conden2);
 
         // Отображение Результата (Ответ)
         ConOfPoints = C1 + C2;

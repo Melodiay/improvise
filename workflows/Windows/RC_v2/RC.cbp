@@ -68,6 +68,10 @@
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="tsv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tsv.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

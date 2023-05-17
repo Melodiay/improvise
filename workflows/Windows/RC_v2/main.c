@@ -29,6 +29,10 @@ G_MODULE_EXPORT void on_button3_clicked (GtkButton *button, gpointer label)
 {
     ShowC();
 }
+G_MODULE_EXPORT void on_button10_clicked (GtkButton *button, gpointer label)
+{
+    ShowTSV();
+}
 
 int ShowMainWindow()
 {
@@ -40,6 +44,7 @@ int ShowMainWindow()
         wMain = GTK_WIDGET(gtk_builder_get_object(bMain, "wMain"));
         button1 =  GTK_WIDGET(gtk_builder_get_object(bMain, "button1"));
         button2 =  GTK_WIDGET(gtk_builder_get_object(bMain, "button2"));
+        button10 =  GTK_WIDGET(gtk_builder_get_object(bMain, "button10"));
 
         //gtk_window_set_default_size (GTK_WINDOW (window1), 450, 250);
         gtk_window_set_position(GTK_WINDOW(wMain), GTK_WIN_POS_CENTER);
