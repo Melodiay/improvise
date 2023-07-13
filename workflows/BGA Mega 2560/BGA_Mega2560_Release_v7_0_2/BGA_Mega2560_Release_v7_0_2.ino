@@ -43,18 +43,16 @@ GyverMAX6675<CLK_PIN, DATA_PIN, CS_PIN> sens; // sens, CLK, DATA, CS если б
 // указываем пины в порядке SCK SO CS
 GyverMAX6675<CLK_PIN2, DATA_PIN2, CS_PIN2> sens2;
 
-// Гистерезис отключен, так как мне не хватало памяти для ПИД составляющих по отдельности, как для верха, так и для низа
-
 
 // установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
 //GyverRelay regulator(REVERSE); 
 //GyverRelay regulator2(REVERSE);
 
-GyverPID pid(0.1, 0.05, 0.01, 100);
-GyverPID pid2(0.1, 0.05, 0.01, 100);
+GyverPID regulator(0.1, 0.5, 0.1, 100);
+GyverPID regulator2(0.1, 0.5, 0.1, 100);
 
 PIDtuner2 tuner;
-PIDtuner2 tuner2;
+
 
 void outNumber(char *component, uint16_t number);
 void outText(char *component, char *text);
@@ -63,6 +61,7 @@ void print_dec(uint16_t data);
 void sendFFFFFF(void);
 
 uint32_t myTimer0 = 0, myTimer1 = 0, myTimer2 = 0; // автор https://alexgyver.ru/lessons/
+
 
 String incStr;    // объявляем переменую типа String не путать со string
 String string;
@@ -130,6 +129,10 @@ bool flag = false;
 uint32_t btnTimer = 0;
 bool btnState;
 bool detect_zero = 1; // Детектор ноля, когда равно 1 детектор ноля отключин, когда равно 0 то детектор ноля включин.
+int shagt = 0;
+uint32_t osec = 0;
+
+
 
 void setup(void) 
 {
@@ -143,7 +146,7 @@ void setup(void)
   // для 60 Гц ставь число 31 
   Timer2.setPeriod(40); // подставлять в (здесь значение ваше)
   
-  
+    
   Serial.begin(9600);   // Указваем скорость UART 9600 бод
   nexSerial.begin(9600);
   pinMode(nigniy_1, OUTPUT); // нижний нагреватель номер 1 настраиваем на выход
@@ -298,7 +301,7 @@ void setup(void)
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
   }
-    
+
   tempust1 = temp1;
   tempust2 = temp2;
   pwmust1 = pwmv;
@@ -316,15 +319,13 @@ void setup(void)
   shag = 0;
   sec = 0;
 
-
-  
 }
 
 
 
 void loop(void) 
 {
-  /**
+  
   if (Serial.available()) 
   {
     char inc;
@@ -341,7 +342,7 @@ void loop(void)
        inc = "";
     }
   }
-  **/
+  
   if (nexSerial.available()) 
   {
     char inc;
@@ -366,7 +367,7 @@ void loop(void)
       temp = 1;
       outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
-
+      outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
   } else if((incStr.indexOf("01"))>=0)
   {
     temp = 0;
@@ -387,6 +388,7 @@ void loop(void)
       outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
+      outNumber("main.shagt.val", shag);  // Отображение числа в числовом компоненте shag
       //outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
       /**
       if(reley_n==1){
@@ -477,6 +479,7 @@ void loop(void)
                 {
                   shag = 0;
                   sec=3;
+                  outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
                   profily="Lead-free"; 
@@ -494,6 +497,7 @@ void loop(void)
                 {
                   shag = 0;      
                   sec=3;
+                  outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
                   profily="Lead"; // Термопрофиль Свинец
@@ -513,6 +517,7 @@ void loop(void)
                   EEPROM.get(27, temp1);
                   EEPROM.get(32, temp2);
                   shag = 0;
+                  outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
                   profily="User 1";
@@ -557,6 +562,7 @@ void loop(void)
                {
                   shag = 0;
                   sec=3;
+                  outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
                   profily="Lead-free"; 
@@ -574,6 +580,7 @@ void loop(void)
                 {
                   shag = 0;      
                   sec=3;
+                  outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
                   profily="Lead"; // Термопрофиль Свинец
@@ -592,7 +599,8 @@ void loop(void)
                   EEPROM.get(22, sec);
                   EEPROM.get(27, temp1);
                   EEPROM.get(32, temp2);
-                  shag = 0;         
+                  shag = 0;    
+                  outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
                   outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
                   profily="User 1";
@@ -620,18 +628,16 @@ void loop(void)
   //dimmer[1] = 120;
   //delay(100); // в реальном коде задержек быть не должно
 
-  pid.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
-  pid.setLimits(0, 255);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
-  pid.setpoint = tempust1;
-  pid2.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
-  pid2.setLimits(0, 255);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
-  pid2.setpoint = tempust2;
-
+    // в процессе работы можно менять коэффициенты
+  regulator.Kp = Kpv;
+  regulator.Ki = Kiv;
+  regulator.Kd = Kdv; 
+  regulator2.Kp = Kpn;
+  regulator2.Ki = Kin;
+  regulator2.Kd = Kdn; 
+  
+  tuner.setParameters(NORMAL, 1, 5, sec*1000, 1.00, 100);
  
-  
-  tuner.setParameters(NORMAL, tempust2, 250, sec*1000, 1, 100);
-  tuner2.setParameters(NORMAL, tempust1, 250, sec*1000, 1, 100);
-  
  /** 
   regulator.setpoint = tempust1;    // установка (температуры)
   regulator.hysteresis = 0.25;   // ширина гистерезиса
@@ -715,9 +721,7 @@ void loop(void)
       delay(10);
       sound_click();   
   }
-
- //  Если невключается верхний нагреватель просто закоментируйте этот код
- // /**
+  /**
   if (tempust1 == 0)
   {
       reley_v=0; analogWrite(verhniy_1, 0);
@@ -725,8 +729,8 @@ void loop(void)
   if (tempust2 == 0)
   {
       reley_n1=0; analogWrite(nigniy_1, 0);
-  } else if(incStr.indexOf("c0-on") >= 0) { reley_n1=1; }  
-  // **/
+  } else if(incStr.indexOf("c0-on") >= 0) { reley_n1=1; } 
+  **/ 
   if(reley_n==1)
   {
     if ((tempust1 == 0) && (tempust2 == 0))
@@ -742,8 +746,16 @@ void loop(void)
     }
   } 
 
-  
 
+  
+  regulator.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
+  regulator.setLimits(0, 255);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
+  regulator.setpoint = tempust1;
+  regulator2.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
+  regulator2.setLimits(0, 255);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
+  regulator2.setpoint = tempust2;
+
+ 
   
   /**
   if (!(Serial.available() && sens.readTemp() && sens2.readTemp())){
@@ -782,59 +794,73 @@ ISR(TIMER2_A)
 
 void pidCountrolN()
 {
-  //static uint32_t tmr;
-  //if (millis() - tmr > 100)
-  //{
-      //tmr = millis();
-      //pid2.input = tempt2;   // сообщаем регулятору текущую температуру
-      //pid2.getResult();
-      tuner.setInput(tempt2);    // передаём текущее значение с датчика. ЖЕЛАТЕЛЬНО ФИЛЬТРОВАННОЕ
-      tuner.compute();            // тут производятся вычисления по своему таймеру
+      regulator2.input = tempt2;   // сообщаем регулятору текущую температуру
+      //tuner.setInput(tempt2);    // передаём текущее значение с датчика. ЖЕЛАТЕЛЬНО ФИЛЬТРОВАННОЕ
+      //tuner.compute();            // тут производятся вычисления по своему таймеру
       //tuner.getOutput(); // тут можно забрать новый управляющий сигнал
     
       if (detect_zero == 1)
         {  
-          analogWrite(nigniy_1, tuner.getOutput());
+          analogWrite(nigniy_1, regulator2.getResultTimer());
+          //analogWrite(nigniy_1, tuner.getOutput());
             // выводит в порт текстовые отладочные данные, включая коэффициенты
-            tuner.debugText();
+            //tuner.debugText();
 
             // выводит в порт данные для построения графиков, без коэффициентов
-            tuner.debugPlot();
+            //tuner.debugPlot();
         }else
         {
-           analogWrite(nigniy_1, dimmer[0] = tuner.getOutput());
-         //analogWrite(nigniy_1, dimmer[0] = pid2.getResult());
+           analogWrite(nigniy_1, dimmer[0] = regulator2.getResultTimer());
+           //analogWrite(nigniy_1, dimmer[0] = tuner.getOutput());
+            // выводит в порт текстовые отладочные данные, включая коэффициенты
+            //tuner.debugText();
+
+            // выводит в порт данные для построения графиков, без коэффициентов
+            //tuner.debugPlot();
         }
         
-  //}
+  
 }
 
 void pidCountrolV()
 {
-  //static uint32_t tmr2;
-  //if (millis() - tmr2 > 100)
-  //{
-     // tmr2 = millis();
-      //pid.input = tempt1;   // сообщаем регулятору текущую температуру
-      //pid.getResult();
-      tuner2.setInput(tempt1);    // передаём текущее значение с датчика. ЖЕЛАТЕЛЬНО ФИЛЬТРОВАННОЕ
-      tuner2.compute();            // тут производятся вычисления по своему таймеру
+  
+      regulator.input = tempt1;   // сообщаем регулятору текущую температуру
+      tuner.setInput(tempt1);    // передаём текущее значение с датчика. ЖЕЛАТЕЛЬНО ФИЛЬТРОВАННОЕ
+      tuner.compute();            // тут производятся вычисления по своему таймеру
       //tuner.getOutput(); // тут можно забрать новый управляющий сигнал
     
       if (detect_zero == 1)
       { // без детектора ноля
-         analogWrite(verhniy_1, tuner2.getOutput());
-         //tuner2.debugText();
+         //analogWrite(verhniy_1, regulator.getResultTimer());
+         analogWrite(verhniy_1, tuner.getOutput());
+         //tuner.debugText();
          // выводит в порт данные для построения графиков, без коэффициентов
          //tuner.debugPlot();
          //analogWrite(verhniy_1, pid.getResult());
-      }else
+         if (tuner.getState() == 7)
+         {
+           kpv = tuner.getPID_p(); //- p для ПИД регулятора
+           Kpv = kpv;
+           kiv = tuner.getPID_i(); //- i для ПИД регулятора
+           Kiv = kiv;
+           kdv = tuner.getPID_d(); //- d для ПИД регулятора	 
+           Kdv = kdv;
+         }
+      } else
       {
-        analogWrite(verhniy_1, dimmer[1] = tuner2.getOutput());
-        //analogWrite(verhniy_1, dimmer[1] = pid.getResult());
+        //analogWrite(verhniy_1, dimmer[1] = regulator.getResultTimer());
+        analogWrite(verhniy_1, dimmer[1] = tuner.getOutput());
+         if (tuner.getState() == 7)
+         {
+           kpv = tuner.getPID_p(); //- p для ПИД регулятора
+           Kpv = kpv;
+           kiv = tuner.getPID_i(); //- i для ПИД регулятора
+           Kiv = kiv;
+           kdv = tuner.getPID_d(); //- d для ПИД регулятора	 
+           Kdv = kdv;
+         }
       }
-     
-  //}  
 }
 
 void yield() {
@@ -1140,6 +1166,7 @@ void AnalyseString(String incStr)
     {
          shag = 0;
          sec=3;
+         outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
@@ -1157,6 +1184,7 @@ void AnalyseString(String incStr)
     {
          shag = 0;      
          sec=3;
+         outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
@@ -1177,6 +1205,7 @@ void AnalyseString(String incStr)
          EEPROM.get(32, temp2);
          shag = 0;         
          //sec=0;
+         outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
