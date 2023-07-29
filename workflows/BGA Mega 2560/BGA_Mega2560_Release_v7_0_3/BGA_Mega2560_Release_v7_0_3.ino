@@ -12,7 +12,7 @@
 #define PIDV_ADDR 1025  // номер резервной ячейки
 #define PIDV_KEY 150     // ключ первого запуска. 0-254, на выбор
 #define INIT_ADDR 1023  // номер резервной ячейки
-#define INIT_KEY 150     // ключ первого запуска. 0-254, на выбор
+#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
 #define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
@@ -359,90 +359,7 @@ void setup(void)
          SendData("t13.txt", t13);
          
   }else if (EEPROM.get(207, termoprofily) == 2)
-  {
-    //TERMOPROFILY 2 ЗДЕСЬ НАЧИНАЕТСЯ КОД 
-    //shag == 1 // termoprofily 2 верхний нагреватель
-    EEPROM.get(7, kpv);
-    EEPROM.get(12, kiv);
-    EEPROM.get(17, kdv);
-    //shag == 2 
-    EEPROM.get(1030, kpv);
-    EEPROM.get(1035, kiv);
-    EEPROM.get(1040, kdv);
-    //shag == 3
-    EEPROM.get(1045, kpv);
-    EEPROM.get(1050, kiv);
-    EEPROM.get(1055, kdv);
-    //shag == 4
-    EEPROM.get(1060, kpv);
-    EEPROM.get(1065, kiv);
-    EEPROM.get(1070, kdv);
-    //shag == 5
-    EEPROM.get(1075, kpv);
-    EEPROM.get(1080, kiv);
-    EEPROM.get(1085, kdv);
-    //shag == 6
-    EEPROM.get(1090, kpv);
-    EEPROM.get(1095, kiv);
-    EEPROM.get(1100, kdv);
-    //shag == 7
-    EEPROM.get(1105, kpv);
-    EEPROM.get(1110, kiv);
-    EEPROM.get(1115, kdv);
-    //shag == 8
-    EEPROM.get(1120, kpv);
-    EEPROM.get(1125, kiv);
-    EEPROM.get(1130, kdv);
-    //shag == 9
-    EEPROM.get(1135, kpv);
-    EEPROM.get(1140, kiv);
-    EEPROM.get(1145, kdv);
-    //shag == 10
-    EEPROM.get(1150, kpv);
-    EEPROM.get(1155, kiv);
-    EEPROM.get(1160, kdv);
-
-    //shag == 1 // termoprofily 2 нижний нагреватель
-    EEPROM.get(212, kpn);
-    EEPROM.get(217, kin);
-    EEPROM.get(222, kdn); 
-    //shag == 2
-    EEPROM.get(1165, kpn);
-    EEPROM.get(1170, kin);
-    EEPROM.get(1175, kdn);
-    //shag == 3
-    EEPROM.get(1180, kpn);
-    EEPROM.get(1185, kin);
-    EEPROM.get(1190, kdn);
-    //shag == 4
-    EEPROM.get(1195, kpn);
-    EEPROM.get(1200, kin);
-    EEPROM.get(1205, kdn);
-    //shag == 5
-    EEPROM.get(1210, kpn);
-    EEPROM.get(1215, kin);
-    EEPROM.get(1220, kdn);
-    //shag == 6
-    EEPROM.get(1225, kpn);
-    EEPROM.get(1230, kin);
-    EEPROM.get(1235, kdn);
-    //shag == 7
-    EEPROM.get(1240, kpn);
-    EEPROM.get(1245, kin);
-    EEPROM.get(1250, kdn);
-    //shag == 8
-    EEPROM.get(1255, kpn);
-    EEPROM.get(1260, kin);
-    EEPROM.get(1265, kdn);
-    //shag == 9
-    EEPROM.get(1270, kpn);
-    EEPROM.get(1275, kin);
-    EEPROM.get(1280, kdn);
-    //shag == 10
-    EEPROM.get(1285, kpn);
-    EEPROM.get(1290, kin);
-    EEPROM.get(1295, kdn);
-    // TERMOPROFILY 2 заканчивается код
+  { 
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn); 
          EEPROM.get(22, sec);
@@ -453,6 +370,7 @@ void setup(void)
          outNumber("termoprofily.sec.val", sec);  // Отображение числа в числовом компоненте sec
          outNumber("pidv.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("pidn.shag.val", shag);  // Отображение числа в числовом компоненте shag
+
          profily="User 1";
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
@@ -462,14 +380,16 @@ void setup(void)
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Kpv = kpv;
-         Kiv = kiv;
-         Kdv = kdv;
-         Kpn = kpn;
-         Kin = kin;
-         Kdn = kdn;
+         
          Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
          Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
+         
   }
 
   tempust1 = temp1;
@@ -580,8 +500,6 @@ void loop(void)
       outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
       outNumber("main.shagt.val", shag);  // Отображение числа в числовом компоненте shag
-      outNumber("pidv.shag.val", shag);  // Отображение числа в числовом компоненте shag
-      outNumber("pidn.shag.val", shag);  // Отображение числа в числовом компоненте shag
       outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
       /**
       if(reley_n==1){
@@ -615,8 +533,6 @@ void loop(void)
        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
        SendData("t57.txt", t57);
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-       outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
-       outNumber("main.shagt.val", shag);  // Отображение числа в числовом компоненте shag
   }else if((incStr.indexOf("08"))>=0) // когда находимся на странице 8 обновляем компоненты
   { 
        temp = 0;
@@ -640,8 +556,6 @@ void loop(void)
        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
        SendData("t58.txt", t58);
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
-       outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
-       outNumber("main.shagt.val", shag);  // Отображение числа в числовом компоненте shag
   }else if((incStr.indexOf("11"))>=0) // когда находимся на странице 10 обновляем компоненты
   { 
         EEPROM.get(247, znak1);
@@ -699,6 +613,7 @@ void loop(void)
                   tempust2 = temp2;
                   outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
                   outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
+                  
                 } else if (termoprofily == 1)
                 {
                   shag = 0;      
@@ -718,17 +633,11 @@ void loop(void)
                   outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
                   tempust2 = temp2; 
                   outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-                  outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2         
+                  outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2 
+                          
                 } else if (termoprofily == 2)
                 {
-                  //shag == 1 // termoprofily 2 верхний нагреватель
-                  EEPROM.get(7, kpv);
-                  EEPROM.get(12, kiv);
-                  EEPROM.get(17, kdv);
-                  //shag == 1 // termoprofily 2 нижний нагреватель
-                  EEPROM.get(212, kpn);
-                  EEPROM.get(217, kin);
-                  EEPROM.get(222, kdn); 
+               
                   EEPROM.get(227, dtv); 
                   EEPROM.get(232, dtn); 
                   EEPROM.get(22, sec);
@@ -743,6 +652,12 @@ void loop(void)
                   profily="User 1";
                   String t13= "\"" + String(profily) + "\"";  // Отображение 
                   SendData("t13.txt", t13);
+                  Dtv = dtv;
+                  String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+                  SendData("t57.txt", t57);
+                  Dtn = dtn;
+                  String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+                  SendData("t58.txt", t58);
                   // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
                   outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
                   tempust1 = temp1;
@@ -751,14 +666,7 @@ void loop(void)
                   tempust2 = temp2;
                   outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
                   outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2  
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;       
+                        
                 }
             }
           }
@@ -806,6 +714,7 @@ void loop(void)
                   tempust2 = temp2;
                   outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
                   outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
+                  
                 } else if (termoprofily == 1)
                 {
                   shag = 0;      
@@ -825,17 +734,11 @@ void loop(void)
                   outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
                   tempust2 = temp2; 
                   outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-                  outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2         
+                  outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2 
+                          
                 } else if (termoprofily == 2)
                 {
-                  //shag == 1 // termoprofily 2 верхний нагреватель
-                  EEPROM.get(7, kpv);
-                  EEPROM.get(12, kiv);
-                  EEPROM.get(17, kdv);
-                  //shag == 1 // termoprofily 2 нижний нагреватель
-                  EEPROM.get(212, kpn);
-                  EEPROM.get(217, kin);
-                  EEPROM.get(222, kdn); 
+                   
                   EEPROM.get(227, dtv); 
                   EEPROM.get(232, dtn); 
                   EEPROM.get(22, sec);
@@ -850,6 +753,12 @@ void loop(void)
                   profily="User 1";
                   String t13= "\"" + String(profily) + "\"";  // Отображение 
                   SendData("t13.txt", t13);
+                  Dtv = dtv;
+                  String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+                  SendData("t57.txt", t57);
+                  Dtn = dtn;
+                  String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+                  SendData("t58.txt", t58);
                   // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
                   outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
                   tempust1 = temp1;
@@ -858,14 +767,7 @@ void loop(void)
                   tempust2 = temp2;
                   outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
                   outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;         
+                           
                 }              
             }
           }
@@ -1729,6 +1631,22 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -1737,6 +1655,14 @@ void AnalyseString(String incStr)
          tempust2 = temp2;
          outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
+         Kpv = kpv;
+                  Kiv = kiv;
+                  Kdv = kdv;
+                  Kpn = kpn;
+                  Kin = kin;
+                  Kdn = kdn;
+                  Dtv = dtv;
+                  Dtn = dtn;
     } else if (termoprofily == 1)
     {
          shag = 0;      
@@ -1749,6 +1675,22 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -1756,17 +1698,17 @@ void AnalyseString(String incStr)
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
          outNumber("n0_temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
-         outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2         
+         outNumber("n1_temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
+         Kpv = kpv;
+                  Kiv = kiv;
+                  Kdv = kdv;
+                  Kpn = kpn;
+                  Kin = kin;
+                  Kdn = kdn;
+                  Dtv = dtv;
+                  Dtn = dtn;         
     } else if (termoprofily == 2)
-    {
-        //shag == 1 // termoprofily 2 верхний нагреватель
-         EEPROM.get(7, kpv);
-         EEPROM.get(12, kiv);
-         EEPROM.get(17, kdv);
-         //shag == 1 // termoprofily 2 нижний нагреватель
-         EEPROM.get(212, kpn);
-         EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+    { 
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn); 
          EEPROM.get(22, sec);
@@ -1782,6 +1724,22 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
         // temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -1878,7 +1836,12 @@ void AnalyseString(String incStr)
     
         if (shag == 0)
         {     
+            if (termoprofily == 2)
+            {
               EEPROM.put(227, dtv); 
+
+            }
+              
         } else if (shag == 1)  //shag == 1 // termoprofily 2 верхний нагреватель
           {
             if (termoprofily == 2)
@@ -1966,7 +1929,12 @@ void AnalyseString(String incStr)
     
     if (shag == 0)
     {
-      EEPROM.put(232, dtn); 
+      if (termoprofily == 2)
+        {
+          EEPROM.put(232, dtn);
+         
+        }
+            
     } else if (shag == 1)
       {
         if (termoprofily == 2)
@@ -1974,7 +1942,7 @@ void AnalyseString(String incStr)
           //shag == 1 // termoprofily 2 нижний нагреватель
           EEPROM.put(212, kpn);
           EEPROM.put(217, kin);
-          EEPROM.put(222, kdn);  
+          EEPROM.put(222, kdn);
         }
          
       }else if (shag == 2)
@@ -2232,7 +2200,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2251,7 +2219,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2264,6 +2232,7 @@ void AnalyseString(String incStr)
          }       
       } else if (termoprofily == 2)
       {
+        
           EEPROM.get(22, sec);
           EEPROM.get(27, temp1);
           EEPROM.get(32, temp2);
@@ -2274,6 +2243,13 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2296,7 +2272,10 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         Dtn = dtn;
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2314,7 +2293,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2327,13 +2306,14 @@ void AnalyseString(String incStr)
          }        
       } else if (termoprofily == 2)
       {
+         
          EEPROM.get(7, kpv);
          EEPROM.get(12, kiv);
          EEPROM.get(17, kdv);
          //shag == 1 // termoprofily 2 нижний нагреватель
          EEPROM.get(212, kpn);
          EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+         EEPROM.get(222, kdn);
          EEPROM.get(37, sec);
          EEPROM.get(42, temp1);
          EEPROM.get(47, temp2);
@@ -2343,20 +2323,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 100 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2373,7 +2377,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2391,7 +2395,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2421,20 +2425,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 100; // Нижний нагреватель Бессвинецовый выбрано 100 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2452,7 +2480,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2471,7 +2499,7 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2501,20 +2529,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 120; // Нижний нагреватель Бессвинецовый выбрано 120 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;         
+         tempust2 = temp2;          
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2532,13 +2584,13 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 120; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2551,13 +2603,13 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 120; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2; 
+         tempust2 = temp2;  
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2581,20 +2633,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 140; // Нижний нагреватель Бессвинецовый выбрано 140 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;         
+         tempust2 = temp2;         
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2612,13 +2688,13 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 140; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2631,13 +2707,13 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); 
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          temp2 = 140; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;   
+         tempust2 = temp2;  
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2660,21 +2736,44 @@ void AnalyseString(String incStr)
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
-         SendData("t13.txt", t13);
+         SendData("t13.txt", t13); Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2698,7 +2797,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2717,7 +2816,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 150; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2740,20 +2839,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2778,7 +2901,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2797,7 +2920,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2; 
+         tempust2 = temp2;  
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2820,20 +2943,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2858,7 +3005,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2877,7 +3024,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;   
+         tempust2 = temp2;    
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2900,20 +3047,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+          Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2938,7 +3109,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2957,7 +3128,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2; 
+         tempust2 = temp2;  
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -2980,20 +3151,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -3017,7 +3212,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -3035,7 +3230,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2; 
+         tempust2 = temp2;  
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -3058,20 +3253,44 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+         
+         Kiv = kiv;
+         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+         SendData("t25.txt", t25);
+         
+         Kdv = kdv;
+         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+         SendData("t26.txt", t26);
+         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Kpn = kpn;
+         String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+         SendData("t54.txt", t54);
+         
+         Kin = kin;
+         String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+         SendData("t55.txt", t55);
+         
+         Kdn = kdn;
+         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+         SendData("t56.txt", t56);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily1_9 = 1;
@@ -3096,7 +3315,7 @@ void AnalyseString(String incStr)
          tempust1 = temp1;
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
-         tempust2 = temp2;
+         tempust2 = temp2; 
          if (reley_n==1)
          {
            termoprofily10 = 1;
@@ -3133,14 +3352,7 @@ void AnalyseString(String incStr)
          }       
       } else if (termoprofily == 2)
       {
-                 //shag == 1 // termoprofily 2 верхний нагреватель
-         EEPROM.get(7, kpv);
-         EEPROM.get(12, kiv);
-         EEPROM.get(17, kdv);
-         //shag == 1 // termoprofily 2 нижний нагреватель
-         EEPROM.get(212, kpn);
-         EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+       
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn); 
          EEPROM.get(22, sec);
@@ -3153,20 +3365,19 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);
+         
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
         // temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 0 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
          if (reley_n==1)
          {
            termoprofily10 = 1;
@@ -3843,15 +4054,7 @@ void AnalyseString(String incStr)
          SendData("t13.txt", t13);
          
       }else if (termoprofily == 2)
-      {
-         //shag == 1 // termoprofily 2 верхний нагреватель
-         EEPROM.get(7, kpv);
-         EEPROM.get(12, kiv);
-         EEPROM.get(17, kdv);
-         //shag == 1 // termoprofily 2 нижний нагреватель
-         EEPROM.get(212, kpn);
-         EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+      { 
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn);         
          EEPROM.get(22, sec);
@@ -3869,14 +4072,13 @@ void AnalyseString(String incStr)
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58); 
       }
     } else if(termoprofily == 2)
     {
@@ -3916,14 +4118,7 @@ void AnalyseString(String incStr)
          
       }else if (termoprofily == 2)
       {
-         //shag == 1 // termoprofily 2 верхний нагреватель
-         EEPROM.get(7, kpv);
-         EEPROM.get(12, kiv);
-         EEPROM.get(17, kdv);
-         //shag == 1 // termoprofily 2 нижний нагреватель
-         EEPROM.get(212, kpn);
-         EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn);         
          EEPROM.get(22, sec);
@@ -3941,14 +4136,13 @@ void AnalyseString(String incStr)
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;         
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);          
       }
     }
     
@@ -3975,6 +4169,7 @@ void AnalyseString(String incStr)
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
          
+         
       } else if (termoprofily == 1)
       {
          shag = 0;
@@ -3990,17 +4185,11 @@ void AnalyseString(String incStr)
          tempust2 = temp2; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
+         
           
       }else if (termoprofily == 2)
       {
-         //shag == 1 // termoprofily 2 верхний нагреватель
-         EEPROM.get(7, kpv);
-         EEPROM.get(12, kiv);
-         EEPROM.get(17, kdv);
-         //shag == 1 // termoprofily 2 нижний нагреватель
-         EEPROM.get(212, kpn);
-         EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+ 
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn);         
          EEPROM.get(22, sec);
@@ -4018,14 +4207,13 @@ void AnalyseString(String incStr)
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;          
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);           
       }
     } else if(termoprofily == 0)
     {
@@ -4046,7 +4234,7 @@ void AnalyseString(String incStr)
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-          
+        
       } else if (termoprofily == 1)
       {
          shag = 0;
@@ -4066,13 +4254,7 @@ void AnalyseString(String incStr)
       }else if (termoprofily == 2)
       {
          //shag == 1 // termoprofily 2 верхний нагреватель
-         EEPROM.get(7, kpv);
-         EEPROM.get(12, kiv);
-         EEPROM.get(17, kdv);
-         //shag == 1 // termoprofily 2 нижний нагреватель
-         EEPROM.get(212, kpn);
-         EEPROM.get(217, kin);
-         EEPROM.get(222, kdn); 
+ 
          EEPROM.get(227, dtv); 
          EEPROM.get(232, dtn);         
          EEPROM.get(22, sec);
@@ -4090,14 +4272,13 @@ void AnalyseString(String incStr)
          tempust2 = temp2;
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-                  Kpv = kpv;
-                  Kiv = kiv;
-                  Kdv = kdv;
-                  Kpn = kpn;
-                  Kin = kin;
-                  Kdn = kdn;
-                  Dtv = dtv;
-                  Dtn = dtn;          
+         Dtv = dtv;
+         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+         SendData("t57.txt", t57);
+         
+         Dtn = dtn;
+         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+         SendData("t58.txt", t58);         
       }
     }
     
