@@ -907,12 +907,9 @@ void pidCountrolV()
            EEPROM.write(PIDV_ADDR, PIDV_KEY);    // записали ключ
          // записали стандартное значение пид
          // в данном случае это значение переменной, объявленное выше
-          if (termoprofily == 2)
-          {  
-            EEPROM.put(7, kpv);
-            EEPROM.put(12, kiv);
-            EEPROM.put(17, kdv);
-          }
+          EEPROM.put(7, kpv);
+          EEPROM.put(12, kiv);
+          EEPROM.put(17, kdv);
         }
         
       }
@@ -974,12 +971,9 @@ void pidCountrolV()
            EEPROM.write(PIDV_ADDR, PIDV_KEY);    // записали ключ
          // записали стандартное значение пид
          // в данном случае это значение переменной, объявленное выше
-          if (termoprofily == 2)
-          {  
-            EEPROM.put(7, kpv);
-            EEPROM.put(12, kiv);
-            EEPROM.put(17, kdv);
-          }
+          EEPROM.put(7, kpv);
+          EEPROM.put(12, kiv);
+          EEPROM.put(17, kdv);
         }
         
         
