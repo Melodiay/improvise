@@ -2072,6 +2072,7 @@ void AnalyseString(String incStr)
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
        if (termoprofily == 0)
        {
+
          //shag = 0;
          sec=3;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -2079,32 +2080,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2124,32 +2100,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2174,32 +2125,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2223,32 +2149,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2267,32 +2168,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2321,32 +2197,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2370,32 +2221,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2414,32 +2240,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2469,32 +2270,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2519,32 +2295,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2564,32 +2315,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2619,32 +2345,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2669,32 +2370,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2714,32 +2390,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2769,32 +2420,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2819,32 +2445,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2864,32 +2465,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2919,32 +2495,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2969,32 +2520,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3014,32 +2540,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3068,32 +2569,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3119,32 +2595,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3164,32 +2615,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3218,32 +2644,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3269,32 +2670,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3314,32 +2690,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3368,32 +2719,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3419,32 +2745,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3464,32 +2765,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3518,32 +2794,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3568,32 +2819,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3612,32 +2838,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3666,32 +2867,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3717,32 +2893,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3768,32 +2919,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3823,32 +2949,7 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
-        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
-        SendData("t25.txt", t25);
-	      Kdv = kdv;
-        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
-        SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
-	      // Пид Нижнего нагревателя
-	      Kpn = kpn;
-	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
-        SendData("t54.txt", t54);
-	      Kin = kin;
-        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
-        SendData("t55.txt", t55);
-	      Kdn = kdn;
-        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
-        SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+         Text();
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -4803,6 +3904,36 @@ void AnalyseString(String incStr)
     }
     
   }
+}
+
+void Text()
+{
+         // Пид Верхнего нагревателя
+	       Kpv = kpv;
+         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+         SendData("t24.txt", t24);
+	       Kiv = kiv;
+        String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
+        SendData("t25.txt", t25);
+	      Kdv = kdv;
+        String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
+        SendData("t26.txt", t26);
+	      Dtv = dtv;
+        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+        SendData("t57.txt", t57);
+	      // Пид Нижнего нагревателя
+	      Kpn = kpn;
+	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
+        SendData("t54.txt", t54);
+	      Kin = kin;
+        String t55 = "\"" + String(Kin,5) + "\"";  // выводим интегральное
+        SendData("t55.txt", t55);
+	      Kdn = kdn;
+        String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
+        SendData("t56.txt", t56);
+	      Dtn = dtn;
+        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+        SendData("t58.txt", t58);
 }
 
 // функция пид автор https://alexgyver.ru/lessons/ 
