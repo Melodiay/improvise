@@ -9,8 +9,6 @@
 
 #define nexSerial Serial1
 
-#define PIDV_ADDR 1025  // номер резервной ячейки
-#define PIDV_KEY 50     // ключ первого запуска. 0-254, на выбор
 #define INIT_ADDR 1023  // номер резервной ячейки
 #define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
@@ -90,9 +88,9 @@ float kdv = 317.39011;  // ПИД регулирование дифферинц�
 float Kpv = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kiv = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kdv = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
-float kpn = 0.00; // ПИД регулирование порпорциональное   значение по умолчанию
-float kin = 0.00; // ПИД регулирование интегральное       значение по умолчанию 
-float kdn = 0.00;  // ПИД регулирование дифферинциальное   значение по умолчанию
+float kpn = -11.84061; // ПИД регулирование порпорциональное   значение по умолчанию
+float kin = 1.57149; // ПИД регулирование интегральное       значение по умолчанию 
+float kdn = 11.65121;  // ПИД регулирование дифферинциальное   значение по умолчанию
 float Kpn = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kin = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kdn = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
@@ -132,8 +130,8 @@ int shagt = 0;
 GyverPID pid(Kpv, Kiv, Kdv, Dtv);
 GyverPID pid2(Kpn, Kin, Kdn, Dtn);
 
-PIDtuner2 tunerv;
-PIDtuner2 tunern;
+//PIDtuner2 tunerv;
+//PIDtuner2 tunern;
 
 void setup(void) 
 {
@@ -169,142 +167,164 @@ void setup(void)
     // в данном случае это значение переменной, объявленное выше
     temp1 = 0; // температура по умолчанию верхнего нагревателя 
     temp2 = 0; // температура по умолчанию нижнего нагревателя
-    EEPROM.put(187, pwmv);
-    EEPROM.put(192, pwmn);
-    
-    EEPROM.put(22, sec);
-    EEPROM.put(27, temp1);
-    EEPROM.put(32, temp2);
-    
-    EEPROM.put(37, sec);
-    EEPROM.put(42, temp1);
-    EEPROM.put(47, temp2);
-    
-    EEPROM.put(52, sec);
-    EEPROM.put(57, temp1);
-    EEPROM.put(62, temp2);
-    
-    EEPROM.put(67, sec);
-    EEPROM.put(72, temp1);
-    EEPROM.put(77, temp2);
-    
-    EEPROM.put(82, sec);
-    EEPROM.put(87, temp1);
-    EEPROM.put(92, temp2);
-    
-    EEPROM.put(97, sec);
-    EEPROM.put(102, temp1);
-    EEPROM.put(107, temp2);
-    
-    EEPROM.put(112, sec);
-    EEPROM.put(117, temp1);
-    EEPROM.put(122, temp2);
-    
-    EEPROM.put(127, sec);
-    EEPROM.put(132, temp1);
-    EEPROM.put(137, temp2);
-    
-    EEPROM.put(142, sec);
-    EEPROM.put(147, temp1);
-    EEPROM.put(152, temp2);
-    
-    EEPROM.put(157, sec);
-    EEPROM.put(162, temp1);
-    EEPROM.put(167, temp2);
-    
-    EEPROM.put(172, sec);
-    EEPROM.put(177, temp1);
-    EEPROM.put(182, temp2);
 
-    EEPROM.put(197, coolervh);
-    EEPROM.put(202, coolerp);
-    EEPROM.put(207, termoprofily);
-
-    EEPROM.put(227, dtv); 
-    EEPROM.put(232, dtn); 
-    EEPROM.put(237, comptempt1);
-    EEPROM.put(242, comptempt2);
-    EEPROM.put(247, znak1);
-    EEPROM.put(252, znak2);
-
-    //TERMOPROFILY 2 ЗДЕСЬ НАЧИНАЕТСЯ КОД 
+    delay(10);
     //shag == 1 // termoprofily 2 верхний нагреватель
     EEPROM.put(7, kpv);
     EEPROM.put(12, kiv);
     EEPROM.put(17, kdv);
+    delay(10);
+    EEPROM.put(22, sec);
+    EEPROM.put(27, temp1);
+    EEPROM.put(32, temp2);
+    delay(10);
+    EEPROM.put(37, sec);
+    EEPROM.put(42, temp1);
+    EEPROM.put(47, temp2);
+    delay(10);
+    EEPROM.put(52, sec);
+    EEPROM.put(57, temp1);
+    EEPROM.put(62, temp2);
+    delay(10);
+    EEPROM.put(67, sec);
+    EEPROM.put(72, temp1);
+    EEPROM.put(77, temp2);
+    delay(10);
+    EEPROM.put(82, sec);
+    EEPROM.put(87, temp1);
+    EEPROM.put(92, temp2);
+    delay(10);
+    EEPROM.put(97, sec);
+    EEPROM.put(102, temp1);
+    EEPROM.put(107, temp2);
+    delay(10);
+    EEPROM.put(112, sec);
+    EEPROM.put(117, temp1);
+    EEPROM.put(122, temp2);
+    delay(10);
+    EEPROM.put(127, sec);
+    EEPROM.put(132, temp1);
+    EEPROM.put(137, temp2);
+    delay(10);
+    EEPROM.put(142, sec);
+    EEPROM.put(147, temp1);
+    EEPROM.put(152, temp2);
+    delay(10);
+    EEPROM.put(157, sec);
+    EEPROM.put(162, temp1);
+    EEPROM.put(167, temp2);
+    delay(10);
+    EEPROM.put(172, sec);
+    EEPROM.put(177, temp1);
+    EEPROM.put(182, temp2);
+    delay(10);
+    EEPROM.put(187, pwmv);
+    EEPROM.put(192, pwmn);
+    delay(10);
+    EEPROM.put(197, coolervh);
+    EEPROM.put(202, coolerp);
+    EEPROM.put(207, termoprofily);
+    //shag == 1 // termoprofily 2 нижний нагреватель
+    delay(10);
+    EEPROM.put(212, kpn);
+    EEPROM.put(217, kin);
+    EEPROM.put(222, kdn); 
+    delay(10);
+    EEPROM.put(227, dtv); 
+    EEPROM.put(232, dtn); 
+    delay(10);
+    EEPROM.put(237, comptempt1);
+    EEPROM.put(242, comptempt2);
+    delay(10);
+    EEPROM.put(247, znak1);
+    EEPROM.put(252, znak2);
+    delay(10);
+    //TERMOPROFILY 2 ЗДЕСЬ НАЧИНАЕТСЯ КОД 
     //shag == 2 
     EEPROM.put(1030, kpv);
     EEPROM.put(1035, kiv);
     EEPROM.put(1040, kdv);
+    delay(10);
     //shag == 3
     EEPROM.put(1045, kpv);
     EEPROM.put(1050, kiv);
     EEPROM.put(1055, kdv);
+    delay(10);
     //shag == 4
     EEPROM.put(1060, kpv);
     EEPROM.put(1065, kiv);
     EEPROM.put(1070, kdv);
+    delay(10);
     //shag == 5
     EEPROM.put(1075, kpv);
     EEPROM.put(1080, kiv);
     EEPROM.put(1085, kdv);
+    delay(10);
     //shag == 6
     EEPROM.put(1090, kpv);
     EEPROM.put(1095, kiv);
     EEPROM.put(1100, kdv);
+    delay(10);
     //shag == 7
     EEPROM.put(1105, kpv);
     EEPROM.put(1110, kiv);
     EEPROM.put(1115, kdv);
+    delay(10);
     //shag == 8
     EEPROM.put(1120, kpv);
     EEPROM.put(1125, kiv);
     EEPROM.put(1130, kdv);
+    delay(10);
     //shag == 9
     EEPROM.put(1135, kpv);
     EEPROM.put(1140, kiv);
     EEPROM.put(1145, kdv);
+    delay(10);
     //shag == 10
     EEPROM.put(1150, kpv);
     EEPROM.put(1155, kiv);
     EEPROM.put(1160, kdv);
-
-    //shag == 1 // termoprofily 2 нижний нагреватель
-    EEPROM.put(212, kpn);
-    EEPROM.put(217, kin);
-    EEPROM.put(222, kdn); 
+    delay(10);
     //shag == 2
     EEPROM.put(1165, kpn);
     EEPROM.put(1170, kin);
     EEPROM.put(1175, kdn);
+    delay(10);
     //shag == 3
     EEPROM.put(1180, kpn);
     EEPROM.put(1185, kin);
     EEPROM.put(1190, kdn);
+    delay(10);
     //shag == 4
     EEPROM.put(1195, kpn);
     EEPROM.put(1200, kin);
     EEPROM.put(1205, kdn);
+    delay(10);
     //shag == 5
     EEPROM.put(1210, kpn);
     EEPROM.put(1215, kin);
     EEPROM.put(1220, kdn);
+    delay(10);
     //shag == 6
     EEPROM.put(1225, kpn);
     EEPROM.put(1230, kin);
     EEPROM.put(1235, kdn);
+    delay(10);
     //shag == 7
     EEPROM.put(1240, kpn);
     EEPROM.put(1245, kin);
     EEPROM.put(1250, kdn);
+    delay(10);
     //shag == 8
     EEPROM.put(1255, kpn);
     EEPROM.put(1260, kin);
     EEPROM.put(1265, kdn);
+    delay(10);
     //shag == 9
     EEPROM.put(1270, kpn);
     EEPROM.put(1275, kin);
     EEPROM.put(1280, kdn);
+    delay(10);
     //shag == 10
     EEPROM.put(1285, kpn);
     EEPROM.put(1290, kin);
@@ -393,10 +413,10 @@ void setup(void)
   coolvust1 = coolervh;
   coolpust2 = coolerp;
   Kpv = kpv;
-  Kiv = kiv;
-  Kdv = kdv;
   Kpn = kpn;
+  Kiv = kiv;
   Kin = kin;
+  Kdv = kdv;
   Kdn = kdn;
   Dtv = dtv;
   Dtn = dtn;
@@ -421,8 +441,8 @@ void setup(void)
   pid2.Kd = Kdn;
 
    // направление, начальный сигнал, конечный, период плато, точность, время стабилизации, период итерации
-  //tunerv.setParameters(NORMAL, 0, 50, sec*1000, 1.00, 100);
-  //tunern.setParameters(NORMAL, tempt2, tempust2, sec*1000, 1.00, 100);
+  //tunerv.setParameters(NORMAL, 0, 50, 120000, 1.00, 100);
+  //tunern.setParameters(NORMAL, 0, 50, 80000, 1.00, 100);
 
 }
 
@@ -835,6 +855,11 @@ if (!(nexSerial.available()))
       delay(10);
       sound_click();   
   }
+  if ((140 <= tempt2) && (143 >= tempt2))   //  это верхний нагреватель
+  {  // пока находится в диапазоне 140-143 градуса пищим, если за диапазоном не пищим
+      delay(10);
+      sound_click();       
+  }
 }
   /**
   if (tempust1 == 0)
@@ -905,23 +930,81 @@ void pidCountrolN()
   {  // без детектора ноля
                      // читаем с датчика температуру
     pid2.input = tempt2;   // сообщаем регулятору текущую температуру
-
+    //tunern.setInput(tempt2);
+    //tunern.compute();
     // getResultTimer возвращает значение для управляющего устройства
     // (после вызова можно получать это значение как regulator.output)
     // обновление происходит по встроенному таймеру на millis()
-    analogWrite(nigniy_1, pid2.getResultTimer());  // отправляем на мосфет
+    if (tempt2 >= tempust2)
+    {
+      analogWrite(nigniy_1, 0);
+    }else if(tempt2 < tempust2)
+    {
+      //pid2.output = 229;
+     // analogWrite(nigniy_1, tunern.getOutput());
+      analogWrite(nigniy_1, pid2.getResultTimer());  // отправляем на мосфет
+      // .getResultTimer() по сути возвращает regulator.output 
+      // выводит в порт текстовые отладочные данные, включая коэффициенты
+      //tunern.debugText();
 
-    // .getResultTimer() по сути возвращает regulator.output 
-  }else
+      // выводит в порт данные для построения графиков, без коэффициентов
+      //tunern.debugPlot();
+      /**
+      if (tunern.getState() == 7) //и при наступлении этого условия получить коэффициенты:
+      {
+       //tuner.getPI_p(); //- p для ПИ регулятора
+       //tuner.getPI_i(); //- i для ПИ регулятора
+    
+        kpn = tunern.getPID_p(); //- p для ПИД регулятора
+        Kpn = kpn;
+        kin = tunern.getPID_i(); //- i для ПИД регулятора
+        Kin = kin;
+        kdn = tunern.getPID_d(); //- d для ПИД регулятора	
+        Kdn = kdn;
+      }**/
+    }
+  }else // С детектором ноля
   {                 // читаем с датчика температуру
     pid2.input = tempt2;   // сообщаем регулятору текущую температуру
-
+    //tunern.setInput(tempt2);
+    //tunern.compute();
     // getResultTimer возвращает значение для управляющего устройства
     // (после вызова можно получать это значение как regulator.output)
     // обновление происходит по встроенному таймеру на millis()
-    analogWrite(nigniy_1, dimmer[0] = pid2.getResultTimer());  // отправляем на мосфет
+    if (tempt2 >= tempust2)
+    {
+      analogWrite(nigniy_1, 0);
+    }else if(tempt2 < tempust2)
+    {
+      //pid2.output = 229;
+      // getResultTimer возвращает значение для управляющего устройства
+      // (после вызова можно получать это значение как regulator.output)
+      // обновление происходит по встроенному таймеру на millis()
+      //analogWrite(nigniy_1, dimmer[0] = tunern.getOutput());  // отправляем на мосфет
 
-    // .getResultTimer() по сути возвращает regulator.output     
+      // .getResultTimer() по сути возвращает regulator.output 
+      analogWrite(nigniy_1, dimmer[0] = pid2.getResultTimer());  // отправляем на мосфет
+      // .getResultTimer() по сути возвращает regulator.output 
+      // выводит в порт текстовые отладочные данные, включая коэффициенты
+      //tunern.debugText();
+
+      // выводит в порт данные для построения графиков, без коэффициентов
+      //tunern.debugPlot();
+      /**
+      if (tunern.getState() == 7) //и при наступлении этого условия получить коэффициенты:
+      {
+       //tunern.getPI_p(); //- p для ПИ регулятора
+       //tunern.getPI_i(); //- i для ПИ регулятора
+    
+        kpn = tunern.getPID_p(); //- p для ПИД регулятора
+        Kpn = kpn;
+        kin = tunern.getPID_i(); //- i для ПИД регулятора
+        Kin = kin;
+        kdn = tunern.getPID_d(); //- d для ПИД регулятора	
+        Kdn = kdn;
+      }**/
+    }
+
   }
         
   
@@ -934,8 +1017,8 @@ void pidCountrolV()
   { // без детектора ноля
    
     pid.input = tempt1;   // сообщаем регулятору текущую температуру
-    tunerv.setInput(tempt1);
-    tunerv.compute();
+    //tunerv.setInput(tempt1);
+    //tunerv.compute();
     // getResultTimer возвращает значение для управляющего устройства
     // (после вызова можно получать это значение как regulator.output)
     // обновление происходит по встроенному таймеру на millis()
@@ -951,15 +1034,15 @@ void pidCountrolV()
       // .getResultTimer() по сути возвращает regulator.output
     
       // выводит в порт текстовые отладочные данные, включая коэффициенты
-      //tuner.debugText();
+      //tunerv.debugText();
 
       // выводит в порт данные для построения графиков, без коэффициентов
       //tuner.debugPlot();
       /**
       if (tunerv.getState() == 7) //и при наступлении этого условия получить коэффициенты:
       {
-       //tuner.getPI_p(); //- p для ПИ регулятора
-       //tuner.getPI_i(); //- i для ПИ регулятора
+       //tunerv.getPI_p(); //- p для ПИ регулятора
+       //tunerv.getPI_i(); //- i для ПИ регулятора
     
         kpv = tunerv.getPID_p(); //- p для ПИД регулятора
         Kpv = kpv;
@@ -967,148 +1050,15 @@ void pidCountrolV()
         Kiv = kiv;
         kdv = tunerv.getPID_d(); //- d для ПИД регулятора	
         Kdv = kdv;
-        /**
-        if (EEPROM.read(PIDV_ADDR) != PIDV_KEY) 
-        { // первый запуск
-           EEPROM.write(PIDV_ADDR, PIDV_KEY);    // записали ключ
-         // записали стандартное значение пид
-         // в данном случае это значение переменной, объявленное выше
-        if (termoprofily == 2)
-        {  
-          //shag == 1 // termoprofily 2 верхний нагреватель
-          if (shag == 1)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(7, kpv);
-              EEPROM.put(12, kiv);
-              EEPROM.put(17, kdv);
-            }
-          }
-          
-          //shag == 2
-          else if (shag == 2)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1030, kpv);
-              EEPROM.put(1035, kiv);
-              EEPROM.put(1040, kdv);
-            }
-          }
-          
-          //shag == 3
-          else if (shag == 3)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1045, kpv);
-              EEPROM.put(1050, kiv);
-              EEPROM.put(1055, kdv);
-            }
-          }
-          
-          //shag == 4
-          else if (shag == 4)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1060, kpv);
-              EEPROM.put(1065, kiv);
-              EEPROM.put(1070, kdv);
-            }
-          }
-
-          //shag == 5
-          else if (shag == 5)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1075, kpv);
-              EEPROM.put(1080, kiv);
-              EEPROM.put(1085, kdv);
-            }
-          }
-
-          //shag == 6
-          else if (shag == 6)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1090, kpv);
-              EEPROM.put(1095, kiv);
-              EEPROM.put(1100, kdv);
-            }
-          }
-
-          //shag == 7
-          else if (shag == 7)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1105, kpv);
-              EEPROM.put(1110, kiv);
-              EEPROM.put(1115, kdv);
-            }
-          }
-
-          //shag == 8
-          else if (shag == 8)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1120, kpv);
-              EEPROM.put(1125, kiv);
-              EEPROM.put(1130, kdv);
-            }
-          }
-
-          //shag == 9
-          else if (shag == 9)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1135, kpv);
-              EEPROM.put(1140, kiv);
-              EEPROM.put(1145, kdv);
-            }
-          }
-
-          //shag == 10
-          else if (shag == 10)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1150, kpv);
-              EEPROM.put(1155, kiv);
-              EEPROM.put(1160, kdv);
-            }
-          }
-        }
-        }
+        
       }**/
-     
-      
-    }/**else if(tempt1 <= 50 - 4)
-    {
-      regulator.output = 89;
-      analogWrite(verhniy_1, tunerv.getOutput());
-      //analogWrite(verhniy_1, regulator.getResultTimer());  // отправляем на мосфет
-      // .getResultTimer() по сути возвращает regulator.output
-    
-    }else if(tempt1 <= 50 - 0.50)
-    {
-      regulator.output = 25;
-      analogWrite(verhniy_1, tunerv.getOutput());
-      //analogWrite(verhniy_1, regulator.getResultTimer());  // отправляем на мосфет
-      // .getResultTimer() по сути возвращает regulator.output
-    }**/	
+    }	
   } else
   {
     
     pid.input = tempt1;   // сообщаем регулятору текущую температуру
-    tunerv.setInput(tempt1);
-    tunerv.compute();
+    //tunerv.setInput(tempt1);
+    //tunerv.compute();
     // getResultTimer возвращает значение для управляющего устройства
     // (после вызова можно получать это значение как regulator.output)
     // обновление происходит по встроенному таймеру на millis()
@@ -1140,156 +1090,12 @@ void pidCountrolV()
         Kiv = kiv;
         kdv = tunerv.getPID_d(); //- d для ПИД регулятора	
         Kdv = kdv;
-        /**
-        if (EEPROM.read(PIDV_ADDR) != PIDV_KEY) 
-        { // первый запуск
-           EEPROM.write(PIDV_ADDR, PIDV_KEY);    // записали ключ
-         // записали стандартное значение пид
-         // в данном случае это значение переменной, объявленное выше
-        if (termoprofily == 2)
-        {  
-          //shag == 1 // termoprofily 2 верхний нагреватель
-          if (shag == 1)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(7, kpv);
-              EEPROM.put(12, kiv);
-              EEPROM.put(17, kdv);
-            }
-          }
-          
-          //shag == 2
-          else if (shag == 2)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1030, kpv);
-              EEPROM.put(1035, kiv);
-              EEPROM.put(1040, kdv);
-            }
-          }
-          
-          //shag == 3
-          else if (shag == 3)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1045, kpv);
-              EEPROM.put(1050, kiv);
-              EEPROM.put(1055, kdv);
-            }
-          }
-          
-          //shag == 4
-          else if (shag == 4)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1060, kpv);
-              EEPROM.put(1065, kiv);
-              EEPROM.put(1070, kdv);
-            }
-          }
-
-          //shag == 5
-          else if (shag == 5)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1075, kpv);
-              EEPROM.put(1080, kiv);
-              EEPROM.put(1085, kdv);
-            }
-          }
-
-          //shag == 6
-          else if (shag == 6)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1090, kpv);
-              EEPROM.put(1095, kiv);
-              EEPROM.put(1100, kdv);
-            }
-          }
-
-          //shag == 7
-          else if (shag == 7)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1105, kpv);
-              EEPROM.put(1110, kiv);
-              EEPROM.put(1115, kdv);
-            }
-          }
-
-          //shag == 8
-          else if (shag == 8)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1120, kpv);
-              EEPROM.put(1125, kiv);
-              EEPROM.put(1130, kdv);
-            }
-          }
-
-          //shag == 9
-          else if (shag == 9)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1135, kpv);
-              EEPROM.put(1140, kiv);
-              EEPROM.put(1145, kdv);
-            }
-          }
-
-          //shag == 10
-          else if (shag == 10)
-          {
-            if (termoprofily == 2)
-            { 
-              EEPROM.put(1150, kpv);
-              EEPROM.put(1155, kiv);
-              EEPROM.put(1160, kdv);
-            }
-          }
-        }
-        }
+        
+        
       }**/
 
     
-    }/**else if(tempt1 <= 50 - 4)
-    {
-      regulator.output = 89;
-      //analogWrite(verhniy_1, dimmer[1] = tunerv.getOutput());
-      //analogWrite(verhniy_1, dimmer[1] = regulator.getResultTimer());  // отправляем на мосфет
-      // .getResultTimer() по сути возвращает regulator.output
-
-      // выводит в порт текстовые отладочные данные, включая коэффициенты
-      //tuner.debugText();
-
-      // выводит в порт данные для построения графиков, без коэффициентов
-      //tuner.debugPlot();
-      
-    
-    }else if(tempt1 <= 50 - 1)
-    {
-      regulator.output = 25;
-      //analogWrite(verhniy_1, dimmer[1] = tunerv.getOutput());
-      //analogWrite(verhniy_1, dimmer[1] = regulator.getResultTimer());  // отправляем на мосфет
-      // .getResultTimer() по сути возвращает regulator.output
-
-      // выводит в порт текстовые отладочные данные, включая коэффициенты
-      //tuner.debugText();
-
-      // выводит в порт данные для построения графиков, без коэффициентов
-      //tuner.debugPlot();
-      
-    }**/
+    }
   }
 }
 
@@ -1506,7 +1312,7 @@ void sendFFFFFF(void)
   nexSerial.write(0xFF);
   nexSerial.write(0xFF);
 } // Здесь закачивается код Максима Селиванова 
-
+/**
 // Без детектора ноля, раскоментируйте код ниже с детектором ноля, а этот код закоментируйте.
 // Пид регулирование нижний нагреватель
 void nigniye()
@@ -1539,7 +1345,7 @@ void verhniy()
      //delay(20);
   }
      
-}
+}**/
 /**
 // Гистерезис нижний нагреватель
 void reguln()
@@ -1832,9 +1638,8 @@ void AnalyseString(String incStr)
         { 
           EEPROM.put(232, dtn); 
         }
-      }
-      //shag == 1 // termoprofily 2 нижний нагреватель
-      else if (shag == 1)
+      }//shag == 1 // termoprofily 2 нижний нагреватель
+        else if (shag == 1)
       {
         if (termoprofily == 2)
         { 
@@ -2080,7 +1885,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2100,7 +1905,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2115,6 +1920,7 @@ void AnalyseString(String incStr)
       {
           EEPROM.get(227, dtv);	   
           EEPROM.get(232, dtn); 
+          delay(10);
           EEPROM.get(22, sec);
           EEPROM.get(27, temp1);
           EEPROM.get(32, temp2);
@@ -2125,7 +1931,12 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+          Dtv = dtv;
+          String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+          SendData("t57.txt", t57);
+          Dtn = dtn;
+          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+          SendData("t58.txt", t58);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2149,7 +1960,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2168,7 +1979,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2184,10 +1995,12 @@ void AnalyseString(String incStr)
          EEPROM.get(7, kpv);
          EEPROM.get(12, kiv);
          EEPROM.get(17, kdv);
+         delay(10);
          //shag == 1 // termoprofily 2 нижний нагреватель
          EEPROM.get(212, kpn);
          EEPROM.get(217, kin);
          EEPROM.get(222, kdn); 
+         delay(10);
          EEPROM.get(37, sec);
          EEPROM.get(42, temp1);
          EEPROM.get(47, temp2);
@@ -2221,7 +2034,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2240,7 +2053,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2257,10 +2070,12 @@ void AnalyseString(String incStr)
          EEPROM.get(1030, kpv);
          EEPROM.get(1035, kiv);
          EEPROM.get(1040, kdv);
+         delay(10);
          //shag == 2
          EEPROM.get(1165, kpn);
          EEPROM.get(1170, kin);
          EEPROM.get(1175, kdn);
+         delay(10);
          EEPROM.get(52, sec);
          EEPROM.get(57, temp1);
          EEPROM.get(62, temp2);
@@ -2295,7 +2110,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2315,7 +2130,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2332,10 +2147,12 @@ void AnalyseString(String incStr)
         EEPROM.get(1045, kpv);
         EEPROM.get(1050, kiv);
         EEPROM.get(1055, kdv);
+        delay(10);
         //shag == 3
         EEPROM.get(1180, kpn);
         EEPROM.get(1185, kin);
         EEPROM.get(1190, kdn);
+        delay(10);
         EEPROM.get(67, sec);
         EEPROM.get(72, temp1);
         EEPROM.get(77, temp2);
@@ -2370,7 +2187,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2390,7 +2207,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+        
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2407,10 +2224,12 @@ void AnalyseString(String incStr)
          EEPROM.get(1060, kpv);
          EEPROM.get(1065, kiv);
          EEPROM.get(1070, kdv);
+         delay(10);
          //shag == 4
          EEPROM.get(1195, kpn);
          EEPROM.get(1200, kin);
          EEPROM.get(1205, kdn);
+         delay(10);
          EEPROM.get(82, sec);
          EEPROM.get(87, temp1);
          EEPROM.get(92, temp2);
@@ -2445,7 +2264,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2465,7 +2284,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2482,10 +2301,12 @@ void AnalyseString(String incStr)
           EEPROM.get(1075, kpv);
           EEPROM.get(1080, kiv);
           EEPROM.get(1085, kdv);
+          delay(10);
           //shag == 5
           EEPROM.get(1210, kpn);
           EEPROM.get(1215, kin);
           EEPROM.get(1220, kdn);
+          delay(10);
           EEPROM.get(97, sec);
           EEPROM.get(102, temp1);
           EEPROM.get(107, temp2);
@@ -2520,7 +2341,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2540,7 +2361,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2557,10 +2378,12 @@ void AnalyseString(String incStr)
           EEPROM.get(1090, kpv);
           EEPROM.get(1095, kiv);
           EEPROM.get(1100, kdv);
+          delay(10);
           //shag == 6
           EEPROM.get(1225, kpn);
           EEPROM.get(1230, kin);
           EEPROM.get(1235, kdn);
+          delay(10);
           EEPROM.get(112, sec);
           EEPROM.get(117, temp1);
           EEPROM.get(122, temp2);
@@ -2595,7 +2418,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2615,7 +2438,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+        
          temp1 = 0; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2632,10 +2455,12 @@ void AnalyseString(String incStr)
          EEPROM.get(1105, kpv);
          EEPROM.get(1110, kiv);
          EEPROM.get(1115, kdv);
+         delay(10);
          //shag == 7
          EEPROM.get(1240, kpn);
          EEPROM.get(1245, kin);
          EEPROM.get(1250, kdn);
+         delay(10);
          EEPROM.get(127, sec);
          EEPROM.get(132, temp1);
          EEPROM.get(137, temp2);
@@ -2670,7 +2495,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2690,7 +2515,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 160; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2707,10 +2532,12 @@ void AnalyseString(String incStr)
          EEPROM.get(1120, kpv);
          EEPROM.get(1125, kiv);
          EEPROM.get(1130, kdv);
+         delay(10);
          //shag == 8
          EEPROM.get(1255, kpn);
          EEPROM.get(1260, kin);
          EEPROM.get(1265, kdn);
+         delay(10);
          EEPROM.get(142, sec);
          EEPROM.get(147, temp1);
          EEPROM.get(152, temp2);
@@ -2745,7 +2572,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2765,7 +2592,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 180; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2782,10 +2609,12 @@ void AnalyseString(String incStr)
          EEPROM.get(1135, kpv);
          EEPROM.get(1140, kiv);
          EEPROM.get(1145, kdv);
+         delay(10);
          //shag == 9
          EEPROM.get(1270, kpn);
          EEPROM.get(1275, kin);
          EEPROM.get(1280, kdn);
+         delay(10);
          EEPROM.get(157, sec);
          EEPROM.get(162, temp1);
          EEPROM.get(167, temp2);
@@ -2819,7 +2648,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2838,7 +2667,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2855,10 +2684,12 @@ void AnalyseString(String incStr)
          EEPROM.get(1150, kpv);
          EEPROM.get(1155, kiv);
          EEPROM.get(1160, kdv);
+         delay(10);
          //shag == 10
          EEPROM.get(1285, kpn);
          EEPROM.get(1290, kin);
          EEPROM.get(1295, kdn);
+         delay(10);
          EEPROM.get(172, sec);
          EEPROM.get(177, temp1);
          EEPROM.get(182, temp2);
@@ -2893,7 +2724,7 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2919,7 +2750,7 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+         
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -2938,7 +2769,8 @@ void AnalyseString(String incStr)
       } else if (termoprofily == 2)
       {
          EEPROM.get(227, dtv);	   
-         EEPROM.get(232, dtn); 
+         EEPROM.get(232, dtn);
+         delay(10); 
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
@@ -2949,7 +2781,12 @@ void AnalyseString(String incStr)
          profily="User 1";
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Text();
+          Dtv = dtv;
+          String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
+          SendData("t57.txt", t57);
+          Dtn = dtn;
+          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
+          SendData("t58.txt", t58);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3608,12 +3445,6 @@ void AnalyseString(String incStr)
          profily="Lead-free"; 
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3630,12 +3461,6 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3683,12 +3508,6 @@ void AnalyseString(String incStr)
          profily="Lead-free"; // Термопрофиль Бессвинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3705,12 +3524,6 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3763,12 +3576,6 @@ void AnalyseString(String incStr)
          profily="Lead-free"; // Термопрофиль Бессвинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3785,12 +3592,6 @@ void AnalyseString(String incStr)
          profily="Lead"; // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3838,12 +3639,6 @@ void AnalyseString(String incStr)
          profily="Lead-free"; // Термопрофиль Бессвинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3860,12 +3655,6 @@ void AnalyseString(String incStr)
          profily="Lead";  // Термопрофиль Свинец
          String t13= "\"" + String(profily) + "\"";  // Отображение 
          SendData("t13.txt", t13);
-         Dtv = dtv;
-         String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-         SendData("t57.txt", t57);
-         Dtn = dtn;
-         String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);
          temp1 = 195; // Верхний нагреватель Бессвинцовый выбрано 195 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -3909,19 +3698,17 @@ void AnalyseString(String incStr)
 void Text()
 {
          // Пид Верхнего нагревателя
-	       Kpv = kpv;
-         String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
-         SendData("t24.txt", t24);
-	       Kiv = kiv;
+	      Kpv = kpv;
+        String t24 = "\"" + String(Kpv,5) + "\"";  // выводим пропорциональное
+        SendData("t24.txt", t24);
+	      Kiv = kiv;
         String t25 = "\"" + String(Kiv,5) + "\"";  // выводим интегральное
         SendData("t25.txt", t25);
 	      Kdv = kdv;
         String t26= "\"" + String(Kdv,5) + "\"";  // выводим дефференциальное
         SendData("t26.txt", t26);
-	      Dtv = dtv;
-        String t57= "\"" + String(Dtv) + "\"";  // выводим dt в мксекундах
-        SendData("t57.txt", t57);
 	      // Пид Нижнего нагревателя
+        delay(10);
 	      Kpn = kpn;
 	      String t54 = "\"" + String(Kpn,5) + "\"";  // выводим пропорциональное
         SendData("t54.txt", t54);
@@ -3931,9 +3718,7 @@ void Text()
 	      Kdn = kdn;
         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
         SendData("t56.txt", t56);
-	      Dtn = dtn;
-        String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-        SendData("t58.txt", t58);
+	      
 }
 
 // функция пид автор https://alexgyver.ru/lessons/ 
