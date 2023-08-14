@@ -10,7 +10,7 @@
 #define nexSerial Serial1
 
 #define INIT_ADDR 1023  // номер резервной ячейки
-#define INIT_KEY 120     // ключ первого запуска. 0-254, на выбор
+#define INIT_KEY 150     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
 #define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
@@ -82,9 +82,9 @@ byte coolervh = 255; // ШИМ верхнего кулера в нагреват
 byte coolerp = 255;  // ШИМ верхнего кулера в нагревателе 100% == ШИМ 255
 byte coolvust1 = 0;
 byte coolpust2 = 0;
-float kpv = 9.16; // ПИД регулирование порпорциональное   значение по умолчанию
-float kiv = 0.89; // ПИД регулирование интегральное       значение по умолчанию 
-float kdv = 15.86;  // ПИД регулирование дифферинциальное   значение по умолчанию
+float kpv = -9.13; // ПИД регулирование порпорциональное   значение по умолчанию
+float kiv = 1.21; // ПИД регулирование интегральное       значение по умолчанию 
+float kdv = 8.99;  // ПИД регулирование дифферинциальное   значение по умолчанию
 float Kpv = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kiv = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
 float Kdv = 0.00;  // ПИД регулирование для расчетов и подстановки в ПИД регулирование
@@ -162,175 +162,175 @@ void setup(void)
 
   if (EEPROM.read(INIT_ADDR) != INIT_KEY) 
   { // первый запуск
-    EEPROM.write(INIT_ADDR, INIT_KEY);    // записали ключ
+    //EEPROM.write(INIT_ADDR, INIT_KEY);    // записали ключ
     // записали стандартное значение пид
     // в данном случае это значение переменной, объявленное выше
     temp1 = 0; // температура по умолчанию верхнего нагревателя 
     temp2 = 0; // температура по умолчанию нижнего нагревателя
-
-    delay(10);
+    //delay(10);
     //shag == 1 // termoprofily 2 верхний нагреватель
     EEPROM.put(7, kpv);
     EEPROM.put(12, kiv);
     EEPROM.put(17, kdv);
-    delay(10);
+    //delay(10);
     EEPROM.put(22, sec);
     EEPROM.put(27, temp1);
     EEPROM.put(32, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(37, sec);
     EEPROM.put(42, temp1);
     EEPROM.put(47, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(52, sec);
     EEPROM.put(57, temp1);
     EEPROM.put(62, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(67, sec);
     EEPROM.put(72, temp1);
     EEPROM.put(77, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(82, sec);
     EEPROM.put(87, temp1);
     EEPROM.put(92, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(97, sec);
     EEPROM.put(102, temp1);
     EEPROM.put(107, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(112, sec);
     EEPROM.put(117, temp1);
     EEPROM.put(122, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(127, sec);
     EEPROM.put(132, temp1);
     EEPROM.put(137, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(142, sec);
     EEPROM.put(147, temp1);
     EEPROM.put(152, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(157, sec);
     EEPROM.put(162, temp1);
     EEPROM.put(167, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(172, sec);
     EEPROM.put(177, temp1);
     EEPROM.put(182, temp2);
-    delay(10);
+    //delay(10);
     EEPROM.put(187, pwmv);
     EEPROM.put(192, pwmn);
-    delay(10);
+    //delay(10);
     EEPROM.put(197, coolervh);
     EEPROM.put(202, coolerp);
     EEPROM.put(207, termoprofily);
     //shag == 1 // termoprofily 2 нижний нагреватель
-    delay(10);
+    //delay(10);
     EEPROM.put(212, kpn);
     EEPROM.put(217, kin);
     EEPROM.put(222, kdn); 
-    delay(10);
+    //delay(10);
     EEPROM.put(227, dtv); 
     EEPROM.put(232, dtn); 
-    delay(10);
+    //delay(10);
     EEPROM.put(237, comptempt1);
     EEPROM.put(242, comptempt2);
-    delay(10);
+    //delay(10);
     EEPROM.put(247, znak1);
     EEPROM.put(252, znak2);
-    delay(10);
+    //delay(10);
     //TERMOPROFILY 2 ЗДЕСЬ НАЧИНАЕТСЯ КОД 
     //shag == 2 
     EEPROM.put(1030, kpv);
     EEPROM.put(1035, kiv);
     EEPROM.put(1040, kdv);
-    delay(10);
+    //delay(10);
     //shag == 3
     EEPROM.put(1045, kpv);
     EEPROM.put(1050, kiv);
     EEPROM.put(1055, kdv);
-    delay(10);
+    //delay(10);
     //shag == 4
     EEPROM.put(1060, kpv);
     EEPROM.put(1065, kiv);
     EEPROM.put(1070, kdv);
-    delay(10);
+    //delay(10);
     //shag == 5
     EEPROM.put(1075, kpv);
     EEPROM.put(1080, kiv);
     EEPROM.put(1085, kdv);
-    delay(10);
+    //delay(10);
     //shag == 6
     EEPROM.put(1090, kpv);
     EEPROM.put(1095, kiv);
     EEPROM.put(1100, kdv);
-    delay(10);
+    //delay(10);
     //shag == 7
     EEPROM.put(1105, kpv);
     EEPROM.put(1110, kiv);
     EEPROM.put(1115, kdv);
-    delay(10);
+    //delay(10);
     //shag == 8
     EEPROM.put(1120, kpv);
     EEPROM.put(1125, kiv);
     EEPROM.put(1130, kdv);
-    delay(10);
+    //delay(10);
     //shag == 9
     EEPROM.put(1135, kpv);
     EEPROM.put(1140, kiv);
     EEPROM.put(1145, kdv);
-    delay(10);
+    //delay(10);
     //shag == 10
     EEPROM.put(1150, kpv);
     EEPROM.put(1155, kiv);
     EEPROM.put(1160, kdv);
-    delay(10);
+    //delay(10);
     //shag == 2
     EEPROM.put(1165, kpn);
     EEPROM.put(1170, kin);
     EEPROM.put(1175, kdn);
-    delay(10);
+    //delay(10);
     //shag == 3
     EEPROM.put(1180, kpn);
     EEPROM.put(1185, kin);
     EEPROM.put(1190, kdn);
-    delay(10);
+    //delay(10);
     //shag == 4
     EEPROM.put(1195, kpn);
     EEPROM.put(1200, kin);
     EEPROM.put(1205, kdn);
-    delay(10);
+    //delay(10);
     //shag == 5
     EEPROM.put(1210, kpn);
     EEPROM.put(1215, kin);
     EEPROM.put(1220, kdn);
-    delay(10);
+    //delay(10);
     //shag == 6
     EEPROM.put(1225, kpn);
     EEPROM.put(1230, kin);
     EEPROM.put(1235, kdn);
-    delay(10);
+    //delay(10);
     //shag == 7
     EEPROM.put(1240, kpn);
     EEPROM.put(1245, kin);
     EEPROM.put(1250, kdn);
-    delay(10);
+    //delay(10);
     //shag == 8
     EEPROM.put(1255, kpn);
     EEPROM.put(1260, kin);
     EEPROM.put(1265, kdn);
-    delay(10);
+    //delay(10);
     //shag == 9
     EEPROM.put(1270, kpn);
     EEPROM.put(1275, kin);
     EEPROM.put(1280, kdn);
-    delay(10);
+    //delay(10);
     //shag == 10
     EEPROM.put(1285, kpn);
     EEPROM.put(1290, kin);
     EEPROM.put(1295, kdn);
-    delay(10);
+    delay(1000);
     // TERMOPROFILY 2 заканчивается код
+    EEPROM.write(INIT_ADDR, INIT_KEY);
   }
 
   EEPROM.get(187, pwmv);  // загружаем мощность верхнего нагревателя из памяти
@@ -442,7 +442,7 @@ void setup(void)
   pid2.Kd = Kdn;
 
    // направление, начальный сигнал, конечный, период плато, точность, время стабилизации, период итерации
-  //tunerv.setParameters(NORMAL, 225, 235, 80000, 1.00, 100);
+  //tunerv.setParameters(NORMAL, 0, 50, 80000, 1.00, 100);
   //tunern.setParameters(NORMAL, 0, 50, 80000, 1.00, 100);
 
 }
@@ -1031,14 +1031,14 @@ void pidCountrolV()
     {
       //pid.output = 229;
       //analogWrite(verhniy_1, tunerv.getOutput());
-      //analogWrite(verhniy_1, pid.getResultTimer());  // отправляем на мосфет
+      analogWrite(verhniy_1, pid.getResultTimer());  // отправляем на мосфет
       // .getResultTimer() по сути возвращает regulator.output
     
       // выводит в порт текстовые отладочные данные, включая коэффициенты
       //tunerv.debugText();
 
       // выводит в порт данные для построения графиков, без коэффициентов
-      //tuner.debugPlot();
+      //tunerv.debugPlot();
       /**
       if (tunerv.getState() == 7) //и при наступлении этого условия получить коэффициенты:
       {
@@ -1051,7 +1051,6 @@ void pidCountrolV()
         Kiv = kiv;
         kdv = tunerv.getPID_d(); //- d для ПИД регулятора	
         Kdv = kdv;
-        
       }**/
     }	
   } else
@@ -1091,9 +1090,7 @@ void pidCountrolV()
         Kiv = kiv;
         kdv = tunerv.getPID_d(); //- d для ПИД регулятора	
         Kdv = kdv;
-        
-        
-      }*/
+      }**/
 
     
     }
