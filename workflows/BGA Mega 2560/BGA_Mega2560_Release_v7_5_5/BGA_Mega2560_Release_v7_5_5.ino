@@ -628,43 +628,43 @@ void setup(void)
     EEPROM.put(2250, sec);
     EEPROM.put(2255, temp1);
     EEPROM.put(2260, temp2);
-    //термопрофиль User 3 шаг 1
+    //термопрофиль User 4 шаг 1
     EEPROM.put(2265, sec);
     EEPROM.put(2270, temp1);
     EEPROM.put(2275, temp2);
-    //термопрофиль User 3 шаг 2
+    //термопрофиль User 4 шаг 2
     EEPROM.put(2280, sec);
     EEPROM.put(2285, temp1);
     EEPROM.put(2290, temp2);
-    //термопрофиль User 3 шаг 3
+    //термопрофиль User 4 шаг 3
     EEPROM.put(2295, sec);
     EEPROM.put(2300, temp1);
     EEPROM.put(2305, temp2);
-    //термопрофиль User 3 шаг 4
+    //термопрофиль User 4 шаг 4
     EEPROM.put(2310, sec);
     EEPROM.put(2315, temp1);
     EEPROM.put(2320, temp2);
-    //термопрофиль User 3 шаг 5
+    //термопрофиль User 4 шаг 5
     EEPROM.put(2325, sec);
     EEPROM.put(2330, temp1);
     EEPROM.put(2335, temp2);
-    //термопрофиль User 3 шаг 6
+    //термопрофиль User 4 шаг 6
     EEPROM.put(2340, sec);
     EEPROM.put(2345, temp1);
     EEPROM.put(2350, temp2);
-    //термопрофиль User 3 шаг 7
+    //термопрофиль User 4 шаг 7
     EEPROM.put(2355, sec);
     EEPROM.put(2360, temp1);
     EEPROM.put(2365, temp2);
-    //термопрофиль User 3 шаг 8
+    //термопрофиль User 4 шаг 8
     EEPROM.put(2370, sec);
     EEPROM.put(2375, temp1);
     EEPROM.put(2380, temp2);
-    //термопрофиль User 3 шаг 9
+    //термопрофиль User 4 шаг 9
     EEPROM.put(2385, sec);
     EEPROM.put(2390, temp1);
     EEPROM.put(2395, temp2);
-    //термопрофиль User 3 шаг 10
+    //термопрофиль User 4 шаг 10
     EEPROM.put(2400, sec);
     EEPROM.put(2405, temp1);
     EEPROM.put(2410, temp2);
