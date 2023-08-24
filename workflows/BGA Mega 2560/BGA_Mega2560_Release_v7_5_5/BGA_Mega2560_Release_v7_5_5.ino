@@ -970,7 +970,7 @@ void setup(void)
   pid2.Kd = Kdn;
 
    // направление, начальный сигнал, конечный, период плато, точность, время стабилизации, период итерации
-  //tunerv.setParameters(NORMAL, 50, 80, 40000, 2.00, 100);
+  //tunerv.setParameters(NORMAL, 225, 235, 80000, 2.00, 100);
   //tunern.setParameters(NORMAL, 0, 50, 80000, 1.00, 100);
 
 }
@@ -1459,18 +1459,19 @@ void loop(void)
           {
             pidCountrolN();
            
-              //nigniye(); // Пид регулирование
-            
+            //nigniye(); // Пид регулирование
+            myTimer0 = millis();
           }
           if(reley_v==1)
           {
             pidCountrolV();
              
-               //verhniy(); // Пид регулирование
-             
+            //verhniy(); // Пид регулирование
+            myTimer0 = millis();
           } 
+          
         }
-    myTimer0 = millis();
+    
   }else {
         if(reley_n==1)
         {
@@ -1478,15 +1479,18 @@ void loop(void)
           if (reley_n1==1)
           {
             //reguln();  // Гистерезис
+            myTimer0 = millis(); 
           }          
           if(reley_v==1)
           {
-            //regul();   // Гистерезис      
+            //regul();   // Гистерезис
+            myTimer0 = millis();   
           }
+          
         }
       
       }
-   myTimer0 = millis();
+   
   }
     
   if (termoprofily1_9 == 1)
@@ -1747,7 +1751,7 @@ void pidCountrolV()
       //tunerv.debugText();
 
       // выводит в порт данные для построения графиков, без коэффициентов
-      //tuner.debugPlot();
+      //tunerv.debugPlot();
       /**
       if (tunerv.getState() == 7) //и при наступлении этого условия получить коэффициенты:
       {
