@@ -126,9 +126,11 @@ uint32_t btnTimer = 0;
 bool btnState;
 bool detect_zero = 1; // Детектор ноля, когда равно 1 детектор ноля отключин, когда равно 0 то детектор ноля включин.
 int shagt = 0;
+float GradSecv = 2.0; // Набор верхнего нагревателя тепературы 2.0 градуса в секунду, можете изменить на свое значение хоть 1.5 градуса в секунду
+float GradSecn = 1.0; // Набор нижнего нагревателя 1.0 Градус в Секунду
 
-GyverPID pid(Kpv, Kiv, Kdv, Dtv);
-GyverPID pid2(Kpn, Kin, Kdn, Dtn);
+GyverPID pid(Kpv, Kiv, Kdv, GradSecv, Dtv);
+GyverPID pid2(Kpn, Kin, Kdn, GradSecn, Dtn);
 
 //PIDtuner2 tunerv;
 //PIDtuner2 tunern;
@@ -1144,11 +1146,13 @@ void setup(void)
   pid.Ki = Kiv;
   pid.Kd = Kdv;
   pid.integral = 0.0;
+  pid.window = GradSecv;
   // в процессе работы можно менять коэффициенты
   pid2.Kp = Kpn;
   pid2.Ki = Kin;
   pid2.Kd = Kdn;
   pid2.integral = 0.0;
+  pid2.window = GradSecn;
    // направление, начальный сигнал, конечный, период плато, точность, время стабилизации, период итерации
   //tunerv.setParameters(NORMAL, 225, 235, 80000, 2.00, 100);
   //tunern.setParameters(NORMAL, 0, 50, 80000, 1.00, 100);
