@@ -959,7 +959,143 @@ void setup(void)
 	EEPROM.put(3300, gradsecv);
 	EEPROM.put(3305, gradsecn); 
 
-    delay(6000);
+    //термопрофиль User 2 шаг 0
+	EEPROM.put(3310, gradsecv);
+	EEPROM.put(3315, gradsecn);
+    //термопрофиль User 2 шаг 1
+	EEPROM.put(3320, gradsecv);
+	EEPROM.put(3325, gradsecn);
+    //термопрофиль User 2 шаг 2
+	EEPROM.put(3330, gradsecv);
+	EEPROM.put(3335, gradsecn);
+    //термопрофиль User 2 шаг 3
+	EEPROM.put(3340, gradsecv);
+	EEPROM.put(3345, gradsecn);
+    //термопрофиль User 2 шаг 4
+	EEPROM.put(3350, gradsecv);
+	EEPROM.put(3355, gradsecn);
+    //термопрофиль User 2 шаг 5
+ 	EEPROM.put(3360, gradsecv);
+	EEPROM.put(3365, gradsecn);
+    //термопрофиль User 2 шаг 6
+	EEPROM.put(3370, gradsecv);
+	EEPROM.put(3375, gradsecn); 
+    //термопрофиль User 2 шаг 7
+	EEPROM.put(3380, gradsecv);
+	EEPROM.put(3385, gradsecn); 
+    //термопрофиль User 2 шаг 8
+ 	EEPROM.put(3390, gradsecv);
+	EEPROM.put(3395, gradsecn);
+    //термопрофиль User 2 шаг 9
+	EEPROM.put(3400, gradsecv);
+	EEPROM.put(3405, gradsecn);
+    //термопрофиль User 2 шаг 10
+	EEPROM.put(3410, gradsecv);
+	EEPROM.put(3415, gradsecn);
+
+    //термопрофиль User 3 шаг 0
+	EEPROM.put(3420, gradsecv);
+	EEPROM.put(3425, gradsecn);
+    //термопрофиль User 3 шаг 1
+	EEPROM.put(3430, gradsecv);
+	EEPROM.put(3435, gradsecn);
+    //термопрофиль User 3 шаг 2
+	EEPROM.put(3440, gradsecv);
+	EEPROM.put(3445, gradsecn);
+    //термопрофиль User 3 шаг 3
+	EEPROM.put(3450, gradsecv);
+	EEPROM.put(3455, gradsecn);
+    //термопрофиль User 3 шаг 4
+	EEPROM.put(3460, gradsecv);
+	EEPROM.put(3465, gradsecn);
+    //термопрофиль User 3 шаг 5
+ 	EEPROM.put(3470, gradsecv);
+	EEPROM.put(3475, gradsecn);
+    //термопрофиль User 3 шаг 6
+	EEPROM.put(3480, gradsecv);
+	EEPROM.put(3485, gradsecn); 
+    //термопрофиль User 3 шаг 7
+	EEPROM.put(3490, gradsecv);
+	EEPROM.put(3495, gradsecn); 
+    //термопрофиль User 3 шаг 8
+ 	EEPROM.put(3500, gradsecv);
+	EEPROM.put(3505, gradsecn);
+    //термопрофиль User 3 шаг 9
+	EEPROM.put(3510, gradsecv);
+	EEPROM.put(3515, gradsecn);
+    //термопрофиль User 3 шаг 10
+	EEPROM.put(3520, gradsecv);
+	EEPROM.put(3525, gradsecn);
+
+    //термопрофиль User 4 шаг 0
+	EEPROM.put(3530, gradsecv);
+	EEPROM.put(3535, gradsecn);
+    //термопрофиль User 4 шаг 1
+	EEPROM.put(3540, gradsecv);
+	EEPROM.put(3545, gradsecn);
+    //термопрофиль User 4 шаг 2
+	EEPROM.put(3550, gradsecv);
+	EEPROM.put(3555, gradsecn);
+    //термопрофиль User 4 шаг 3
+	EEPROM.put(3560, gradsecv);
+	EEPROM.put(3565, gradsecn);
+    //термопрофиль User 4 шаг 4
+	EEPROM.put(3570, gradsecv);
+	EEPROM.put(3575, gradsecn);
+    //термопрофиль User 4 шаг 5
+ 	EEPROM.put(3580, gradsecv);
+	EEPROM.put(3585, gradsecn);
+    //термопрофиль User 4 шаг 6
+	EEPROM.put(3590, gradsecv);
+	EEPROM.put(3595, gradsecn); 
+    //термопрофиль User 4 шаг 7
+	EEPROM.put(3600, gradsecv);
+	EEPROM.put(3605, gradsecn); 
+    //термопрофиль User 4 шаг 8
+ 	EEPROM.put(3610, gradsecv);
+	EEPROM.put(3615, gradsecn);
+    //термопрофиль User 4 шаг 9
+	EEPROM.put(3620, gradsecv);
+	EEPROM.put(3625, gradsecn);
+    //термопрофиль User 4 шаг 10
+	EEPROM.put(3630, gradsecv);
+	EEPROM.put(3635, gradsecn);
+
+      //термопрофиль User 5 шаг 0
+	EEPROM.put(3640, gradsecv);
+	EEPROM.put(3645, gradsecn);
+    //термопрофиль User 5 шаг 1
+	EEPROM.put(3650, gradsecv);
+	EEPROM.put(3655, gradsecn);
+    //термопрофиль User 5 шаг 2
+	EEPROM.put(3660, gradsecv);
+	EEPROM.put(3665, gradsecn);
+    //термопрофиль User 5 шаг 3
+	EEPROM.put(3670, gradsecv);
+	EEPROM.put(3675, gradsecn);
+    //термопрофиль User 5 шаг 4
+	EEPROM.put(3680, gradsecv);
+	EEPROM.put(3685, gradsecn);
+    //термопрофиль User 5 шаг 5
+ 	EEPROM.put(3690, gradsecv);
+	EEPROM.put(3695, gradsecn);
+    //термопрофиль User 5 шаг 6
+	EEPROM.put(3700, gradsecv);
+	EEPROM.put(3705, gradsecn); 
+    //термопрофиль User 5 шаг 7
+	EEPROM.put(3710, gradsecv);
+	EEPROM.put(3715, gradsecn); 
+    //термопрофиль User 5 шаг 8
+ 	EEPROM.put(3720, gradsecv);
+	EEPROM.put(3725, gradsecn);
+    //термопрофиль User 5 шаг 9
+	EEPROM.put(3730, gradsecv);
+	EEPROM.put(3735, gradsecn);
+    //термопрофиль User 5 шаг 10
+	EEPROM.put(3740, gradsecv);
+	EEPROM.put(3745, gradsecn);
+
+    delay(10000);
     // TERMOPROFILY  заканчивается код
     EEPROM.write(INIT_ADDR, INIT_KEY);
   }
@@ -1038,7 +1174,13 @@ void setup(void)
          SendData("t57.txt", t57);
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);  
+         SendData("t58.txt", t58); 
+        GradSecv = gradsecv;
+        String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+        SendData("tgcs3.txt", tgcs3);
+        GradSecn = gradsecn;
+        String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+        SendData("tgcs4.txt", tgcs4); 
   }else if (EEPROM.get(207, termoprofily) == 3)
   {
          EEPROM.get(1465, dtv); 
@@ -1047,6 +1189,9 @@ void setup(void)
          EEPROM.get(1300, sec);
          EEPROM.get(1305, temp1);
          EEPROM.get(1310, temp2);
+         //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("pidv.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1067,6 +1212,12 @@ void setup(void)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);  
+        GradSecv = gradsecv;
+        String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+        SendData("tgcs3.txt", tgcs3);
+        GradSecn = gradsecn;
+        String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+        SendData("tgcs4.txt", tgcs4);         
   }else if (EEPROM.get(207, termoprofily) == 4)
   {
          EEPROM.get(1940, dtv); 
@@ -1075,6 +1226,9 @@ void setup(void)
          EEPROM.get(1775, sec);
          EEPROM.get(1780, temp1);
          EEPROM.get(1785, temp2);
+             //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);
          shag = 0;
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("pidv.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1095,6 +1249,12 @@ void setup(void)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);  
+        GradSecv = gradsecv;
+        String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+        SendData("tgcs3.txt", tgcs3);
+        GradSecn = gradsecn;
+        String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+        SendData("tgcs4.txt", tgcs4);         
   }else if (EEPROM.get(207, termoprofily) == 5)
   {
           EEPROM.get(2415, dtv); 
@@ -1103,6 +1263,9 @@ void setup(void)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+            //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);          
          shag = 0;
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("pidv.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1122,7 +1285,13 @@ void setup(void)
          SendData("t57.txt", t57);
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);  
+         SendData("t58.txt", t58);
+        GradSecv = gradsecv;
+        String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+        SendData("tgcs3.txt", tgcs3);
+        GradSecn = gradsecn;
+        String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+        SendData("tgcs4.txt", tgcs4);           
   }else if (EEPROM.get(207, termoprofily) == 6)
   {
       //термопрофиль User 5
@@ -1133,6 +1302,9 @@ void setup(void)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+          //термопрофиль User 5 шаг 0
+          EEPROM.get(3640, gradsecv);
+          EEPROM.get(3645, gradsecn);
          shag = 0;
          outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("pidv.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1152,7 +1324,13 @@ void setup(void)
          SendData("t57.txt", t57);
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
-         SendData("t58.txt", t58);  
+         SendData("t58.txt", t58);
+        GradSecv = gradsecv;
+        String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+        SendData("tgcs3.txt", tgcs3);
+        GradSecn = gradsecn;
+        String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+        SendData("tgcs4.txt", tgcs4);           
   }
 
   tempust1 = temp1;
@@ -1443,6 +1621,9 @@ void loop(void)
                   EEPROM.get(1300, sec);
                   EEPROM.get(1305, temp1);
                   EEPROM.get(1310, temp2);
+                      //термопрофиль User 2 шаг 0
+                  EEPROM.get(3310, gradsecv);
+                  EEPROM.get(3315, gradsecn);
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1466,6 +1647,9 @@ void loop(void)
                   EEPROM.get(1775, sec);
                   EEPROM.get(1780, temp1);
                   EEPROM.get(1785, temp2);
+                    //термопрофиль User 3 шаг 0
+                  EEPROM.get(3420, gradsecv);
+                  EEPROM.get(3425, gradsecn);                  
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1489,6 +1673,9 @@ void loop(void)
                   EEPROM.get(2250, sec);
                   EEPROM.get(2255, temp1);
                   EEPROM.get(2260, temp2);
+                    //термопрофиль User 4 шаг 0
+                  EEPROM.get(3530, gradsecv);
+                  EEPROM.get(3535, gradsecn);                  
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1512,6 +1699,9 @@ void loop(void)
                   EEPROM.get(2725, sec);
                   EEPROM.get(2730, temp1);
                   EEPROM.get(2735, temp2);
+                  //термопрофиль User 5 шаг 0
+                  EEPROM.get(3640, gradsecv);
+                  EEPROM.get(3645, gradsecn);
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1627,6 +1817,9 @@ void loop(void)
                   EEPROM.get(1300, sec);
                   EEPROM.get(1305, temp1);
                   EEPROM.get(1310, temp2);
+                      //термопрофиль User 2 шаг 0
+                  EEPROM.get(3310, gradsecv);
+                  EEPROM.get(3315, gradsecn);
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1650,6 +1843,9 @@ void loop(void)
                   EEPROM.get(1775, sec);
                   EEPROM.get(1780, temp1);
                   EEPROM.get(1785, temp2);
+                    //термопрофиль User 3 шаг 0
+                  EEPROM.get(3420, gradsecv);
+                  EEPROM.get(3425, gradsecn);                  
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1673,6 +1869,9 @@ void loop(void)
                   EEPROM.get(2250, sec);
                   EEPROM.get(2255, temp1);
                   EEPROM.get(2260, temp2);
+                    //термопрофиль User 4 шаг 0
+                  EEPROM.get(3530, gradsecv);
+                  EEPROM.get(3535, gradsecn);                  
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1696,6 +1895,9 @@ void loop(void)
                   EEPROM.get(2725, sec);
                   EEPROM.get(2730, temp1);
                   EEPROM.get(2735, temp2);
+                  //термопрофиль User 5 шаг 0
+                  EEPROM.get(3640, gradsecv);
+                  EEPROM.get(3645, gradsecn);
                   shag = 0;    
                   outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag     
                   outNumber("termoprofily.shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -1748,14 +1950,14 @@ void loop(void)
           {
             pidCountrolN();
            
-            //nigniye(); // Пид регулирование
+            // Пид регулирование
             myTimer0 = millis();
           }
           if(reley_v==1)
           {
             pidCountrolV();
              
-            //verhniy(); // Пид регулирование
+            // Пид регулирование
             myTimer0 = millis();
           } 
           
@@ -2278,64 +2480,7 @@ void sendFFFFFF(void)
   nexSerial.write(0xFF);
   nexSerial.write(0xFF);
 } // Здесь закачивается код Максима Селиванова 
-/**
-// Без детектора ноля, раскоментируйте код ниже с детектором ноля, а этот код закоментируйте.
-// Пид регулирование нижний нагреватель
-void nigniye()
-{
-  if (detect_zero == 1)
-  { // без детектора ноля
-   if (tempt2 >= tempust2)
-            {
-              analogWrite(nigniy_1, 0);
-            }else if(tempt2 < tempust2)
-            {
-    // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-              analogWrite(nigniy_1, NizPID(tempt2, tempust2, Kpn, Kin, Kdn, Dtn, 0, pwmust2)); 
-            }
-  //delay(20);
-  }else
-  { // с детектором ноля
-   if (tempt2 >= tempust2)
-            {
-              analogWrite(nigniy_1, 0);
-            }else if(tempt2 < tempust2)
-            {
-    // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-               analogWrite(nigniy_1, dimmer[0] = NizPID(tempt2, tempust2, Kpn, Kin, Kdn, Dtn, 0, pwmust2)); 
-            }
-    //delay(20); 
-  }
-   
-}
-// Пид регулирование верхний нагреватель
-void verhniy()
-{
-  if (detect_zero == 1)
-  { // без детектора ноля
-  if (tempt1 >= tempust1)
-             {
-                analogWrite(verhniy_1, 0);
-             }else if(tempt1 < tempust1)
-             {
-    // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-               analogWrite(verhniy_1, VerhPID(tempt1, tempust1, Kpv, Kiv, Kdv, Dtv, 0, pwmust1)); 
-             }
-     //delay(20);
-  }else
-  { // с детектором ноля
-  if (tempt1 >= tempust1)
-             {
-                analogWrite(verhniy_1, 0);
-             }else if(tempt1 < tempust1)
-             {
-     // (вход, установка, п, и, д, период в секундах, мин.выход, макс. выход)
-                analogWrite(verhniy_1, dimmer[1] = VerhPID(tempt1, tempust1, Kpv, Kiv, Kdv, Dtv, 0, pwmust1)); 
-             }
-     //delay(20);
-  }
-     
-}**/
+
 /**
 // Гистерезис нижний нагреватель
 void reguln()
@@ -2433,6 +2578,9 @@ void AnalyseString(String incStr)
          EEPROM.get(22, sec);
          EEPROM.get(27, temp1);
          EEPROM.get(32, temp2);
+         //термопрофиль User 1 шаг 0
+         EEPROM.get(3200, gradsecv);
+         EEPROM.get(3205, gradsecn);
          shag = 0;         
          //sec=0;
          outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
@@ -2457,6 +2605,9 @@ void AnalyseString(String incStr)
           EEPROM.get(1300, sec);
           EEPROM.get(1305, temp1);
           EEPROM.get(1310, temp2);
+              //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;         
          //sec=0;
          outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
@@ -2481,6 +2632,9 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);          
          shag = 0;         
          //sec=0;
          outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
@@ -2505,6 +2659,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+         //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);
          shag = 0;         
          //sec=0;
          outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
@@ -2529,6 +2686,9 @@ void AnalyseString(String incStr)
         EEPROM.get(2725, sec);
         EEPROM.get(2730, temp1);
         EEPROM.get(2735, temp2);
+          //термопрофиль User 5 шаг 0
+        EEPROM.get(3640, gradsecv);
+        EEPROM.get(3645, gradsecn);        
          shag = 0;         
          //sec=0;
          outNumber("shagt.val", shag);  // Отображение числа в числовом компоненте shag
@@ -3750,16 +3910,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+          //термопрофиль User 2 шаг 0
+          EEPROM.put(3310, gradsecv);
+          EEPROM.put(3315, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 0
+            EEPROM.put(3420, gradsecv);
+            EEPROM.put(3425, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 0
+            EEPROM.put(3530, gradsecv);
+            EEPROM.put(3535, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 0
+            EEPROM.put(3640, gradsecv);
+            EEPROM.put(3645, gradsecn);          
           }
     } else if(shag == 1)
     {
@@ -3771,16 +3939,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 1
+          EEPROM.put(3320, gradsecv);
+          EEPROM.put(3325, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 1
+            EEPROM.put(3430, gradsecv);
+            EEPROM.put(3435, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 1
+            EEPROM.put(3540, gradsecv);
+            EEPROM.put(3545, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 1
+            EEPROM.put(3650, gradsecv);
+            EEPROM.put(3655, gradsecn);          
           }
     }else if(shag == 2)
     {
@@ -3792,16 +3968,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 2
+          EEPROM.put(3330, gradsecv);
+          EEPROM.put(3335, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 2
+            EEPROM.put(3440, gradsecv);
+            EEPROM.put(3445, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 2
+            EEPROM.put(3550, gradsecv);
+            EEPROM.put(3555, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 2
+            EEPROM.put(3660, gradsecv);
+            EEPROM.put(3665, gradsecn);          
           }
     }else if(shag == 3)
     {
@@ -3813,16 +3997,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 3
+          EEPROM.put(3340, gradsecv);
+          EEPROM.put(3345, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 3
+            EEPROM.put(3450, gradsecv);
+            EEPROM.put(3455, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 3
+            EEPROM.put(3560, gradsecv);
+            EEPROM.put(3565, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 3
+            EEPROM.put(3670, gradsecv);
+            EEPROM.put(3675, gradsecn);          
           }
     }else if(shag == 4)
     {
@@ -3834,16 +4026,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 4
+          EEPROM.put(3350, gradsecv);
+          EEPROM.put(3355, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 4
+            EEPROM.put(3460, gradsecv);
+            EEPROM.put(3465, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 4
+            EEPROM.put(3570, gradsecv);
+            EEPROM.put(3575, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 4
+            EEPROM.put(3680, gradsecv);
+            EEPROM.put(3685, gradsecn);          
           }
     }else if(shag == 5)
     {
@@ -3855,16 +4055,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 5
+          EEPROM.put(3360, gradsecv);
+          EEPROM.put(3365, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 5
+            EEPROM.put(3470, gradsecv);
+            EEPROM.put(3475, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+            //термопрофиль User 4 шаг 5
+            EEPROM.put(3580, gradsecv);
+            EEPROM.put(3585, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 5
+            EEPROM.put(3690, gradsecv);
+            EEPROM.put(3695, gradsecn);          
           }
     }else if(shag == 6)
     {
@@ -3876,16 +4084,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 6
+          EEPROM.put(3370, gradsecv);
+          EEPROM.put(3375, gradsecn); 	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 6
+            EEPROM.put(3480, gradsecv);
+            EEPROM.put(3485, gradsecn);             
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 6
+            EEPROM.put(3590, gradsecv);
+            EEPROM.put(3595, gradsecn);            
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 6
+            EEPROM.put(3700, gradsecv);
+            EEPROM.put(3705, gradsecn);          
           }
     }else if(shag == 7)
     {
@@ -3897,16 +4113,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 7
+          EEPROM.put(3380, gradsecv);
+          EEPROM.put(3385, gradsecn); 	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 7
+            EEPROM.put(3490, gradsecv);
+            EEPROM.put(3495, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 7
+            EEPROM.put(3600, gradsecv);
+            EEPROM.put(3605, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 7
+            EEPROM.put(3710, gradsecv);
+            EEPROM.put(3715, gradsecn);           
           }
     }else if(shag == 8)
     {
@@ -3918,16 +4142,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+          //термопрофиль User 2 шаг 8
+          EEPROM.put(3390, gradsecv);
+          EEPROM.put(3395, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 8
+            EEPROM.put(3500, gradsecv);
+            EEPROM.put(3505, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 8
+            EEPROM.put(3610, gradsecv);
+            EEPROM.put(3615, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 8
+            EEPROM.put(3720, gradsecv);
+            EEPROM.put(3725, gradsecn);          
           }
     }else if(shag == 9)
     {
@@ -3939,16 +4171,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+            //термопрофиль User 2 шаг 9
+          EEPROM.put(3400, gradsecv);
+          EEPROM.put(3405, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+              //термопрофиль User 3 шаг 9
+            EEPROM.put(3510, gradsecv);
+            EEPROM.put(3515, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 9
+            EEPROM.put(3620, gradsecv);
+            EEPROM.put(3625, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 9
+            EEPROM.put(3730, gradsecv);
+            EEPROM.put(3735, gradsecn);          
           }
     }else if(shag == 10)
     {
@@ -3960,16 +4200,24 @@ void AnalyseString(String incStr)
          
        } else if (termoprofily == 3)
         {
-	        
+          //термопрофиль User 2 шаг 10
+          EEPROM.put(3410, gradsecv);
+          EEPROM.put(3415, gradsecn);	        
         } else if (termoprofily == 4)
           { 
-          
+            //термопрофиль User 3 шаг 10
+            EEPROM.put(3520, gradsecv);
+            EEPROM.put(3525, gradsecn);          
           }else if (termoprofily == 5)
           { 
-          
+              //термопрофиль User 4 шаг 10
+            EEPROM.put(3630, gradsecv);
+            EEPROM.put(3635, gradsecn);          
           }else if (termoprofily == 6)
           { 
-          
+              //термопрофиль User 5 шаг 10
+            EEPROM.put(3740, gradsecv);
+            EEPROM.put(3745, gradsecn);          
           }
     }
   }
@@ -4077,6 +4325,9 @@ void AnalyseString(String incStr)
           EEPROM.get(1300, sec);
           EEPROM.get(1305, temp1);
           EEPROM.get(1310, temp2);
+          //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          // shag = 0;
          //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -4090,6 +4341,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -4111,6 +4368,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+          delay(10);
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);          
          // shag = 0;
          //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -4124,6 +4385,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -4145,6 +4412,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+          delay(10);
+            //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);          
          // shag = 0;
          //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -4158,6 +4429,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -4179,6 +4456,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+          delay(10);
+          //термопрофиль User 5 шаг 0
+          EEPROM.get(3640, gradsecv);
+          EEPROM.get(3645, gradsecn);
          // shag = 0;
          //sec=0;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -4192,6 +4473,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -4297,6 +4584,10 @@ void AnalyseString(String incStr)
          EEPROM.get(1315, sec);
          EEPROM.get(1320, temp1);
          EEPROM.get(1325, temp2);
+         delay(10);
+            //термопрофиль User 2 шаг 1
+          EEPROM.get(3320, gradsecv);
+          EEPROM.get(3325, gradsecn);         
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4330,6 +4621,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1790, sec);
           EEPROM.get(1795, temp1);
           EEPROM.get(1800, temp2);
+          delay(10);
+            //термопрофиль User 3 шаг 1
+          EEPROM.get(3430, gradsecv);
+          EEPROM.get(3435, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4363,6 +4658,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2265, sec);
           EEPROM.get(2270, temp1);
           EEPROM.get(2275, temp2);
+          delay(10);
+            //термопрофиль User 4 шаг 1
+          EEPROM.get(3540, gradsecv);
+          EEPROM.get(3545, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4396,6 +4695,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2740, sec);
           EEPROM.get(2745, temp1);
           EEPROM.get(2750, temp2);
+          delay(10);
+            //термопрофиль User 5 шаг 1
+          EEPROM.get(3650, gradsecv);
+          EEPROM.get(3655, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4508,6 +4811,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1330, sec);
           EEPROM.get(1335, temp1);
           EEPROM.get(1340, temp2);
+          delay(10);
+            //термопрофиль User 2 шаг 2
+          EEPROM.get(3330, gradsecv);
+          EEPROM.get(3335, gradsecn);          
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4541,6 +4848,11 @@ void AnalyseString(String incStr)
           EEPROM.get(1805, sec);
           EEPROM.get(1810, temp1);
           EEPROM.get(1815, temp2);
+          delay(10);
+            //термопрофиль User 3 шаг 2
+          EEPROM.get(3440, gradsecv);
+          EEPROM.get(3445, gradsecn);         
+
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4574,6 +4886,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2280, sec);
           EEPROM.get(2285, temp1);
           EEPROM.get(2290, temp2);
+          delay(10);
+            //термопрофиль User 4 шаг 2
+          EEPROM.get(3550, gradsecv);
+          EEPROM.get(3555, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4607,6 +4923,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2755, sec);
           EEPROM.get(2760, temp1);
           EEPROM.get(2765, temp2);
+          delay(10);
+            //термопрофиль User 5 шаг 2
+          EEPROM.get(3660, gradsecv);
+          EEPROM.get(3665, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4721,6 +5041,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1345, sec);
         EEPROM.get(1350, temp1);
         EEPROM.get(1355, temp2);
+        delay(10);
+          //термопрофиль User 2 шаг 3
+        EEPROM.get(3340, gradsecv);
+        EEPROM.get(3345, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4754,6 +5078,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1820, sec);
         EEPROM.get(1825, temp1);
         EEPROM.get(1830, temp2);
+        delay(10);
+                //термопрофиль User 3 шаг 3
+        EEPROM.get(3450, gradsecv);
+        EEPROM.get(3455, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4787,6 +5115,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2295, sec);
           EEPROM.get(2300, temp1);
           EEPROM.get(2305, temp2);
+          delay(10);
+            //термопрофиль User 4 шаг 3
+          EEPROM.get(3560, gradsecv);
+          EEPROM.get(3565, gradsecn);          
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4820,6 +5152,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2770, sec);
           EEPROM.get(2775, temp1);
           EEPROM.get(2780, temp2); 
+          delay(10);
+            //термопрофиль User 5 шаг 3
+          EEPROM.get(3670, gradsecv);
+          EEPROM.get(3675, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4934,6 +5270,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1360, sec);
         EEPROM.get(1365, temp1);
         EEPROM.get(1370, temp2);
+        delay(10);
+          //термопрофиль User 2 шаг 4
+        EEPROM.get(3350, gradsecv);
+        EEPROM.get(3355, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -4967,6 +5307,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1835, sec);
         EEPROM.get(1840, temp1);
         EEPROM.get(1845, temp2);
+        delay(10);
+            //термопрофиль User 3 шаг 4
+          EEPROM.get(3460, gradsecv);
+          EEPROM.get(3465, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5000,6 +5344,10 @@ void AnalyseString(String incStr)
         EEPROM.get(2310, sec);
         EEPROM.get(2315, temp1);
         EEPROM.get(2320, temp2);
+        delay(10);
+          //термопрофиль User 4 шаг 4
+        EEPROM.get(3570, gradsecv);
+        EEPROM.get(3575, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5032,7 +5380,11 @@ void AnalyseString(String incStr)
           //термопрофиль User 5 шаг 4
           EEPROM.get(2785, sec);
           EEPROM.get(2790, temp1);
-          EEPROM.get(2795, temp2); 
+          EEPROM.get(2795, temp2);
+          delay(10);
+          //термопрофиль User 5 шаг 4
+          EEPROM.get(3680, gradsecv);
+          EEPROM.get(3685, gradsecn); 
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5147,6 +5499,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1375, sec);
           EEPROM.get(1380, temp1);
           EEPROM.get(1385, temp2);
+          delay(10);
+            //термопрофиль User 2 шаг 5
+          EEPROM.get(3360, gradsecv);
+          EEPROM.get(3365, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5180,6 +5536,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1850, sec);
           EEPROM.get(1855, temp1);
           EEPROM.get(1860, temp2);
+          delay(10);
+            //термопрофиль User 3 шаг 5
+          EEPROM.get(3470, gradsecv);
+          EEPROM.get(3475, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5213,6 +5573,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2325, sec);
           EEPROM.get(2330, temp1);
           EEPROM.get(2335, temp2);
+          delay(10);
+            //термопрофиль User 4 шаг 5
+          EEPROM.get(3580, gradsecv);
+          EEPROM.get(3585, gradsecn);          
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5246,6 +5610,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2800, sec);
           EEPROM.get(2805, temp1);
           EEPROM.get(2810, temp2); 
+          delay(10);
+            //термопрофиль User 5 шаг 5
+          EEPROM.get(3690, gradsecv);
+          EEPROM.get(3695, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5359,6 +5727,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1390, sec);
           EEPROM.get(1395, temp1);
           EEPROM.get(1400, temp2);
+          delay(10);
+            //термопрофиль User 2 шаг 6
+          EEPROM.get(3370, gradsecv);
+          EEPROM.get(3375, gradsecn);
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 2";
@@ -5391,6 +5763,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1865, sec);
           EEPROM.get(1870, temp1);
           EEPROM.get(1875, temp2);
+          delay(10);
+          //термопрофиль User 3 шаг 6
+          EEPROM.get(3480, gradsecv);
+          EEPROM.get(3485, gradsecn); 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 3";
@@ -5423,6 +5799,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2340, sec);
           EEPROM.get(2345, temp1);
           EEPROM.get(2350, temp2);
+          delay(10);
+          //термопрофиль User 4 шаг 6
+          EEPROM.get(3590, gradsecv);
+          EEPROM.get(3595, gradsecn);          
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 4";
@@ -5455,6 +5835,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2815, sec);
           EEPROM.get(2820, temp1);
           EEPROM.get(2825, temp2); 
+          delay(10);
+            //термопрофиль User 5 шаг 6
+          EEPROM.get(3700, gradsecv);
+          EEPROM.get(3705, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5569,6 +5953,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1405, sec);
         EEPROM.get(1410, temp1);
         EEPROM.get(1415, temp2);
+        delay(10);
+        //термопрофиль User 2 шаг 7
+        EEPROM.get(3380, gradsecv);
+        EEPROM.get(3385, gradsecn); 
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 2";
@@ -5601,6 +5989,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1880, sec);
           EEPROM.get(1885, temp1);
           EEPROM.get(1890, temp2);
+          delay(10);
+            //термопрофиль User 3 шаг 7
+          EEPROM.get(3490, gradsecv);
+          EEPROM.get(3495, gradsecn);           
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 3";
@@ -5633,6 +6025,10 @@ void AnalyseString(String incStr)
         EEPROM.get(2355, sec);
         EEPROM.get(2360, temp1);
         EEPROM.get(2365, temp2);
+        delay(10);
+          //термопрофиль User 4 шаг 7
+        EEPROM.get(3600, gradsecv);
+        EEPROM.get(3605, gradsecn);        
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 4";
@@ -5665,6 +6061,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2830, sec);
           EEPROM.get(2835, temp1);
           EEPROM.get(2840, temp2); 
+          delay(10);	
+            //термопрофиль User 5 шаг 7
+          EEPROM.get(3710, gradsecv);
+          EEPROM.get(3715, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5779,6 +6179,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1420, sec);
         EEPROM.get(1425, temp1);
         EEPROM.get(1430, temp2);
+        delay(10);
+          //термопрофиль User 2 шаг 8
+        EEPROM.get(3390, gradsecv);
+        EEPROM.get(3395, gradsecn);        
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 2";
@@ -5811,6 +6215,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1895, sec);
         EEPROM.get(1900, temp1);
         EEPROM.get(1905, temp2);
+        delay(10);
+          //термопрофиль User 3 шаг 8
+        EEPROM.get(3500, gradsecv);
+        EEPROM.get(3505, gradsecn);        
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 3";
@@ -5843,6 +6251,10 @@ void AnalyseString(String incStr)
         EEPROM.get(2370, sec);
         EEPROM.get(2375, temp1);
         EEPROM.get(2380, temp2);
+        delay(10);
+          //термопрофиль User 4 шаг 8
+        EEPROM.get(3610, gradsecv);
+        EEPROM.get(3615, gradsecn);
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 4";
@@ -5875,6 +6287,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2845, sec);
           EEPROM.get(2850, temp1);
           EEPROM.get(2855, temp2);
+          delay(10);	
+          //термопрофиль User 5 шаг 8
+          EEPROM.get(3720, gradsecv);
+          EEPROM.get(3725, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -5989,6 +6405,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1435, sec);
         EEPROM.get(1440, temp1);
         EEPROM.get(1445, temp2);
+        delay(10);
+          //термопрофиль User 2 шаг 9
+        EEPROM.get(3400, gradsecv);
+        EEPROM.get(3405, gradsecn);        
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 2";
@@ -6021,6 +6441,10 @@ void AnalyseString(String incStr)
         EEPROM.get(1910, sec);
         EEPROM.get(1915, temp1);
         EEPROM.get(1920, temp2);
+        delay(10);  
+          //термопрофиль User 3 шаг 9
+        EEPROM.get(3510, gradsecv);
+        EEPROM.get(3515, gradsecn);
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 3";
@@ -6053,6 +6477,10 @@ void AnalyseString(String incStr)
         EEPROM.get(2385, sec);
         EEPROM.get(2390, temp1);
         EEPROM.get(2395, temp2);
+        delay(10);
+          //термопрофиль User 4 шаг 9
+        EEPROM.get(3620, gradsecv);
+        EEPROM.get(3625, gradsecn);        
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 4";
@@ -6085,6 +6513,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2860, sec);
           EEPROM.get(2865, temp1);
           EEPROM.get(2870, temp2); 
+          delay(10);
+            //термопрофиль User 5 шаг 9
+          EEPROM.get(3730, gradsecv);
+          EEPROM.get(3735, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -6197,6 +6629,10 @@ void AnalyseString(String incStr)
          EEPROM.get(1450, sec);
          EEPROM.get(1455, temp1);
          EEPROM.get(1460, temp2);
+         delay(10);
+          //термопрофиль User 2 шаг 10
+        EEPROM.get(3410, gradsecv);
+        EEPROM.get(3415, gradsecn);         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 2";
@@ -6229,6 +6665,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1925, sec);
           EEPROM.get(1930, temp1);
           EEPROM.get(1935, temp2);
+          delay(10);
+            //термопрофиль User 3 шаг 10
+          EEPROM.get(3520, gradsecv);
+          EEPROM.get(3525, gradsecn);
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 3";
@@ -6261,6 +6701,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2400, sec);
           EEPROM.get(2405, temp1);
           EEPROM.get(2410, temp2);
+          delay(10);
+            //термопрофиль User 4 шаг 10
+          EEPROM.get(3630, gradsecv);
+          EEPROM.get(3635, gradsecn);          
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
          profily="User 4";
@@ -6293,6 +6737,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2875, sec);
           EEPROM.get(2880, temp1);
           EEPROM.get(2885, temp2);
+          delay(10);
+            //термопрофиль User 5 шаг 10
+          EEPROM.get(3740, gradsecv);
+          EEPROM.get(3745, gradsecn);
          //sec=80;
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
@@ -6424,6 +6872,10 @@ void AnalyseString(String incStr)
          EEPROM.get(1300, sec);
          EEPROM.get(1305, temp1);
          EEPROM.get(1310, temp2);
+         delay(10); 
+         //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -6437,6 +6889,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -6463,6 +6921,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+          delay(10); 
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -6476,6 +6938,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -6502,6 +6970,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+          delay(10); 
+            //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -6515,6 +6987,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -6541,6 +7019,10 @@ void AnalyseString(String incStr)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+          delay(10);	
+            //термопрофиль User 5 шаг 0
+          EEPROM.get(3640, gradsecv);
+          EEPROM.get(3645, gradsecn);
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -6554,6 +7036,12 @@ void AnalyseString(String incStr)
           Dtn = dtn;
           String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
           SendData("t58.txt", t58);
+          GradSecv = gradsecv;
+          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+          SendData("tgcs3.txt", tgcs3);
+          GradSecn = gradsecn;
+          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+          SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 0 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7325,6 +7813,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7341,6 +7835,9 @@ void AnalyseString(String incStr)
          EEPROM.get(1300, sec);
          EEPROM.get(1305, temp1);
          EEPROM.get(1310, temp2);
+             //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7353,6 +7850,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7371,6 +7874,10 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);          
+
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7383,6 +7890,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7399,6 +7912,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+          //термопрофиль User 4 шаг 0
+        EEPROM.get(3530, gradsecv);
+        EEPROM.get(3535, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7411,6 +7927,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7427,6 +7949,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+          //термопрофиль User 5 шаг 0
+        EEPROM.get(3640, gradsecv);
+        EEPROM.get(3645, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7439,6 +7964,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7504,6 +8035,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7520,6 +8057,9 @@ void AnalyseString(String incStr)
          EEPROM.get(1300, sec);
          EEPROM.get(1305, temp1);
          EEPROM.get(1310, temp2);
+             //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7532,6 +8072,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7550,6 +8096,9 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7562,6 +8111,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7578,6 +8133,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+            //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7590,6 +8148,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7606,6 +8170,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+            //термопрофиль User 5 шаг 0
+          EEPROM.get(3640, gradsecv);
+          EEPROM.get(3645, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7618,6 +8185,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7688,6 +8261,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7704,6 +8283,9 @@ void AnalyseString(String incStr)
          EEPROM.get(1300, sec);
          EEPROM.get(1305, temp1);
          EEPROM.get(1310, temp2);
+          //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7716,6 +8298,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7732,6 +8320,9 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7744,6 +8335,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7760,6 +8357,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+            //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7772,6 +8372,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7788,6 +8394,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+            //термопрофиль User 5 шаг 0
+          EEPROM.get(3640, gradsecv);
+          EEPROM.get(3645, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7800,6 +8409,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7865,6 +8480,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7882,6 +8503,9 @@ void AnalyseString(String incStr)
          EEPROM.get(1300, sec);
          EEPROM.get(1305, temp1);
          EEPROM.get(1310, temp2);
+             //термопрофиль User 2 шаг 0
+          EEPROM.get(3310, gradsecv);
+          EEPROM.get(3315, gradsecn);
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7894,6 +8518,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7912,6 +8542,9 @@ void AnalyseString(String incStr)
           EEPROM.get(1775, sec);
           EEPROM.get(1780, temp1);
           EEPROM.get(1785, temp2);
+            //термопрофиль User 3 шаг 0
+          EEPROM.get(3420, gradsecv);
+          EEPROM.get(3425, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7924,6 +8557,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7942,6 +8581,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2250, sec);
           EEPROM.get(2255, temp1);
           EEPROM.get(2260, temp2);
+            //термопрофиль User 4 шаг 0
+          EEPROM.get(3530, gradsecv);
+          EEPROM.get(3535, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7954,6 +8596,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -7970,6 +8618,9 @@ void AnalyseString(String incStr)
           EEPROM.get(2725, sec);
           EEPROM.get(2730, temp1);
           EEPROM.get(2735, temp2);
+            //термопрофиль User 5 шаг 0
+          EEPROM.get(3640, gradsecv);
+          EEPROM.get(3645, gradsecn);          
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -7982,6 +8633,12 @@ void AnalyseString(String incStr)
          Dtn = dtn;
          String t58= "\"" + String(Dtn) + "\"";  // выводим dt в мксекундах
          SendData("t58.txt", t58);
+         GradSecv = gradsecv;
+         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
+         SendData("tgcs3.txt", tgcs3);
+         GradSecn = gradsecn;
+         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
+         SendData("tgcs4.txt", tgcs4);
          //temp1 = 225; // Верхний нагреватель Бессвинцовый выбрано 225 'C градусов
          outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
          tempust1 = temp1;
@@ -8017,6 +8674,8 @@ void Text()
 	      Kdn = kdn;
         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
         SendData("t56.txt", t56);
+        delay(10);
+        // Градус в секунду верхний и нижний нагреватели
         GradSecv = gradsecv;
         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
         SendData("tgcs3.txt", tgcs3);
@@ -8025,29 +8684,7 @@ void Text()
         SendData("tgcs4.txt", tgcs4);
 	      
 }
-/**
-// функция пид автор https://alexgyver.ru/lessons/ 
-int NizPID(float input, float setpoint, float kp, float ki, float kd, float dt, int minOut, int maxOut) 
-{
-  float err = setpoint - input;
-  static float integral = 0, prevErr = 0;
-  integral = constrain(integral + (float)err * dt * ki, minOut, maxOut);
-  float D = (err - prevErr) / dt;
-  prevErr = err;
-  return constrain(err * kp + integral + D * kd, minOut, maxOut);
-}
 
-// функция пид автор https://alexgyver.ru/lessons/
-int VerhPID(float input, float setpoint, float kp, float ki, float kd, float dt, int minOut, int maxOut) 
-{
-  float err = setpoint - input;
-  static float integral = 0, prevErr = 0;
-  integral = constrain(integral + (float)err * dt * ki, minOut, maxOut);
-  float D = (err - prevErr) / dt;
-  prevErr = err;
-  return constrain(err * kp + integral + D * kd, minOut, maxOut);
-}
-**/
 void SendData(String dev, String data)
 {
   nexSerial.print(dev);
