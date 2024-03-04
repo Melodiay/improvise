@@ -68,7 +68,7 @@ if (temp==1)
   delay(1000);
   **/
  //outNumber("n1.val", t1);
-  String t0 = "\"" + String(t1) + " 'C\"";  // выводим температуру и градусы цельсия 
+  String t0 = "\"" + String(t1) + "\"";  // выводим температуру и градусы цельсия 
   SendData("t0.txt", t0);
   delay(1000);
 
@@ -80,7 +80,7 @@ if (temp==1)
   delay(1000);
   **/
   //outNumber("n0.val", t2);
-  String t1 = "\"" + String(t2) + " 'C\"";  // выводим температуру и градусы цельсия 
+  String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
   SendData("t1.txt", t1);
   delay(1000);
   }
