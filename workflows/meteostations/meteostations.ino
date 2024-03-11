@@ -55,7 +55,11 @@ if ((incStr.indexOf("00"))>=0)
   } else if((incStr.indexOf("02"))>=0)
   {
     temp = 0;
+  }else if((incStr.indexOf("03"))>=0)
+  {
+    temp = 0;
   }
+
 if (temp==1)
 {
   if (!(Serial.available()))
