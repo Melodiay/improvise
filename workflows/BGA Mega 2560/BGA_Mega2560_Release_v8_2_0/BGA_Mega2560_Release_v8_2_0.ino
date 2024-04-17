@@ -27,7 +27,7 @@ const byte dimPins[] = {3, 4}; // их пины для детектора нул
 int dimmer[DIM_AMOUNT];     // переменная диммера
 volatile int counter = 0;   // счётчик цикла
 
-// объединяем порт 22 и 23 на ардуино для двух термопар, в месте подключаем
+
 // Пины модуля MAX6675K верхняя термопара
 #define CLK_PIN   22  // Пин SCK  указываем вывводы для программного ICP
 #define DATA_PIN  23  // Пин SO
@@ -2388,60 +2388,60 @@ if (!(nexSerial.available()))
 {
   if (termoprofily == 2)
   {
-    if ((setopov1 <= tempt1) && (setopov2 >= tempt1))   //  это верхний нагреватель
+    if ((setopov1 != 0) && (setopov1 <= tempt1) && (setopov2 != 0) && (setopov2 >= tempt1))   //  это верхний нагреватель
     {  // пока находится в диапазоне 190-193 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();       
     }
-    if ((setopov3 <= tempt2) && (setopov4 >= tempt2))   //  это верхний нагреватель
+    if ((setopov3 != 0) && (setopov3 <= tempt2) && (setopov4 != 0) && (setopov4 >= tempt2))   //  это верхний нагреватель
     {  // пока находится в диапазоне 140-143 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();
     }
   }else if (termoprofily == 3)
   {
-    if ((setopov1 <= tempt1) && (setopov2 >= tempt1))   //  это верхний нагреватель
+    if ((setopov1 != 0) && (setopov1 <= tempt1) && (setopov2 != 0) && (setopov2 >= tempt1))   //  это верхний нагреватель
     {  // пока находится в диапазоне 190-193 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();       
     }
-    if ((setopov3 <= tempt2) && (setopov4 >= tempt2))   //  это верхний нагреватель
+    if ((setopov3 != 0) && (setopov3 <= tempt2) && (setopov4 != 0) && (setopov4 >= tempt2))   //  это верхний нагреватель
     {  // пока находится в диапазоне 140-143 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();
     }
   }else if (termoprofily == 4)
   { 
-    if ((setopov1 <= tempt1) && (setopov2 >= tempt1))   //  это верхний нагреватель
+    if ((setopov1 != 0) && (setopov1 <= tempt1) && (setopov2 != 0) && (setopov2 >= tempt1))   //  это верхний нагреватель
     {  // пока находится в диапазоне 190-193 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();       
     }
-    if ((setopov3 <= tempt2) && (setopov4 >= tempt2))   //  это верхний нагреватель
+    if ((setopov3 != 0) && (setopov3 <= tempt2) && (setopov4 != 0) && (setopov4 >= tempt2))   //  это верхний нагреватель
     {  // пока находится в диапазоне 140-143 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();
     }
   }else if (termoprofily == 5)
   {
-    if ((setopov1 <= tempt1) && (setopov2 >= tempt1))   //  это верхний нагреватель
+    if ((setopov1 != 0) && (setopov1 <= tempt1) && (setopov2 != 0) && (setopov2 >= tempt1))   //  это верхний нагреватель
     {  // пока находится в диапазоне 190-193 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();       
     }
-    if ((setopov3 <= tempt2) && (setopov4 >= tempt2))   //  это верхний нагреватель
+    if ((setopov3 != 0) && (setopov3 <= tempt2) && (setopov4 != 0) && (setopov4 >= tempt2))   //  это верхний нагреватель
     {  // пока находится в диапазоне 140-143 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();
     }
   }else if (termoprofily == 6)
   {
-    if ((setopov1 <= tempt1) && (setopov2 >= tempt1))   //  это верхний нагреватель
+    if ((setopov1 != 0) && (setopov1 <= tempt1) && (setopov2 != 0) && (setopov2 >= tempt1))   //  это верхний нагреватель
     {  // пока находится в диапазоне 190-193 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();       
     }
-    if ((setopov3 <= tempt2) && (setopov4 >= tempt2))   //  это верхний нагреватель
+    if ((setopov3 != 0) && (setopov3 <= tempt2) && (setopov4 != 0) && (setopov4 >= tempt2))   //  это верхний нагреватель
     {  // пока находится в диапазоне 140-143 градуса пищим, если за диапазоном не пищим
       delay(10);
       sound_click();
@@ -8223,12 +8223,12 @@ void AnalyseString(String incStr)
     }
   if (incStr.indexOf("b6") >= 0) 
   {
-    if (temp1 < 400)
+    if (temp1 < 450)
     {
       temp1=temp1+rtemp;
       outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
       tempust1 = temp1;
-    } else if(temp1 == 400)
+    } else if(temp1 == 450)
     {
         temp1 = 0;
        outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
@@ -8245,7 +8245,7 @@ void AnalyseString(String incStr)
         tempust1 = temp1;
       } else if (temp1 == 0)
       {
-        temp1 = 400;
+        temp1 = 450;
         outNumber("temp1.val", temp1);  // Отображение числа в числовом компоненте temp1
         tempust1 = temp1;
       }
@@ -8253,12 +8253,12 @@ void AnalyseString(String incStr)
     }
     if (incStr.indexOf("b8") >= 0) 
     {
-      if (temp2 < 400)
+      if (temp2 < 450)
       {
         temp2=temp2+rtemp;
         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
         tempust2 = temp2;
-      } else if (temp2 == 400)
+      } else if (temp2 == 450)
       {
         temp2 = 0;
         outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
@@ -8275,7 +8275,7 @@ void AnalyseString(String incStr)
        tempust2 = temp2;
      } else if (temp2 == 0)
      {
-       temp2 = 400;
+       temp2 = 450;
        outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp2
        tempust2 = temp2;
      }
@@ -8851,34 +8851,38 @@ void AnalyseString(String incStr)
 
     if (incStr.indexOf("setopzvyk1") >= 0) 
     {
-      if (setopov1 < 350)
+      if (setopov1 < 450)
       {
-       setopov1=setopov1+itemp;
+        setopov1=setopov1+itemp;
         SetOpov1 = setopov1;
         String setop1 = "\"" + String(setopov1) + "\"";  // Отображение kd
         SendData("setop1.txt", setop1);
-      } else if(setopov1 == 350)
+        
+      } else if(setopov1 == 450)
       {
         setopov1 = 0;
         SetOpov1 = setopov1;
         String setop1 = "\"" + String(setopov1) + "\"";  // Отображение kd
         SendData("setop1.txt", setop1);
+        
       }
     }
     if (incStr.indexOf("setopzvyk2") >= 0) 
     {
-      if (setopov2 < 350)
+      if (setopov2 < 450)
       {
-       setopov2=setopov2+itemp;
+        setopov2=setopov2+itemp;
         SetOpov2 = setopov2;
         String setop2 = "\"" + String(setopov2) + "\"";  // Отображение kd
         SendData("setop2.txt", setop2);
-      } else if(setopov2 == 350)
+        
+      } else if(setopov2 == 450)
       {
         setopov2 = 0;
         SetOpov2 = setopov2;
         String setop2 = "\"" + String(setopov2) + "\"";  // Отображение kd
         SendData("setop2.txt", setop2);
+        
       }
     }
 
@@ -8886,34 +8890,38 @@ void AnalyseString(String incStr)
 
     if (incStr.indexOf("setopzvyk3") >= 0) 
     {
-      if (setopov3 < 350)
+      if (setopov3 < 450)
       {
-       setopov3=setopov3+itemp;
+        setopov3=setopov3+itemp;
         SetOpov3 = setopov3;
-        String setop3 = "\"" + String(setopov3) + "\"";  // Отображение kd
+        String setop3 = "\"" + String(setopov3) + "\"";  // Отображение 
         SendData("setop3.txt", setop3);
-      } else if(setopov3 == 350)
+        
+      } else if(setopov3 == 450)
       {
         setopov3 = 0;
         SetOpov3 = setopov3;
-        String setop3 = "\"" + String(setopov3) + "\"";  // Отображение kd
+        String setop3 = "\"" + String(setopov3) + "\"";  // Отображение 
         SendData("setop3.txt", setop3);
+        
       }
     }
     if (incStr.indexOf("setopzvyk4") >= 0) 
     {
-      if (setopov4 < 350)
+      if (setopov4 < 450)
       {
-       setopov4=setopov4+itemp;
+        setopov4=setopov4+itemp;
         SetOpov4 = setopov4;
-        String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
+        String setop4 = "\"" + String(setopov4) + "\"";  // Отображение 
         SendData("setop4.txt", setop4);
-      } else if(setopov4 == 350)
+        
+      } else if(setopov4 == 450)
       {
         setopov4 = 0;
         SetOpov4 = setopov4;
-        String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
+        String setop4 = "\"" + String(setopov4) + "\"";  // Отображение 
         SendData("setop4.txt", setop4);
+        
       }
     }
 
