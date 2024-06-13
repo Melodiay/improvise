@@ -5,7 +5,15 @@
 #include <EEPROM.h>
 #include <GyverMAX6675.h> // Подключаем библиотеку работы с микросхемой MAX6675   автор https://alexgyver.ru/lessons/
 #include <GyverTimers.h>    // библиотека таймера
-//#include <GyverRelay.h>
+
+#ifndef ph == 0
+#include <GyverRelay.h>
+
+#else
+#include <GyverPID.h>
+#include <PIDtuner.h>
+#include <PIDtuner2.h>
+#endif
 
 //#define compSerial Serial    // Передача температуры на компьютер для построения графика, заложено для будущего
 #define nexSerial Serial1
@@ -45,9 +53,7 @@ GyverMAX6675<CLK_PIN, DATA_PIN, CS_PIN> sens; // sens, CLK, DATA, CS если б
 GyverMAX6675<CLK_PIN2, DATA_PIN2, CS_PIN2> sens2;
 
 
-// установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
-//GyverRelay regulator(REVERSE); 
-//GyverRelay regulator2(REVERSE);
+
 
 
 
@@ -133,6 +139,9 @@ float gradsecv = 1.0; // Поумолчанию сохраняется 1 Гра�
 float gradsecn = 1.0; // Поумолчанию сохраняется 1 Градус в сек. Не забудьте, в Дисплеи на странице, Настроек выставить свое значение
 GyverPID pid(Kpv, Kiv, Kdv, GradSecv, Dtv);
 GyverPID pid2(Kpn, Kin, Kdn, GradSecn, Dtn);
+// установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
+GyverRelay regulator(REVERSEI); 
+GyverRelay regulator2(REVERSEI);
 int SetOpov1 = 0;
 int setopov1 = 0;
 int SetOpov2 = 0;
@@ -2308,16 +2317,17 @@ void loop(void)
   //dimmer[0] = 50;
   //dimmer[1] = 120;
   //delay(100); // в реальном коде задержек быть не должно
-/**
+  regulator.setDirection(REVERSEI);
   regulator.setpoint = tempust1;    // установка (температуры)
   regulator.hysteresis = 0.25;   // ширина гистерезиса
   regulator.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
   regulator.dT = 500;       // установить время итерации для getResultTimer
+  regulator2.setDirection(REVERSEI);
   regulator2.setpoint = tempust2;    // установка (температуры)
   regulator2.hysteresis = 0.25;   // ширина гистерезиса
   regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
   regulator2.dT = 500;       // установить время итерации для getResultTimer
-  **/
+  
   if (millis() >= myTimer0 + 1*100) 
   {   // таймер на 100 мс (1 раза в 0.100 сек) автор таймера https://alexgyver.ru/lessons/
       //myTimer0 = millis();
@@ -2349,12 +2359,12 @@ void loop(void)
           Timer2.enableISR();
           if (reley_n1==1)
           {
-            //reguln();  // Гистерезис
+            reguln();  // Гистерезис
             myTimer0 = millis(); 
           }          
           if(reley_v==1)
           {
-            //regul();   // Гистерезис
+            regul();   // Гистерезис
             myTimer0 = millis();   
           }
           
@@ -2903,7 +2913,7 @@ void sendFFFFFF(void)
   nexSerial.write(0xFF);
 } // Здесь закачивается код Максима Селиванова 
 
-/**
+
 // Гистерезис нижний нагреватель
 void reguln()
 {
@@ -2925,7 +2935,7 @@ void regul()
 {
   if (detect_zero == 1)
   { // без детектора ноля
-    regulator.input =  tempt1;
+     regulator.input =  tempt1;
     digitalWrite(verhniy_1, regulator.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
   
   }else
@@ -2936,7 +2946,7 @@ void regul()
   }
    
 }
-**/
+
 void AnalyseString(String incStr) 
 {
   if ((incStr.indexOf("bt0-on") >= 0) || (incStr.indexOf("btn_start") >= 0))
@@ -8781,13 +8791,13 @@ void AnalyseString(String incStr)
   
   if (incStr.indexOf("degrees1") >= 0) 
     {
-      if (gradsecv < 10.0)
+      if (gradsecv < 100.0)
       {
        gradsecv=gradsecv+rtemp;
         GradSecv = gradsecv;
         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
         SendData("tgcs3.txt", tgcs3);
-      } else if(gradsecv == 10.0)
+      } else if(gradsecv == 100.0)
       {
         gradsecv = 0.00;
         GradSecv = gradsecv;
@@ -8805,7 +8815,7 @@ void AnalyseString(String incStr)
         SendData("tgcs3.txt", tgcs3);
       } else if (gradsecv == 0.00)
       {
-         gradsecv = 10.0;
+         gradsecv = 100.0;
          GradSecv = gradsecv;
          String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
          SendData("tgcs3.txt", tgcs3);
@@ -8816,13 +8826,13 @@ void AnalyseString(String incStr)
 
     if (incStr.indexOf("degrees3") >= 0) 
     {
-      if (gradsecn < 10.0)
+      if (gradsecn < 100.0)
       {
        gradsecn=gradsecn+rtemp;
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4);
-      } else if(gradsecn == 10.0)
+      } else if(gradsecn == 100.0)
       {
         gradsecn = 0.00;
         GradSecn = gradsecn;
@@ -8840,7 +8850,7 @@ void AnalyseString(String incStr)
         SendData("tgcs4.txt", tgcs4);
       } else if (gradsecn == 0.00)
       {
-         gradsecn = 10.0;
+         gradsecn = 100.0;
          GradSecn = gradsecn;
          String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
          SendData("tgcs4.txt", tgcs4);
