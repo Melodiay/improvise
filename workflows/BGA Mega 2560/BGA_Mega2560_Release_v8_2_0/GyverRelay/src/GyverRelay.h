@@ -21,8 +21,8 @@
 #include <Arduino.h>
 
 enum GR_dir {
-    NORMAL,
-    REVERSE,
+    NORMALO,
+    REVERSEI,
 };
 
 class GyverRelay {
@@ -50,6 +50,6 @@ public:
 private:	
     uint32_t prevTime = 0;
     float prevInput = 0.0;
-    GR_dir _dir = REVERSE;
+    GR_dir _dir = REVERSEI;
 };
 #endif

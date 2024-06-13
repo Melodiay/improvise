@@ -1,6 +1,6 @@
 #include "GyverRelay.h"
 
-GyverRelay::GyverRelay(GR_dir dir = REVERSE) {
+GyverRelay::GyverRelay(GR_dir dir = REVERSEI) {
     _dir = dir;
     output = !_dir;   // выключить реле сразу
 }
