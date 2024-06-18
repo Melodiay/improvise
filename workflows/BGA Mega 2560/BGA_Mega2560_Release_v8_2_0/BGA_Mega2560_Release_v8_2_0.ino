@@ -8,7 +8,6 @@
 
 #ifndef ph == 0
 #include <GyverRelay.h>
-
 #else
 #include <GyverPID.h>
 #include <PIDtuner.h>
@@ -19,7 +18,7 @@
 #define nexSerial Serial1
 
 #define INIT_ADDR 1023  // номер резервной ячейки
-#define INIT_KEY 50     // ключ первого запуска. 0-254, на выбор
+#define INIT_KEY 55     // ключ первого запуска. 0-254, на выбор
 #define ZERO_PIN 2  // Для обращения к выводу 2 указываем имя ZERO_PIN, порт для детектора нуля
 #define INT_NUM 0     // соответствующий ему номер прерывания
 #define nigniy_1 3  // указываем порты 3 вывода нижнего нагревателя с ШИМ
@@ -139,9 +138,9 @@ float gradsecv = 1.0; // Поумолчанию сохраняется 1 Гра�
 float gradsecn = 1.0; // Поумолчанию сохраняется 1 Градус в сек. Не забудьте, в Дисплеи на странице, Настроек выставить свое значение
 GyverPID pid(Kpv, Kiv, Kdv, GradSecv, Dtv);
 GyverPID pid2(Kpn, Kin, Kdn, GradSecn, Dtn);
-// установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
-GyverRelay regulator(REVERSEI); 
-GyverRelay regulator2(REVERSEI);
+GyverRelay regulator(REVERSEI); // установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
+GyverRelay regulator2(REVERSEI);// установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
+
 int SetOpov1 = 0;
 int setopov1 = 0;
 int SetOpov2 = 0;
@@ -156,6 +155,21 @@ int ri100; //  увеличивается или уменьшается сотн
 int ri10;  //  увеличивается или уменьшается десятками то есть +10 
 int ri1;   //  увеличивается или уменьшается единицами то есть +1
 int itemp;
+float hup = 0.25; // ширина гистерезиса
+float kup = 0.5;  // коэффициент обратной связи (подбирается по факту)
+int   dtup = 500; // ((установить время итерации для getResultTimer))
+float hdown= 0.25; // ширина гистерезиса
+float kdown = 0.5; // коэффициент обратной связи (подбирается по факту)
+int   dtdown = 500;// установить время итерации для getResultTimer
+float Hup = 0.00;   // ширина гистерезиса
+float Kup = 0.00;  // коэффициент обратной связи (подбирается по факту)
+int   DTup = 0;    // установить время итерации для getResultTimer
+float Hdown= 0.00;  // ширина гистерезиса
+float Kdown = 0.00; // коэффициент обратной связи (подбирается по факту)
+int   DTdown = 0;   // установить время итерации для getResultTimer
+bool  hnup = 1;
+bool  hndown = 1;
+
 
 void setup(void) 
 {
@@ -194,6 +208,13 @@ void setup(void)
     // в данном случае это значение переменной, объявленное выше
     temp1 = 0; // температура по умолчанию верхнего нагревателя 
     temp2 = 0; // температура по умолчанию нижнего нагревателя
+    hup = 0.25; // ширина гистерезиса
+    kup = 0.5;  // коэффициент обратной связи (подбирается по факту)
+    dtup = 500; // ((установить время итерации для getResultTimer))
+    hdown= 0.25; // ширина гистерезиса
+    kdown = 0.5; // коэффициент обратной связи (подбирается по факту)
+    dtdown = 500;// установить время итерации для getResultTimer
+
     //delay(10);
     //shag == 1 // termoprofily 2 верхний нагреватель
     EEPROM.put(7, kpv);
@@ -1313,7 +1334,14 @@ void setup(void)
   EEPROM.put(3946,setopov3);
   EEPROM.put(3951,setopov4);
 
-    delay(15000);
+  EEPROM.put(3956,hup);
+  EEPROM.put(3961,kup);
+  EEPROM.put(3966,dtup);
+  EEPROM.put(3971,hdown);
+  EEPROM.put(3976,kdown);
+  EEPROM.put(3981,dtdown);
+
+    delay(18000);
     // TERMOPROFILY  заканчивается код
     EEPROM.write(INIT_ADDR, INIT_KEY);
   }
@@ -1324,6 +1352,7 @@ void setup(void)
   EEPROM.get(242, comptempt2);
   EEPROM.get(247, znak1);
   EEPROM.get(252, znak2);
+
 
   if (EEPROM.get(207, termoprofily) == 0)
   {
@@ -1371,6 +1400,13 @@ void setup(void)
              //термопрофиль User 1 шаг 0
           EEPROM.get(3200, gradsecv);
           EEPROM.get(3205, gradsecn);
+          		  EEPROM.get(3956,hup);
+		  EEPROM.get(3961,kup);
+		  EEPROM.get(3966,dtup);
+			
+		  EEPROM.get(3971,hdown);
+		  EEPROM.get(3976,kdown);
+		  EEPROM.get(3981,dtdown);
           //термопрофиль User 1 шаг 0
           EEPROM.get(3746, pwmv);
           EEPROM.get(3747, pwmn);
@@ -1405,6 +1441,25 @@ void setup(void)
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
         outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -1420,6 +1475,13 @@ void setup(void)
          //термопрофиль User 2 шаг 0
           EEPROM.get(3310, gradsecv);
           EEPROM.get(3315, gradsecn);
+          EEPROM.get(3956,hup);
+		  EEPROM.get(3961,kup);
+		  EEPROM.get(3966,dtup);
+			
+		  EEPROM.get(3971,hdown);
+		  EEPROM.get(3976,kdown);
+		  EEPROM.get(3981,dtdown);
           //термопрофиль User 2 шаг 0
           EEPROM.get(3768, pwmv);
           EEPROM.get(3769, pwmn);
@@ -1454,6 +1516,25 @@ void setup(void)
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4); 
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
         outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -1469,6 +1550,13 @@ void setup(void)
              //термопрофиль User 3 шаг 0
           EEPROM.get(3420, gradsecv);
           EEPROM.get(3425, gradsecn);
+          EEPROM.get(3956,hup);
+		  EEPROM.get(3961,kup);
+		  EEPROM.get(3966,dtup);
+			
+		  EEPROM.get(3971,hdown);
+		  EEPROM.get(3976,kdown);
+		  EEPROM.get(3981,dtdown);
           //термопрофиль User 3 шаг 0
           EEPROM.get(3790, pwmv);
           EEPROM.get(3791, pwmn);
@@ -1503,6 +1591,25 @@ void setup(void)
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
         outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -1518,6 +1625,13 @@ void setup(void)
             //термопрофиль User 4 шаг 0
           EEPROM.get(3530, gradsecv);
           EEPROM.get(3535, gradsecn);
+		  EEPROM.get(3956,hup);
+		  EEPROM.get(3961,kup);
+		  EEPROM.get(3966,dtup);
+			
+		  EEPROM.get(3971,hdown);
+		  EEPROM.get(3976,kdown);
+		  EEPROM.get(3981,dtdown);          
           //термопрофиль User 4 шаг 0
           EEPROM.get(3812, pwmv);
           EEPROM.get(3813, pwmn); 
@@ -1552,6 +1666,25 @@ void setup(void)
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4); 
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
         outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -1569,6 +1702,13 @@ void setup(void)
           //термопрофиль User 5 шаг 0
           EEPROM.get(3640, gradsecv);
           EEPROM.get(3645, gradsecn);
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
           //термопрофиль User 5 шаг 0
           EEPROM.get(3834, pwmv);
           EEPROM.get(3835, pwmn);
@@ -1603,6 +1743,25 @@ void setup(void)
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4); 
+                Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
         outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -1630,6 +1789,12 @@ void setup(void)
   Dtv = dtv;
   Dtn = dtn;
   shag = 0;
+  Hup    = hup;
+  Kup    = kup;
+  DTup   = dtup;
+  Hdown  = hdown;
+  Kdown  = kdown;
+  DTdown = dtdown;
 
   pid.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
   pid.setLimits(0, pwmust1);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
@@ -1823,6 +1988,29 @@ void loop(void)
     SendData("setop3.txt", setop3);
     String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
     SendData("setop4.txt", setop4);
+  }else if((incStr.indexOf("15"))>=0) // когда находимся на странице 10 обновляем компоненты
+  { 
+    temp = 0;
+
+  }else if((incStr.indexOf("16"))>=0) // когда находимся на странице 10 обновляем компоненты
+  { 
+    temp = 0;
+    String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+    SendData("thup2.txt", thup2);
+    String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+    SendData("tkup2.txt", tkup2);
+    String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+    SendData("tdtup2.txt", tdtup2);
+
+  }else if((incStr.indexOf("17"))>=0) // когда находимся на странице 10 обновляем компоненты
+  { 
+    temp = 0;
+    String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+    SendData("thdown2.txt", thdown2);
+    String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+    SendData("tkdown2.txt", tkdown2);
+    String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+    SendData("tdtdown2.txt", tdtdown2);
   }
 
   if (temp==1)
@@ -1903,6 +2091,13 @@ void loop(void)
                       //термопрофиль User 1 шаг 0
                   EEPROM.get(3200, gradsecv);
                   EEPROM.get(3205, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                    //термопрофиль User 1 шаг 0
                   EEPROM.get(3746, pwmv);
                   EEPROM.get(3747, pwmn);  
@@ -1937,6 +2132,13 @@ void loop(void)
                   //термопрофиль User 2 шаг 0
                   EEPROM.get(3310, gradsecv);
                   EEPROM.get(3315, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 2 шаг 0
                   EEPROM.get(3768, pwmv);
                   EEPROM.get(3769, pwmn);
@@ -1971,6 +2173,13 @@ void loop(void)
                     //термопрофиль User 3 шаг 0
                   EEPROM.get(3420, gradsecv);
                   EEPROM.get(3425, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 3 шаг 0
                   EEPROM.get(3790, pwmv);
                   EEPROM.get(3791, pwmn); 
@@ -2005,6 +2214,13 @@ void loop(void)
                     //термопрофиль User 4 шаг 0
                   EEPROM.get(3530, gradsecv);
                   EEPROM.get(3535, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 4 шаг 0
                   EEPROM.get(3812, pwmv);
                   EEPROM.get(3813, pwmn); 
@@ -2039,6 +2255,13 @@ void loop(void)
                   //термопрофиль User 5 шаг 0
                   EEPROM.get(3640, gradsecv);
                   EEPROM.get(3645, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 5 шаг 0
                   EEPROM.get(3834, pwmv);
                   EEPROM.get(3835, pwmn);
@@ -2143,6 +2366,13 @@ void loop(void)
                       //термопрофиль User 1 шаг 0
                   EEPROM.get(3200, gradsecv);
                   EEPROM.get(3205, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 1 шаг 0
                   EEPROM.get(3746, pwmv);
                   EEPROM.get(3747, pwmn);
@@ -2177,6 +2407,13 @@ void loop(void)
                       //термопрофиль User 2 шаг 0
                   EEPROM.get(3310, gradsecv);
                   EEPROM.get(3315, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 2 шаг 0
                   EEPROM.get(3768, pwmv);
                   EEPROM.get(3769, pwmn);
@@ -2211,6 +2448,13 @@ void loop(void)
                     //термопрофиль User 3 шаг 0
                   EEPROM.get(3420, gradsecv);
                   EEPROM.get(3425, gradsecn); 
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 3 шаг 0
                   EEPROM.get(3790, pwmv);
                   EEPROM.get(3791, pwmn);
@@ -2245,6 +2489,13 @@ void loop(void)
                     //термопрофиль User 4 шаг 0
                   EEPROM.get(3530, gradsecv);
                   EEPROM.get(3535, gradsecn); 
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 4 шаг 0
                   EEPROM.get(3812, pwmv);
                   EEPROM.get(3813, pwmn);
@@ -2279,6 +2530,13 @@ void loop(void)
                   //термопрофиль User 5 шаг 0
                   EEPROM.get(3640, gradsecv);
                   EEPROM.get(3645, gradsecn);
+                    EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
                   //термопрофиль User 5 шаг 0
                   EEPROM.get(3834, pwmv);
                   EEPROM.get(3835, pwmn);
@@ -2317,16 +2575,29 @@ void loop(void)
   //dimmer[0] = 50;
   //dimmer[1] = 120;
   //delay(100); // в реальном коде задержек быть не должно
-  regulator.setDirection(REVERSEI);
+  if (hnup == 0)
+  {
+    regulator.setDirection(NORMALO);
+  }else if (hnup == 1)
+  {
+    regulator.setDirection(REVERSEI);  
+  }
   regulator.setpoint = tempust1;    // установка (температуры)
-  regulator.hysteresis = 0.25;   // ширина гистерезиса
-  regulator.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
-  regulator.dT = 500;       // установить время итерации для getResultTimer
-  regulator2.setDirection(REVERSEI);
+  regulator.hysteresis = Hup;   // ширина гистерезиса
+  regulator.k = Kup;          // коэффициент обратной связи (подбирается по факту)
+  regulator.dT = DTup;       // установить время итерации для getResultTimer
+  
+  if (hndown == 0)
+  {
+    regulator2.setDirection(NORMALO);
+  }else if (hndown == 1)
+  {
+    regulator2.setDirection(REVERSEI); 
+  }
   regulator2.setpoint = tempust2;    // установка (температуры)
-  regulator2.hysteresis = 0.25;   // ширина гистерезиса
-  regulator2.k = 0.5;          // коэффициент обратной связи (подбирается по факту)
-  regulator2.dT = 500;       // установить время итерации для getResultTimer
+  regulator2.hysteresis = Hdown;   // ширина гистерезиса
+  regulator2.k = Kdown;          // коэффициент обратной связи (подбирается по факту)
+  regulator2.dT = DTdown;       // установить время итерации для getResultTimer
   
   if (millis() >= myTimer0 + 1*100) 
   {   // таймер на 100 мс (1 раза в 0.100 сек) автор таймера https://alexgyver.ru/lessons/
@@ -3013,6 +3284,13 @@ void AnalyseString(String incStr)
          //термопрофиль User 1 шаг 0
          EEPROM.get(3200, gradsecv);
          EEPROM.get(3205, gradsecn);
+           EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
          //термопрофиль User 1 шаг 0
          EEPROM.get(3746, pwmv);
          EEPROM.get(3747, pwmn);
@@ -3048,6 +3326,13 @@ void AnalyseString(String incStr)
               //термопрофиль User 2 шаг 0
           EEPROM.get(3310, gradsecv);
           EEPROM.get(3315, gradsecn);
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
           //термопрофиль User 2 шаг 0
           EEPROM.get(3768, pwmv);
           EEPROM.get(3769, pwmn);
@@ -3083,6 +3368,13 @@ void AnalyseString(String incStr)
             //термопрофиль User 3 шаг 0
           EEPROM.get(3420, gradsecv);
           EEPROM.get(3425, gradsecn); 
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
           //термопрофиль User 3 шаг 0
           EEPROM.get(3790, pwmv);
           EEPROM.get(3791, pwmn);
@@ -3118,6 +3410,13 @@ void AnalyseString(String incStr)
          //термопрофиль User 4 шаг 0
           EEPROM.get(3530, gradsecv);
           EEPROM.get(3535, gradsecn);
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
           //термопрофиль User 4 шаг 0
          EEPROM.get(3812, pwmv);
          EEPROM.get(3813, pwmn);
@@ -3152,7 +3451,14 @@ void AnalyseString(String incStr)
         EEPROM.get(2735, temp2);
           //термопрофиль User 5 шаг 0
         EEPROM.get(3640, gradsecv);
-        EEPROM.get(3645, gradsecn); 
+        EEPROM.get(3645, gradsecn);
+           EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
         //термопрофиль User 5 шаг 0
         EEPROM.get(3834, pwmv);
         EEPROM.get(3835, pwmn); 
@@ -3234,6 +3540,22 @@ void AnalyseString(String incStr)
   if (incStr.indexOf("detectzero0") >= 0) 
   {     
     detect_zero = 0;
+  }
+  if (incStr.indexOf("hnupr") >= 0) 
+  {     
+    hnup = 1;
+  }
+  if (incStr.indexOf("hnupn") >= 0) 
+  {     
+    hnup = 0;
+  }
+  if (incStr.indexOf("hndownr") >= 0) 
+  {     
+    hndown = 1;
+  }
+  if (incStr.indexOf("hndownn") >= 0) 
+  {     
+    hndown = 0;
   }
   
   if (incStr.indexOf("ntermo") >= 0) 
@@ -5037,6 +5359,18 @@ void AnalyseString(String incStr)
       EEPROM.put(3951,setopov4);
     }
   }
+  if (incStr.indexOf("hisusave") >= 0) 
+  {
+     EEPROM.put(3956,hup);
+     EEPROM.put(3961,kup);
+     EEPROM.put(3966,dtup);
+  }
+  if (incStr.indexOf("hisdsave") >= 0) 
+  {
+     EEPROM.put(3971,hdown);
+     EEPROM.put(3976,kdown);
+     EEPROM.put(3981,dtdown);
+  }
 
   if (incStr.indexOf("b4") >= 0) 
   {
@@ -5102,6 +5436,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3200, gradsecv);
           EEPROM.get(3205, gradsecn); 
           delay(10);
+          EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+  delay(10);	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
+  delay(10);  
           //термопрофиль User 1 шаг 0
           EEPROM.get(3746, pwmv);
           EEPROM.get(3747, pwmn); 
@@ -5129,6 +5471,25 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -5159,6 +5520,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3310, gradsecv);
           EEPROM.get(3315, gradsecn);
           delay(10);
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+  delay(10);	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
+  delay(10);
           //термопрофиль User 2 шаг 0
           EEPROM.get(3768, pwmv);
           EEPROM.get(3769, pwmn);
@@ -5186,6 +5555,25 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -5216,6 +5604,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3420, gradsecv);
           EEPROM.get(3425, gradsecn); 
           delay(10);
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+  delay(10);	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
+  delay(10);
           //термопрофиль User 3 шаг 0
           EEPROM.get(3790, pwmv);
           EEPROM.get(3791, pwmn); 
@@ -5243,6 +5639,26 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -5273,6 +5689,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3530, gradsecv);
           EEPROM.get(3535, gradsecn); 
           delay(10);
+            EEPROM.get(3956,hup);
+  EEPROM.get(3961,kup);
+  EEPROM.get(3966,dtup);
+  delay(10);	
+  EEPROM.get(3971,hdown);
+  EEPROM.get(3976,kdown);
+  EEPROM.get(3981,dtdown);
+  delay(10);
            //термопрофиль User 4 шаг 0
           EEPROM.get(3812, pwmv);
           EEPROM.get(3813, pwmn); 
@@ -5300,6 +5724,26 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -5330,6 +5774,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3640, gradsecv);
           EEPROM.get(3645, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 5 шаг 0
           EEPROM.get(3834, pwmv);
           EEPROM.get(3835, pwmn);
@@ -5357,6 +5809,26 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -5434,6 +5906,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3210, gradsecv);
           EEPROM.get(3215, gradsecn); 
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 1 шаг 1
           EEPROM.get(3748, pwmv);
           EEPROM.get(3749, pwmn);        
@@ -5474,6 +5954,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 2 шаг 1
           EEPROM.get(3320, gradsecv);
           EEPROM.get(3325, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 2 шаг 1
           EEPROM.get(3770, pwmv);
@@ -5516,6 +6004,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3430, gradsecv);
           EEPROM.get(3435, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 3 шаг 1
           EEPROM.get(3792, pwmv);
           EEPROM.get(3793, pwmn);
@@ -5557,6 +6053,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3540, gradsecv);
           EEPROM.get(3545, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
            //термопрофиль User 4 шаг 1
           EEPROM.get(3814, pwmv);
           EEPROM.get(3815, pwmn);
@@ -5597,6 +6101,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 1
           EEPROM.get(3650, gradsecv);
           EEPROM.get(3655, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 1
           EEPROM.get(3836, pwmv);
@@ -5681,6 +6193,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3220, gradsecv);
           EEPROM.get(3225, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
            //термопрофиль User 1 шаг 2
           EEPROM.get(3750, pwmv);
           EEPROM.get(3751, pwmn);
@@ -5721,6 +6241,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 2 шаг 2
           EEPROM.get(3330, gradsecv);
           EEPROM.get(3335, gradsecn); 
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 2 шаг 2
           EEPROM.get(3772, pwmv);
@@ -5763,6 +6291,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3440, gradsecv);
           EEPROM.get(3445, gradsecn);         
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 3 шаг 2
           EEPROM.get(3794, pwmv);
           EEPROM.get(3795, pwmn);
@@ -5804,6 +6340,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3550, gradsecv);
           EEPROM.get(3555, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 4 шаг 2
           EEPROM.get(3816, pwmv);
           EEPROM.get(3817, pwmn);
@@ -5844,6 +6388,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 2
           EEPROM.get(3660, gradsecv);
           EEPROM.get(3665, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 2
           EEPROM.get(3838, pwmv);
@@ -5930,6 +6482,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3230, gradsecv);
         EEPROM.get(3235, gradsecn); 
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 1 шаг 3
         EEPROM.get(3752, pwmv);
         EEPROM.get(3753, pwmn);       
@@ -5971,6 +6531,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3340, gradsecv);
         EEPROM.get(3345, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 2 шаг 3
         EEPROM.get(3774, pwmv);
         EEPROM.get(3775, pwmn);
@@ -6012,6 +6580,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3450, gradsecv);
         EEPROM.get(3455, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 3 шаг 3
         EEPROM.get(3796, pwmv);
         EEPROM.get(3797, pwmn);
@@ -6053,6 +6629,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3560, gradsecv);
           EEPROM.get(3565, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 4 шаг 3
           EEPROM.get(3818, pwmv);
           EEPROM.get(3819, pwmn);          
@@ -6093,6 +6677,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 3
           EEPROM.get(3670, gradsecv);
           EEPROM.get(3675, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 3
           EEPROM.get(3840, pwmv);
@@ -6179,6 +6771,14 @@ void AnalyseString(String incStr)
          EEPROM.get(3240, gradsecv);
          EEPROM.get(3245, gradsecn);
          delay(10);
+         EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
          //термопрофиль User 1 шаг 4
          EEPROM.get(3754, pwmv);
          EEPROM.get(3755, pwmn);
@@ -6220,6 +6820,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3350, gradsecv);
         EEPROM.get(3355, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 2 шаг 4
         EEPROM.get(3776, pwmv);
         EEPROM.get(3777, pwmn);
@@ -6260,6 +6868,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 3 шаг 4
           EEPROM.get(3460, gradsecv);
           EEPROM.get(3465, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 3 шаг 4
           EEPROM.get(3798, pwmv);
@@ -6302,6 +6918,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3570, gradsecv);
         EEPROM.get(3575, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 4 шаг 4
         EEPROM.get(3820, pwmv);
         EEPROM.get(3821, pwmn);
@@ -6342,6 +6966,14 @@ void AnalyseString(String incStr)
           //термопрофиль User 5 шаг 4
           EEPROM.get(3680, gradsecv);
           EEPROM.get(3685, gradsecn); 
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 4
           EEPROM.get(3842, pwmv);
@@ -6428,6 +7060,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3250, gradsecv);
           EEPROM.get(3255, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 1 шаг 5
           EEPROM.get(3756, pwmv);
           EEPROM.get(3757, pwmn);          
@@ -6468,6 +7108,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 2 шаг 5
           EEPROM.get(3360, gradsecv);
           EEPROM.get(3365, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 2 шаг 5
           EEPROM.get(3778, pwmv);
@@ -6510,6 +7158,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3470, gradsecv);
           EEPROM.get(3475, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 3 шаг 5
           EEPROM.get(3800, pwmv);
           EEPROM.get(3801, pwmn);
@@ -6551,6 +7207,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3580, gradsecv);
           EEPROM.get(3585, gradsecn); 
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 4 шаг 5
           EEPROM.get(3822, pwmv);
           EEPROM.get(3823, pwmn);         
@@ -6591,6 +7255,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 5
           EEPROM.get(3690, gradsecv);
           EEPROM.get(3695, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 5
           EEPROM.get(3844, pwmv);
@@ -6677,6 +7349,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3260, gradsecv);
           EEPROM.get(3265, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 1 шаг 6
           EEPROM.get(3758, pwmv);
           EEPROM.get(3759, pwmn); 
@@ -6716,6 +7396,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 2 шаг 6
           EEPROM.get(3370, gradsecv);
           EEPROM.get(3375, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 2 шаг 6
           EEPROM.get(3780, pwmv);
@@ -6757,6 +7445,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3480, gradsecv);
           EEPROM.get(3485, gradsecn); 
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 3 шаг 6
           EEPROM.get(3802, pwmv);
           EEPROM.get(3803, pwmn);
@@ -6797,6 +7493,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3590, gradsecv);
           EEPROM.get(3595, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 4 шаг 6
           EEPROM.get(3824, pwmv);
           EEPROM.get(3825, pwmn);           
@@ -6836,6 +7540,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 6
           EEPROM.get(3700, gradsecv);
           EEPROM.get(3705, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 6
           EEPROM.get(3846, pwmv);
@@ -6923,6 +7635,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3270, gradsecv);
         EEPROM.get(3275, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 1 шаг 7
         EEPROM.get(3760, pwmv);
         EEPROM.get(3761, pwmn);           
@@ -6963,6 +7683,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3380, gradsecv);
         EEPROM.get(3385, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 2 шаг 7
         EEPROM.get(3782, pwmv);
         EEPROM.get(3783, pwmn);  
@@ -7002,6 +7730,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 3 шаг 7
           EEPROM.get(3490, gradsecv);
           EEPROM.get(3495, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 3 шаг 7
           EEPROM.get(3804, pwmv);
@@ -7043,6 +7779,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3600, gradsecv);
         EEPROM.get(3605, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 4 шаг 7
         EEPROM.get(3826, pwmv);
         EEPROM.get(3827, pwmn);
@@ -7082,6 +7826,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 7
           EEPROM.get(3710, gradsecv);
           EEPROM.get(3715, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 7
           EEPROM.get(3848, pwmv);
@@ -7169,6 +7921,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3280, gradsecv);
           EEPROM.get(3285, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 1 шаг 8
           EEPROM.get(3762, pwmv);
           EEPROM.get(3763, pwmn);         
@@ -7209,6 +7969,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3390, gradsecv);
         EEPROM.get(3395, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 2 шаг 8
         EEPROM.get(3784, pwmv);
         EEPROM.get(3785, pwmn);        
@@ -7249,6 +8017,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3500, gradsecv);
         EEPROM.get(3505, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
          //термопрофиль User 3 шаг 8
         EEPROM.get(3806, pwmv);
         EEPROM.get(3807, pwmn);       
@@ -7289,6 +8065,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3610, gradsecv);
         EEPROM.get(3615, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
          //термопрофиль User 4 шаг 8
         EEPROM.get(3828, pwmv);
         EEPROM.get(3829, pwmn);
@@ -7328,6 +8112,14 @@ void AnalyseString(String incStr)
           //термопрофиль User 5 шаг 8
           EEPROM.get(3720, gradsecv);
           EEPROM.get(3725, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 8
           EEPROM.get(3850, pwmv);
@@ -7415,6 +8207,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3290, gradsecv);
           EEPROM.get(3295, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
            //термопрофиль User 1 шаг 9
           EEPROM.get(3764, pwmv);
           EEPROM.get(3765, pwmn);
@@ -7455,6 +8255,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3400, gradsecv);
         EEPROM.get(3405, gradsecn); 
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 2 шаг 9
         EEPROM.get(3786, pwmv);
         EEPROM.get(3787, pwmn);       
@@ -7495,6 +8303,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3510, gradsecv);
         EEPROM.get(3515, gradsecn);
         delay(10); 
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 3 шаг 9
         EEPROM.get(3808, pwmv);
         EEPROM.get(3809, pwmn);
@@ -7535,6 +8351,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3620, gradsecv);
         EEPROM.get(3625, gradsecn); 
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 4 шаг 9
         EEPROM.get(3830, pwmv);
         EEPROM.get(3831, pwmn);
@@ -7574,6 +8398,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 9
           EEPROM.get(3730, gradsecv);
           EEPROM.get(3735, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 9
           EEPROM.get(3852, pwmv);
@@ -7659,6 +8491,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3300, gradsecv);
           EEPROM.get(3305, gradsecn);
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 1 шаг 10
         EEPROM.get(3766, pwmv);
         EEPROM.get(3767, pwmn);         
@@ -7699,6 +8539,14 @@ void AnalyseString(String incStr)
         EEPROM.get(3410, gradsecv);
         EEPROM.get(3415, gradsecn);
         delay(10);
+        EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
         //термопрофиль User 2 шаг 10
         EEPROM.get(3788, pwmv);
         EEPROM.get(3789, pwmn);         
@@ -7738,6 +8586,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 3 шаг 10
           EEPROM.get(3520, gradsecv);
           EEPROM.get(3525, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 3 шаг 10
           EEPROM.get(3810, pwmv);
@@ -7779,6 +8635,14 @@ void AnalyseString(String incStr)
           EEPROM.get(3630, gradsecv);
           EEPROM.get(3635, gradsecn); 
           delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
+          delay(10);
           //термопрофиль User 4 шаг 10
           EEPROM.get(3832, pwmv);
           EEPROM.get(3833, pwmn);         
@@ -7818,6 +8682,14 @@ void AnalyseString(String incStr)
             //термопрофиль User 5 шаг 10
           EEPROM.get(3740, gradsecv);
           EEPROM.get(3745, gradsecn);
+          delay(10);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+          delay(10);
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown); 
           delay(10);
           //термопрофиль User 5 шаг 10
           EEPROM.get(3854, pwmv);
@@ -7916,6 +8788,13 @@ void AnalyseString(String incStr)
           EEPROM.get(3861,setopov2);
           EEPROM.get(3866,setopov3);
           EEPROM.get(3871,setopov4);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);          
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -7935,6 +8814,25 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -7978,6 +8876,13 @@ void AnalyseString(String incStr)
           EEPROM.get(3881,setopov2);
           EEPROM.get(3886,setopov3);
           EEPROM.get(3891,setopov4);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);          
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -7997,6 +8902,26 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+           Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -8040,6 +8965,13 @@ void AnalyseString(String incStr)
           EEPROM.get(3901,setopov2);
           EEPROM.get(3906,setopov3);
           EEPROM.get(3911,setopov4);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -8059,6 +8991,26 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -8102,6 +9054,13 @@ void AnalyseString(String incStr)
           EEPROM.get(3921,setopov2);
           EEPROM.get(3926,setopov3);
           EEPROM.get(3931,setopov4);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -8121,6 +9080,26 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -8164,6 +9143,13 @@ void AnalyseString(String incStr)
           EEPROM.get(3941,setopov2);
           EEPROM.get(3946,setopov3);
           EEPROM.get(3951,setopov4);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);          
          shag = 0;
          //sec=0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
@@ -8183,6 +9169,25 @@ void AnalyseString(String incStr)
           GradSecn = gradsecn;
           String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
           SendData("tgcs4.txt", tgcs4);
+          Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
           outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
           pwmust1 = pwmv;
           outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -9022,6 +10027,198 @@ void AnalyseString(String incStr)
        termoprofili();
     }
   }
+  if (incStr.indexOf("hp3") >= 0) 
+    {
+      if (hup < 10000.0)
+      {
+       hup=hup+rtemp;
+        Hup = hup;
+        String thup2 = "\"" + String(hup,2) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+      } else if(hup == 10000.0)
+      {
+        hup = 0.00;
+        Hup = hup;
+        String thup2 = "\"" + String(hup,2) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+      }
+    }
+    if (incStr.indexOf("hm3") >= 0) 
+    {
+      if (hup > 0.00 )
+      {
+        hup=hup-rtemp;
+        Hup = hup;
+        String thup2 = "\"" + String(hup,2) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+      } else if (hup == 0.00)
+      {
+         hup = 10000.0;
+         Hup = hup;
+         String thup2 = "\"" + String(hup,2) + "\"";  // Отображение 
+         SendData("thup2.txt", thup2);
+      }
+    }  
+    if (incStr.indexOf("kp3") >= 0) 
+    {
+      if (kup < 10000.0)
+      {
+        kup=kup+rtemp;
+        Kup = kup;
+        String tkup2 = "\"" + String(kup,2) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+      } else if(kup == 10000.0)
+      {
+        kup = 0.00;
+        Kup = kup;
+        String tkup2 = "\"" + String(kup,2) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+      }
+    }
+    if (incStr.indexOf("km3") >= 0) 
+    {
+      if (kup > 0.00 )
+      {
+        kup=kup-rtemp;
+        Kup = kup;
+        String tkup2 = "\"" + String(kup,2) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+      } else if (kup == 0.00)
+      {
+         kup = 10000.0;
+         Kup = kup;
+         String tkup2 = "\"" + String(kup,2) + "\"";  // Отображение 
+         SendData("tkup2.txt", tkup2);
+      }
+    }  
+    if (incStr.indexOf("dtp3") >= 0) 
+    {
+      if (dtup < 10000)
+      {
+        dtup=dtup+rtemp;
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+		SendData("tdtup2.txt", tdtup2);
+      } else if(dtup == 10000)
+      {
+        dtup = 0;
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+		SendData("tdtup2.txt", tdtup2);
+      }
+    }
+    if (incStr.indexOf("dtm3") >= 0) 
+    {
+      if (dtup > 0 )
+      {
+        dtup=dtup-rtemp;
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+		SendData("tdtup2.txt", tdtup2);
+      } else if (dtup == 0)
+      {
+         dtup = 10000;
+         DTup = dtup;
+         String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+		 SendData("tdtup2.txt", tdtup2);
+      }
+    } 
+    if (incStr.indexOf("hp4") >= 0) 
+    {
+      if (hdown < 10000.0)
+      {
+        hdown=hdown+rtemp;
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+		SendData("thdown2.txt", thdown2);
+      } else if(hdown == 10000.0)
+      {
+        hdown = 0.00;
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+    SendData("thdown2.txt", thdown2);
+      }
+    }
+    if (incStr.indexOf("hm4") >= 0) 
+    {
+      if (hdown > 0.00 )
+      {
+        hdown=hdown-rtemp;
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+    SendData("thdown2.txt", thdown2);
+      } else if (hdown == 0.00)
+      {
+         hdown = 10000.0;
+         Hdown = hdown;
+         String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+		 SendData("thdown2.txt", thdown2);
+      }
+    }  
+    if (incStr.indexOf("kp4") >= 0) 
+    {
+      if (kdown < 10000.0)
+      {
+        kdown=kdown+rtemp;
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+      } else if(kdown == 10000.0)
+      {
+        kdown = 0.00;
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+      }
+    }
+    if (incStr.indexOf("km4") >= 0) 
+    {
+      if (kdown > 0.00 )
+      {
+        kdown=kdown-rtemp;
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+      } else if (kdown == 0.00)
+      {
+         kdown = 10000.0;
+         Kdown = kdown;
+         String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+         SendData("tkdown2.txt", tkdown2);
+      }
+    }  
+    if (incStr.indexOf("dtp4") >= 0) 
+    {
+      if (dtdown < 10000)
+      {
+        dtdown=dtdown+rtemp;
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+		SendData("tdtdown2.txt", tdtdown2);
+      } else if(dtdown == 10000)
+      {
+        dtdown = 0;
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+		SendData("tdtdown2.txt", tdtdown2);
+      }
+    }
+    if (incStr.indexOf("dtm4") >= 0) 
+    {
+      if (dtdown > 0 )
+      {
+        dtdown=dtdown-rtemp;
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+		SendData("tdtdown2.txt", tdtdown2);
+      } else if (dtdown == 0)
+      {
+         dtdown = 10000;
+         DTdown = dtdown;
+         String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+		 SendData("tdtdown2.txt", tdtdown2);
+      }
+    }    
 }
 
 void termoprofili()
@@ -9076,6 +10273,13 @@ void termoprofili()
         EEPROM.get(3861,setopov2);
         EEPROM.get(3866,setopov3);
         EEPROM.get(3871,setopov4);
+        EEPROM.get(3956,hup);
+        EEPROM.get(3961,kup);
+        EEPROM.get(3966,dtup);
+
+        EEPROM.get(3971,hdown);
+        EEPROM.get(3976,kdown);
+        EEPROM.get(3981,dtdown);
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -9102,6 +10306,25 @@ void termoprofili()
         SendData("setop3.txt", setop3);
         String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
         SendData("setop4.txt", setop4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
          outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -9134,6 +10357,13 @@ void termoprofili()
           EEPROM.get(3881,setopov2);
           EEPROM.get(3886,setopov3);
           EEPROM.get(3891,setopov4);
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -9160,6 +10390,25 @@ void termoprofili()
         SendData("setop3.txt", setop3);
         String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
         SendData("setop4.txt", setop4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
          outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -9192,7 +10441,14 @@ void termoprofili()
           EEPROM.get(3896,setopov1);
           EEPROM.get(3901,setopov2);
           EEPROM.get(3906,setopov3);
-          EEPROM.get(3911,setopov4);         
+          EEPROM.get(3911,setopov4); 
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);        
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -9219,6 +10475,25 @@ void termoprofili()
         SendData("setop3.txt", setop3);
         String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
         SendData("setop4.txt", setop4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
          outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -9251,7 +10526,14 @@ void termoprofili()
           EEPROM.get(3916,setopov1);
           EEPROM.get(3921,setopov2);
           EEPROM.get(3926,setopov3);
-          EEPROM.get(3931,setopov4);       
+          EEPROM.get(3931,setopov4); 
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);      
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -9278,6 +10560,26 @@ void termoprofili()
         SendData("setop3.txt", setop3);
         String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
         SendData("setop4.txt", setop4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
          outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -9308,7 +10610,14 @@ void termoprofili()
           EEPROM.get(3936,setopov1);
           EEPROM.get(3941,setopov2);
           EEPROM.get(3946,setopov3);
-          EEPROM.get(3951,setopov4);        
+          EEPROM.get(3951,setopov4); 
+          EEPROM.get(3956,hup);
+          EEPROM.get(3961,kup);
+          EEPROM.get(3966,dtup);
+
+          EEPROM.get(3971,hdown);
+          EEPROM.get(3976,kdown);
+          EEPROM.get(3981,dtdown);       
          shag = 0;         
          outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
          outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec         
@@ -9335,6 +10644,26 @@ void termoprofili()
         SendData("setop3.txt", setop3);
         String setop4 = "\"" + String(setopov4) + "\"";  // Отображение kd
         SendData("setop4.txt", setop4);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	    
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
+        
          outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
         outNumber("pwmn.val", pwmn);  // Отображение числа в числовом компоненте pwmv
@@ -9374,6 +10703,7 @@ void Text()
         String t56= "\"" + String(Kdn,5) + "\"";  // выводим дефференциальное
         SendData("t56.txt", t56);
         delay(10);
+        
         // Градус в секунду верхний и нижний нагреватели
         GradSecv = gradsecv;
         String tgcs3 = "\"" + String(gradsecv) + "\"";  // Отображение kd
@@ -9381,6 +10711,26 @@ void Text()
         GradSecn = gradsecn;
         String tgcs4 = "\"" + String(gradsecn) + "\"";  // Отображение kd
         SendData("tgcs4.txt", tgcs4);
+        delay(10);
+        Hup = hup;
+        String thup2 = "\"" + String(hup) + "\"";  // Отображение 
+        SendData("thup2.txt", thup2);
+        Kup = kup;
+        String tkup2 = "\"" + String(kup) + "\"";  // Отображение 
+        SendData("tkup2.txt", tkup2);
+        DTup = dtup;
+        String tdtup2 = "\"" + String(dtup) + "\"";  // Отображение 
+        SendData("tdtup2.txt", tdtup2);   
+	      delay(10);
+        Hdown = hdown;
+        String thdown2 = "\"" + String(hdown) + "\"";  // Отображение 
+        SendData("thdown2.txt", thdown2);
+        Kdown = kdown;
+        String tkdown2 = "\"" + String(kdown) + "\"";  // Отображение 
+        SendData("tkdown2.txt", tkdown2);
+        DTdown = dtdown;
+        String tdtdown2 = "\"" + String(dtdown) + "\"";  // Отображение 
+        SendData("tdtdown2.txt", tdtdown2);
         delay(10);
         outNumber("pwmv.val", pwmv);  // Отображение числа в числовом компоненте pwmv
         pwmust1 = pwmv;
