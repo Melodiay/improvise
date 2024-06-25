@@ -2577,12 +2577,12 @@ void loop(void)
   regulator2.dT = DTdown;       // установить время итерации для getResultTimer
   
   pid.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
-  pid.setMode(ON_RATE);
+  pid.setMode(ON_ERROR);
   pid.setLimits(0, pwmust1);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
   pid.setpoint = tempust1;        // сообщаем регулятору температуру, которую он должен поддерживать
 
   pid2.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
-  pid2.setMode(ON_RATE);
+  pid2.setMode(ON_ERROR);
   pid2.setLimits(0, pwmust2);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
   pid2.setpoint = tempust2;        // сообщаем регулятору температуру, которую он должен поддерживать
 
