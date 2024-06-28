@@ -1796,11 +1796,6 @@ void setup(void)
   Kdown  = kdown;
   DTdown = dtdown;
 
-
-
-
- 
-
 }
 
 
@@ -2568,7 +2563,7 @@ void loop(void)
   regulator.hysteresis = Hup;   // ширина гистерезиса
   regulator.k = Kup;          // коэффициент обратной связи (подбирается по факту)
   regulator.dT = DTup;       // установить время итерации для getResultTimer
-  
+    
   if (hndown == 0)
   {
     regulator2.setDirection(NORMALO);
@@ -2580,11 +2575,12 @@ void loop(void)
   regulator2.hysteresis = Hdown;   // ширина гистерезиса
   regulator2.k = Kdown;          // коэффициент обратной связи (подбирается по факту)
   regulator2.dT = DTdown;       // установить время итерации для getResultTimer
-  
+   
 
 
  // Настройки ПИД регулятора
   pid.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
+  pid.setMode(ON_RATE);
   pid.setLimits(0, pwmust1);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
   pid.setpoint = tempust1;        // сообщаем регулятору температуру, которую он должен поддерживать
 
@@ -2594,9 +2590,10 @@ void loop(void)
   pid.Kd = Kdv;
   pid.integral = 0.0;
   pid.window = GradSecv;
-  
+    
 
   pid2.setDirection(NORMAL); // направление регулирования (NORMAL/REVERSE). ПО УМОЛЧАНИЮ СТОИТ NORMAL
+  pid2.setMode(ON_RATE);
   pid2.setLimits(0, pwmust2);    // пределы (ставим для 8 битного ШИМ). ПО УМОЛЧАНИЮ СТОЯТ 0 И 255
   pid2.setpoint = tempust2;        // сообщаем регулятору температуру, которую он должен поддерживать
 
@@ -2610,7 +2607,6 @@ void loop(void)
    // направление, начальный сигнал, конечный, период плато, точность, время стабилизации, период итерации
   //tunerv.setParameters(NORMAL, 225, 235, 80000, 2.00, 100);
   //tunern.setParameters(NORMAL, 0, 50, 80000, 1.00, 100);
-
 
 
   if (millis() >= myTimer0 + 1*100) 
@@ -2743,15 +2739,23 @@ if (!(nexSerial.available()))
     }
   }
 }
-  
-  if (tempust1 == 0)
+
+  /**
+  if ((incStr.indexOf("c3-on") >= 0) && (tempust1 != 0)) 
+  { 
+    reley_v=1;
+  }else if (tempust1 == 0)
   {
       reley_v=0; analogWrite(verhniy_1, 0);
-  } else if(incStr.indexOf("c3-on") >= 0) { reley_v=1; }  
-  if (tempust2 == 0)
+  }   
+  if ((incStr.indexOf("c0-on") >= 0) && (tempust2 != 0)) 
+  { 
+    reley_n1=1; 
+  }else if (tempust2 == 0)
   {
       reley_n1=0; analogWrite(nigniy_1, 0);
-  } else if(incStr.indexOf("c0-on") >= 0) { reley_n1=1; } 
+  }   
+  **/
   
   if(reley_n==1)
   {
