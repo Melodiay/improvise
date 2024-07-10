@@ -2623,18 +2623,26 @@ void loop(void)
         if(reley_n==1)
         {
           Timer2.enableISR();
-          if (reley_n1==1)
+          if (reley_n1==0)
           {
-            pidCountrolN();
-           
-            // Пид регулирование
+            reley_n1=0;
+            analogWrite(nigniy_1, 0);
+            
+            myTimer0 = millis();
+          }else if (reley_n1==1)
+          {
+            pidCountrolN();// Пид регулирование
             myTimer0 = millis();
           }
-          if(reley_v==1)
+          if(reley_v==0)
           {
-            pidCountrolV();
-             
-            // Пид регулирование
+            reley_v=0;
+            analogWrite(verhniy_1, 0);  
+            
+            myTimer0 = millis();
+          }else if (reley_v==1)
+          {
+            pidCountrolV(); // Пид регулирование          
             myTimer0 = millis();
           } 
           
@@ -2836,7 +2844,15 @@ void pidCountrolN()
     { 
       pid2.output = pwmust2; //правил здесь 
       // analogWrite(nigniy_1, tunern.getOutput());
-      analogWrite(nigniy_1, pid2.getResult());  // отправляем на мосфет
+      if (reley_n1==0)
+          {
+            reley_n1=0;
+            analogWrite(nigniy_1, 0);
+          }else if (reley_n1==1)
+          {
+            analogWrite(nigniy_1, pid2.getResult());  // отправляем на мосфет
+          }
+      
       // .getResultTimer() по сути возвращает regulator.output 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
       //tunern.debugText();
@@ -2879,7 +2895,15 @@ void pidCountrolN()
       //analogWrite(nigniy_1, dimmer[0] = tunern.getOutput());  // отправляем на мосфет
 
       // .getResultTimer() по сути возвращает regulator.output 
-      analogWrite(nigniy_1, dimmer[0] = pid2.getResult());  // отправляем на мосфет
+          if (reley_n1==0)
+          {
+            reley_n1=0;
+            analogWrite(nigniy_1, 0);
+          }else if (reley_n1==1)
+          {
+             analogWrite(nigniy_1, dimmer[0] = pid2.getResult());  // отправляем на мосфет
+          }
+     
       // .getResultTimer() по сути возвращает regulator.output 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
       //tunern.debugText();
@@ -2927,7 +2951,15 @@ void pidCountrolV()
     {
       pid.output = pwmust1; //правил здесь
       //analogWrite(verhniy_1, tunerv.getOutput());
-      analogWrite(verhniy_1, pid.getResult());  // отправляем на мосфет
+          if(reley_v==0)
+          {
+            reley_v=0;
+            analogWrite(verhniy_1, 0);  
+          }else if (reley_v==1)
+          {
+            analogWrite(verhniy_1, pid.getResult());  // отправляем на мосфет
+          } 
+      
       // .getResultTimer() по сути возвращает regulator.output
       
       // выводит в порт текстовые отладочные данные, включая коэффициенты
@@ -2968,7 +3000,15 @@ void pidCountrolV()
     {
       pid.output = pwmust1; //правил здесь
       //analogWrite(verhniy_1, dimmer[1] = tunerv.getOutput());
-      analogWrite(verhniy_1, dimmer[1] = pid.getResult());  // отправляем на мосфет
+          if(reley_v==0)
+          {
+            reley_v=0;
+            analogWrite(verhniy_1, 0);  
+          }else if (reley_v==1)
+          {
+            analogWrite(verhniy_1, dimmer[1] = pid.getResult());  // отправляем на мосфет
+          } 
+      
       // .getResultTimer() по сути возвращает regulator.output
 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
