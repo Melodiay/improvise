@@ -2844,14 +2844,8 @@ void pidCountrolN()
     { 
       pid2.output = pwmust2; //правил здесь 
       // analogWrite(nigniy_1, tunern.getOutput());
-      if (reley_n1==0)
-          {
-            reley_n1=0;
-            analogWrite(nigniy_1, 0);
-          }else if (reley_n1==1)
-          {
-            analogWrite(nigniy_1, pid2.getResult());  // отправляем на мосфет
-          }
+      analogWrite(nigniy_1, pid2.getResult());  // отправляем на мосфет
+          
       
       // .getResultTimer() по сути возвращает regulator.output 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
@@ -2893,16 +2887,9 @@ void pidCountrolN()
       // (после вызова можно получать это значение как regulator.output)
       // обновление происходит по встроенному таймеру на millis()
       //analogWrite(nigniy_1, dimmer[0] = tunern.getOutput());  // отправляем на мосфет
-
       // .getResultTimer() по сути возвращает regulator.output 
-          if (reley_n1==0)
-          {
-            reley_n1=0;
-            analogWrite(nigniy_1, 0);
-          }else if (reley_n1==1)
-          {
-             analogWrite(nigniy_1, dimmer[0] = pid2.getResult());  // отправляем на мосфет
-          }
+      analogWrite(nigniy_1, dimmer[0] = pid2.getResult());  // отправляем на мосфет
+          
      
       // .getResultTimer() по сути возвращает regulator.output 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
@@ -2951,14 +2938,9 @@ void pidCountrolV()
     {
       pid.output = pwmust1; //правил здесь
       //analogWrite(verhniy_1, tunerv.getOutput());
-          if(reley_v==0)
-          {
-            reley_v=0;
-            analogWrite(verhniy_1, 0);  
-          }else if (reley_v==1)
-          {
-            analogWrite(verhniy_1, pid.getResult());  // отправляем на мосфет
-          } 
+         
+      analogWrite(verhniy_1, pid.getResult());  // отправляем на мосфет
+          
       
       // .getResultTimer() по сути возвращает regulator.output
       
@@ -3000,14 +2982,10 @@ void pidCountrolV()
     {
       pid.output = pwmust1; //правил здесь
       //analogWrite(verhniy_1, dimmer[1] = tunerv.getOutput());
-          if(reley_v==0)
-          {
-            reley_v=0;
-            analogWrite(verhniy_1, 0);  
-          }else if (reley_v==1)
-          {
-            analogWrite(verhniy_1, dimmer[1] = pid.getResult());  // отправляем на мосфет
-          } 
+          
+  
+      analogWrite(verhniy_1, dimmer[1] = pid.getResult());  // отправляем на мосфет
+    
       
       // .getResultTimer() по сути возвращает regulator.output
 
