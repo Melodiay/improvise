@@ -1,0 +1,200 @@
+object Form1: TForm1
+  Left = 1111
+  Height = 347
+  Top = 114
+  Width = 489
+  Caption = 'Form1'
+  ClientHeight = 347
+  ClientWidth = 489
+  OnCreate = FormCreate
+  LCLVersion = '2.0.6.0'
+  Visible = True
+  object TrackBar1: TTrackBar
+    Left = 32
+    Height = 100
+    Top = 176
+    Width = 25
+    Frequency = 10
+    Max = 255
+    OnChange = TrackBar1Change
+    Orientation = trVertical
+    PageSize = 0
+    Position = 255
+    Reversed = True
+    ScalePos = trBottom
+    DragCursor = crDefault
+    ParentShowHint = False
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 88
+    Height = 25
+    Top = 32
+    Width = 75
+    Caption = 'Выход'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object ProgressBar1: TProgressBar
+    Left = 80
+    Height = 80
+    Top = 184
+    Width = 16
+    Max = 255
+    Orientation = pbVertical
+    Position = 255
+    TabOrder = 2
+  end
+  object Label1: TLabel
+    Left = 32
+    Height = 48
+    Top = 120
+    Width = 64
+    AutoSize = False
+    Caption = '255'
+    Font.CharSet = RUSSIAN_CHARSET
+    Font.Color = clBlack
+    Font.Height = -37
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object TrackBar2: TTrackBar
+    Left = 168
+    Height = 100
+    Top = 176
+    Width = 25
+    Max = 255
+    OnChange = TrackBar2Change
+    Orientation = trVertical
+    Position = 0
+    Reversed = True
+    Color = clRed
+    ParentColor = False
+    TabOrder = 3
+  end
+  object Label2: TLabel
+    Left = 152
+    Height = 48
+    Top = 120
+    Width = 56
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'R'
+    Color = clRed
+    Layout = tlCenter
+    ParentColor = False
+    Transparent = False
+  end
+  object Label3: TLabel
+    Left = 225
+    Height = 48
+    Top = 120
+    Width = 56
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'G'
+    Color = clGreen
+    Layout = tlCenter
+    ParentColor = False
+    Transparent = False
+  end
+  object Label4: TLabel
+    Left = 296
+    Height = 48
+    Top = 120
+    Width = 56
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'B'
+    Color = clBlue
+    Layout = tlCenter
+    ParentColor = False
+    Transparent = False
+  end
+  object TrackBar3: TTrackBar
+    Left = 240
+    Height = 100
+    Top = 176
+    Width = 25
+    Max = 255
+    OnChange = TrackBar3Change
+    Orientation = trVertical
+    Position = 0
+    Reversed = True
+    Color = clGreen
+    ParentColor = False
+    TabOrder = 4
+  end
+  object TrackBar4: TTrackBar
+    Left = 312
+    Height = 100
+    Top = 176
+    Width = 25
+    Max = 255
+    OnChange = TrackBar4Change
+    Orientation = trVertical
+    Position = 0
+    Reversed = True
+    Color = clBlue
+    ParentColor = False
+    TabOrder = 5
+  end
+  object Edit1: TEdit
+    Left = 152
+    Height = 23
+    Top = 320
+    Width = 56
+    OnClick = TrackBar1Change
+    TabOrder = 6
+  end
+  object Edit2: TEdit
+    Left = 225
+    Height = 23
+    Top = 320
+    Width = 56
+    OnClick = TrackBar2Change
+    TabOrder = 7
+  end
+  object Edit3: TEdit
+    Left = 296
+    Height = 23
+    Top = 320
+    Width = 56
+    TabOrder = 8
+  end
+  object Label5: TLabel
+    Left = 152
+    Height = 32
+    Top = 280
+    Width = 58
+    AutoSize = False
+    ParentColor = False
+    OnClick = Label5Click
+  end
+  object Label6: TLabel
+    Left = 225
+    Height = 32
+    Top = 280
+    Width = 58
+    AutoSize = False
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 296
+    Height = 32
+    Top = 280
+    Width = 58
+    AutoSize = False
+    ParentColor = False
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = Timer1Timer
+    left = 16
+    top = 16
+  end
+end
