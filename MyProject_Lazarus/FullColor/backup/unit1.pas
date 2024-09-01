@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Types;
 
 type
 
@@ -15,6 +15,7 @@ type
     Timer1: TTimer;
     procedure FormClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: char);
     procedure Timer1Timer(Sender: TObject);
   private
 
@@ -42,14 +43,20 @@ begin
     b:=random(255);
     Form1.color:=rgbtoColor(r,g,b);
     Timer1.Enabled:=true;
-
-
 end;
+
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
 
 end;
+
+procedure TForm1.FormKeyPress(Sender: TObject; var Key: char);
+begin
+    if Key = #27 then Close;
+end;
+
+
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin

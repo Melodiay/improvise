@@ -1,14 +1,12 @@
 object Form1: TForm1
-  Left = 0
+  Left = 1000
   Height = 1080
-  Top = -37
+  Top = 175
   Width = 1920
   Caption = 'Form1'
   OnClick = FormClick
   OnCreate = FormCreate
-  OnKeyPress = FormKeyPress
   LCLVersion = '3.4.0.0'
-  WindowState = wsFullScreen
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
