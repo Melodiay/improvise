@@ -53,7 +53,10 @@ end;
 
 procedure TForm1.FormKeyPress(Sender: TObject; var Key: char);
 begin
+    Timer1.Enabled:=true;
+    if Key = #32 then Timer1.Tag := Timer1.Tag + 1;
     if Key = #27 then Close;
+    if Key = #13 then Close;
 end;
 
 

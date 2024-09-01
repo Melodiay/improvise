@@ -20,8 +20,8 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="33"/>
-        <CursorPos X="30" Y="57"/>
+        <TopLine Value="42"/>
+        <CursorPos X="20" Y="56"/>
         <ComponentState Value="2"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
@@ -57,7 +57,7 @@
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit5>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="57" Column="3" TopLine="27"/>
@@ -146,6 +146,10 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="18" Column="78"/>
       </Position22>
+      <Position23>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="56" Column="23" TopLine="34"/>
+      </Position23>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

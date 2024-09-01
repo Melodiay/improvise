@@ -52,7 +52,15 @@ begin
 end;
 
 procedure TForm1.FormKeyPress(Sender: TObject; var Key: char);
+  Var
+     r,g,b:integer;
 begin
+    r:=random(255);
+    g:=random(255);
+    b:=random(255);
+    Form1.color:=rgbtoColor(r,g,b);
+    Timer1.Enabled:=true;
+    if Key = #32 then Timer1.Tag := Timer1.Tag + 1;
     if Key = #27 then Close;
     if Key = #13 then Close;
 end;
