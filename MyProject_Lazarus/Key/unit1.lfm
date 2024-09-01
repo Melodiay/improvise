@@ -1,0 +1,19 @@
+object Form1: TForm1
+  Left = 1266
+  Height = 316
+  Top = 175
+  Width = 410
+  Caption = 'Form1'
+  ClientHeight = 316
+  ClientWidth = 410
+  OnKeyDown = FormKeyDown
+  LCLVersion = '3.4.0.0'
+  object Label1: TLabel
+    Left = 64
+    Height = 66
+    Top = 64
+    Width = 192
+    AutoSize = False
+    Caption = 'Label1'
+  end
+end
