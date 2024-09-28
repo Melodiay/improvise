@@ -2833,6 +2833,8 @@ void pidCountrolN()
   if (detect_zero == 1)
   {  // без детектора ноля
                      // читаем с датчика температуру
+    compensaciya_tempt2();
+    take2_averaged_reading ();                 
     pid2.input = tempt2;   // сообщаем регулятору текущую температуру
     
     //tunern.setInput(tempt2);
@@ -2873,6 +2875,8 @@ void pidCountrolN()
     }
   }else // С детектором ноля
   {                 // читаем с датчика температуру
+    compensaciya_tempt2();
+    take2_averaged_reading ();
     pid2.input = tempt2;   // сообщаем регулятору текущую температуру
     
     //tunern.setInput(tempt2);
@@ -2927,6 +2931,8 @@ void pidCountrolV()
   if (detect_zero == 1)
   { // без детектора ноля
    
+    compensaciya_tempt1();
+    take1_averaged_reading ();
     pid.input = tempt1;   // сообщаем регулятору текущую температуру
     
     //tunerv.setInput(tempt1);
@@ -2970,9 +2976,10 @@ void pidCountrolV()
     
   } else
   {
-    
+    compensaciya_tempt1();
+    take1_averaged_reading ();
     pid.input = tempt1;   // сообщаем регулятору текущую температуру
-   
+
     //tunerv.setInput(tempt1);
     //tunerv.compute();
     // getResultTimer возвращает значение для управляющего устройства
@@ -3164,19 +3171,21 @@ void page_termoprofily(void){
 }
 
 float take1_averaged_reading ()
-{
+{ 
+  int N = 10; // количество шагов и на неё делим
   float sum = 0.0 ;
-  for (byte i = 0 ; i < 10 ; i++)
+  for (byte i = 0 ; i < N ; i++)
     sum += tempt1 ; // whatever code reads the sensor
-  return sum / 10 ;
+  return sum / N ;
 }
 
 float take2_averaged_reading ()
 {
+  int N = 10; // количество шагов и на неё делим
   float sum = 0.0 ;
-  for (byte i = 0 ; i < 10 ; i++)
+  for (byte i = 0 ; i < N ; i++)
     sum += tempt2 ; // whatever code reads the sensor
-  return sum / 10 ;
+  return sum / N ;
 }
 
 
