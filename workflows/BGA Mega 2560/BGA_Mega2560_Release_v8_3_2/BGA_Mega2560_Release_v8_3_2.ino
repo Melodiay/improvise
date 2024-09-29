@@ -3268,11 +3268,15 @@ void reguln()
 {
   if (detect_zero == 1)
   { // без детектора ноля
+    compensaciya_tempt2();
+    take2_averaged_reading();
     regulator2.input =  tempt2; 
     digitalWrite(nigniy_1, regulator2.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
  
   }else
   { // с детектором ноля
+    compensaciya_tempt2();
+    take2_averaged_reading();
     regulator2.input =  tempt2; 
     digitalWrite(nigniy_1, dimmer[0] = regulator2.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
  
@@ -3284,11 +3288,15 @@ void regul()
 {
   if (detect_zero == 1)
   { // без детектора ноля
-     regulator.input =  tempt1;
+    compensaciya_tempt1();
+    take1_averaged_reading();
+    regulator.input =  tempt1;
     digitalWrite(verhniy_1, regulator.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
   
   }else
   { // с детектором ноля
+    compensaciya_tempt1();
+    take1_averaged_reading();
     regulator.input =  tempt1;
     digitalWrite(verhniy_1, dimmer[1] = regulator.getResultTimer());   // отправляем на реле (ОС работает по своему таймеру)
   
