@@ -20,11 +20,13 @@ float t1 = 0.00;
 float t2 = 0.00;
 
 byte temp = 0;
+bool grafik = 0;
 
 void setup(){
   ds.begin(); // инициализация датчика ds18b20
   ds2.begin(); // инициализация датчика ds18b20
   Serial.begin(9600);
+ 
 }
 
 void loop(){
@@ -46,49 +48,74 @@ void loop(){
     }
   }
 
-if ((incStr.indexOf("00"))>=0)
+  
+if (!(Serial.available()))
+{ 
+  if (grafik == 0)
+  {
+      ds.requestTemperatures();
+      t1 =(ds.getTempCByIndex(0));
+   
+      t1 = t1_averaged_reading();
+      
+      String t0 = "\"" + String(t1) + "\"";  // выводим температуру и градусы цельсия 
+      SendData("t0.txt", t0);
+      delay(1000);
+
+
+      ds2.requestTemperatures();
+      t2 =(ds2.getTempCByIndex(0));
+   
+      t2 = t2_averaged_reading();
+      
+      String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
+      SendData("t1.txt", t1);
+      delay(1000);
+
+  }else if (grafik == 1)
+    {
+      ds.requestTemperatures();
+      t1 =(ds.getTempCByIndex(0));
+   
+      t1 = t1_averaged_reading();
+       gafick0();
+      ds2.requestTemperatures();
+      t2 =(ds2.getTempCByIndex(0));
+   
+      t2 = t2_averaged_reading(); 
+       gafick1();
+    }
+}
+  if ((incStr.indexOf("00"))>=0)
   { // когда находимся на странице 0 обновляем компоненты
-    temp = 1;
+      grafik = 0;
+      cle();
+      
+      String t0 = "\"" + String(t1) + "\"";  // выводим температуру и градусы цельсия 
+      SendData("t0.txt", t0);
+      delay(1000);
+
+      String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
+      SendData("t1.txt", t1);
+      delay(1000);
+  
   } else if((incStr.indexOf("01"))>=0)
   {
-    temp = 0;
+     grafik = 0;
   } else if((incStr.indexOf("02"))>=0)
   {
-    temp = 0;
-  }else if((incStr.indexOf("03"))>=0)
+     grafik = 0;
+  } else if((incStr.indexOf("03"))>=0)
   {
-    temp = 0;
+     grafik = 0; 
+  } else if((incStr.indexOf("04"))>=0) // когда находимся на странице 4 обновляем компоненты
+  {
+       grafik = 1; 
+    
   }
 
-if (temp==1)
-{
-  if (!(Serial.available()))
-  { 
-  ds.requestTemperatures();
-  t1 =(ds.getTempCByIndex(0));
-  /**
-  Serial.print("Dom: ");
-  Serial.println(t);
-  delay(1000);
-  **/
- //outNumber("n1.val", t1);
-  String t0 = "\"" + String(t1) + "\"";  // выводим температуру и градусы цельсия 
-  SendData("t0.txt", t0);
-  delay(1000);
-
-  ds2.requestTemperatures();
-  t2 =(ds2.getTempCByIndex(0));
-  /**
-  Serial.print("Ulica: ");
-  Serial.println(t2);
-  delay(1000);
-  **/
-  //outNumber("n0.val", t2);
-  String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
-  SendData("t1.txt", t1);
-  delay(1000);
-  }
-}
+ 
+  
 }
 // Автор Максим Селиванов
 void outNumber(char *component, uint32_t number){
@@ -136,7 +163,6 @@ void print_string(char *string)
   while(*string) Serial.write(*string++); // Пока разыменованное значение не ноль, отправлять через UART
 }
 
-
 void print_dec(uint32_t data)
 {
   uint16_t num;  // вспомогательная переменная
@@ -164,10 +190,54 @@ void sendFFFFFF(void)
 } // Здесь закачивается код Максима Селиванова 
 
 
-
 void AnalyseString(String incStr) 
 {
 
+}
+
+void cle(void){
+  Serial.print("grafik.cle 1,255");
+  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+  Serial.write(0xff);
+  Serial.write(0xff);
+  delay(8);
+} 
+
+
+void gafick0(void){
+  Serial.print("add 1,0,");
+  print_dec(t1);
+  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+  Serial.write(0xff);
+  Serial.write(0xff);
+  delay(8); 
+}
+
+void gafick1(void){
+  Serial.print("add 1,1,");
+  print_dec(t2);
+  Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
+  Serial.write(0xff);
+  Serial.write(0xff);
+  delay(8);
+}
+
+float t1_averaged_reading ()
+{
+  int N = 10;
+  float sum = 0.0 ;
+  for (byte i = 0 ; i < N ; i++)
+    sum += t1 ; // whatever code reads the sensor
+  return sum / N ;
+}
+
+float t2_averaged_reading ()
+{
+  int N = 10;
+  float sum = 0.0 ;
+  for (byte i = 0 ; i < N ; i++)
+    sum += t2 ; // whatever code reads the sensor
+  return sum / N ;
 }
 
 void SendData(String dev, String data)
