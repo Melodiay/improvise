@@ -188,7 +188,7 @@ void setup(void)
     
   Serial.begin(9600);   // Указваем скорость UART 9600 бод
   //compSerial.begin(9600);
-
+  nex2Serial.begin(9600);
   Serial.begin(9600);   // Указваем скорость UART 9600 бод
   nexSerial.begin(9600);
   //pinMode(nigniy_1, OUTPUT); // нижний нагреватель номер 1 настраиваем на выход
@@ -204,7 +204,7 @@ void setup(void)
   pinMode(btn_start, INPUT_PULLUP);
   pinMode(btn_stop, INPUT_PULLUP);
 
-  nex2Serial.begin(9600);
+  
 
   if (EEPROM.read(INIT_ADDR) != INIT_KEY) 
   { // первый запуск
@@ -1878,6 +1878,23 @@ void loop(void)
        inc = "";
     }
   }
+  if (nex2Serial.available()) 
+  {
+    char inc;
+    inc = nex2Serial.read();
+    incStr += inc;
+    if (inc == 0x23) 
+    {
+      incStr = "";
+    }
+    if (inc == 0x0A) 
+    {  // настравиваем ожидать данные в конце данных 0x0A
+       AnalyseString(incStr);
+       incStr = "";
+       inc = "";
+    }
+  }
+
 
   if ((incStr.indexOf("00"))>=0)
   { // когда находимся на странице 0 обновляем компоненты
@@ -2041,12 +2058,12 @@ void loop(void)
             //temp1 = (sens.getTempInt());   // или getTempInt - целые числа (без float), можно объявить переменную temp1 типом int
             
             compensaciya_tempt1();
-            gafick1();
-            take1_averaged_reading();
+            //take1_averaged_reading();
             String t1 = "\"" + String(tempt1) + "'C\"";  // выводим температуру и градусы цельсия 
             SendData("t0.txt", t1);                     // на дисплей Nextion в компонент t0 с параметром txt
             //String t2 = "\"" + String(tempt1) + "'C\"";  // выводим температуру и градусы цельсия 
             //compSendData("t0.txt", t2); 
+            
           } else 
           {
             String t1 = "\"" + String(tempt1) + "Error\"";  // если произошла ошибка выодим Error
@@ -2063,7 +2080,7 @@ void loop(void)
               shag = 0;
               termoprofily1_9 = 0;
               termoprofily10 = 0;
-              cle();
+              
               if (termoprofily == 0)
                 {
                   shag = 0;
@@ -2320,12 +2337,13 @@ void loop(void)
             //temp2 = (sens2.getTempInt());   // или getTempInt - целые числа (без float)
             
             compensaciya_tempt2();
-            gafick2();
-            take2_averaged_reading();
+            
+            //take2_averaged_reading();
             String t1 = "\"" + String(tempt2) + "'C\"";
             SendData("t1.txt", t1);
             //String t2 = "\"" + String(tempt2) + "'C\"";
             //compSendData("t1.txt", t2);
+            
           } else 
           {
             String t1 = "\"" + String(tempt2) + "Error\"";  // если произошла ошибка выодим Error
@@ -2342,7 +2360,7 @@ void loop(void)
               shag = 0;
               termoprofily1_9 = 0;
               termoprofily10 = 0;
-              cle();
+              
               if (termoprofily == 0)
                {
                   shag = 0;
@@ -2595,6 +2613,26 @@ void loop(void)
       }
   }
 
+  if (!(nex2Serial.available()))
+     {  
+      /**if (tempt1 = (sens.readTemp()))
+          {            // Читаем температуру
+            // Если чтение прошло успешно - выводим в Serial
+            tempt1 = (sens.getTemp());   // Забираем температуру через getTemp - вещественные числа (с float) с дробной частью, не забудьте объявить переменную temp1 нужного типа должна быть float а не int
+            //temp1 = (sens.getTempInt());   // или getTempInt - целые числа (без float), можно объявить переменную temp1 типом int
+         **/   
+            gafick1();
+          //}
+        /**if (tempt2 = (sens.readTemp()))
+          {            // Читаем температуру
+            // Если чтение прошло успешно - выводим в Serial
+            tempt2 = (sens.getTemp());   // Забираем температуру через getTemp - вещественные числа (с float) с дробной частью, не забудьте объявить переменную temp1 нужного типа должна быть float а не int
+            //temp2 = (sens.getTempInt());   // или getTempInt - целые числа (без float), можно объявить переменную temp1 типом int
+           **/ 
+            gafick2();
+          //}
+     }
+
   // задаём значение
   //dimmer[0] = map(analogRead(A0), 0, 1023, 0, 9500);
   //dimmer[0] = 50;
@@ -2794,7 +2832,7 @@ if (!(nexSerial.available()))
       reley_v=0;
       analogWrite(nigniy_1, 0);
       analogWrite(verhniy_1, 0);
-      cle();
+      
     }
   } 
 
@@ -3061,7 +3099,7 @@ void yield() {
     reley_v=0;
     analogWrite(nigniy_1, 0);
     analogWrite(verhniy_1, 0);
-    cle();
+    
   }
   if (!btnState && flag && millis() - btnTimer > 3000) {
     flag = false;
@@ -3180,7 +3218,7 @@ float take2_averaged_reading ()
     sum += tempt2 ; // whatever code reads the sensor
   return sum / N ;
 }
-
+/**
 void cle(void){
   nex2Serial.print("cle 1,255");
   nex2Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
@@ -3188,11 +3226,11 @@ void cle(void){
   nex2Serial.write(0xff);
   delay(8);
 } 
-
+**/
 
 void gafick1(void){
   nex2Serial.print("add 1,0,");
-  print_dec(tempt1);
+  print_dec2(tempt1);
   nex2Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   nex2Serial.write(0xff);
   nex2Serial.write(0xff);
@@ -3201,7 +3239,7 @@ void gafick1(void){
 
 void gafick2(void){
   nex2Serial.print("add 1,1,");
-  print_dec(tempt2);
+  print_dec2(tempt2);
   nex2Serial.write(0xff);  // 3 байта 0xFF отправляем в конце подтверждение дисплею Nextion 
   nex2Serial.write(0xff);
   nex2Serial.write(0xff);
@@ -3272,7 +3310,23 @@ void print_dec(uint32_t data)
   nexSerial.write(num + '0');              // Печать десятков в ASCII
   nexSerial.write(data + '0');             // Печать единиц в ASCII
 }
-
+void print_dec2(uint32_t data)
+{
+  uint16_t num;  // вспомогательная переменная
+  //for(num=0; data >= 1000000; num++) data -= 1000000; // Выделение десятков тысяч в переменной num
+  //nexSerial.write(num + '0'); 
+  for(num=0; data >= 100000; num++) data -= 100000; // Выделение десятков тысяч в переменной num
+  nex2Serial.write(num + '0'); 
+  for(num=0; data >= 10000; num++) data -= 10000; // Выделение десятков тысяч в переменной num
+  nex2Serial.write(num + '0');              // Печать десятков тысяч в ASCII
+  for(num=0; data >= 1000; num++) data -= 1000; // Выделение тысяч в переменной num
+  nex2Serial.write(num + '0');              // Печать тысяч в ASCII
+  for(num=0; data >= 100; num++) data -= 100;   // Выделение сотен в переменной num
+  nex2Serial.write(num + '0');              // Печать сотен в ASCII
+  for(num=0; data >= 10; num++) data -= 10;   // Выделение десятков в переменной num
+  nex2Serial.write(num + '0');              // Печать десятков в ASCII
+  nex2Serial.write(data + '0');             // Печать единиц в ASCII
+}
 
 void sendFFFFFF(void)
 {
@@ -3341,7 +3395,7 @@ void AnalyseString(String incStr)
     //sec=0;
     termoprofily1_9 = 0;
     termoprofily10 = 0;
-    cle();
+  
     if (termoprofily == 0)
     {
          shag = 0;
@@ -8854,7 +8908,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+           
          }
          
       } else if (termoprofily == 1)
@@ -8881,7 +8935,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+           
          }       
       } else if (termoprofily == 2)
       {
@@ -8967,7 +9021,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+          
          }
        }else if (termoprofily == 3)
       {
@@ -9057,7 +9111,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+           
          }
        }else if (termoprofily == 4)
       {
@@ -9147,7 +9201,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+           
          }
        }else if (termoprofily == 5)
       {
@@ -9237,7 +9291,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+           
          }
        }else if (termoprofily == 6)
       {
@@ -9326,7 +9380,7 @@ void AnalyseString(String incStr)
            reley_v=0;
            analogWrite(nigniy_1, 0);
            analogWrite(verhniy_1, 0);
-           cle();
+           
          }
        }
     }  
