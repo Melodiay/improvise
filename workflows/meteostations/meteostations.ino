@@ -48,10 +48,46 @@ void loop(){
     }
   }
 
+if ((incStr.indexOf("00"))>=0)
+  { // когда находимся на странице 0 обновляем компоненты
+      temp = 1;
+      grafik = 0;
+      cle();
+      
+      String t0 = "\"" + String(t1) + "\"";  // выводим температуру и градусы цельсия 
+      SendData("t0.txt", t0);
+      delay(1000);
+
+      String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
+      SendData("t1.txt", t1);
+      delay(1000);
   
+  } else if((incStr.indexOf("01"))>=0)
+  {
+     temp = 0;
+     grafik = 0;
+     
+  } else if((incStr.indexOf("02"))>=0)
+  {
+     temp = 0;
+     grafik = 0;
+  } else if((incStr.indexOf("03"))>=0)
+  {
+     temp = 0;
+     grafik = 0; 
+  } else if((incStr.indexOf("04"))>=0) // когда находимся на странице 4 обновляем компоненты
+  {
+     temp = 1;
+     grafik = 1; 
+    
+  }
+
+if (temp == 1)
+{  
 if (!(Serial.available()))
 { 
-  if (grafik == 0)
+  
+    if (grafik == 0)
   {
       ds.requestTemperatures();
       t1 =(ds.getTempCByIndex(0));
@@ -71,7 +107,7 @@ if (!(Serial.available()))
       String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
       SendData("t1.txt", t1);
       delay(1000);
-
+  
   }else if (grafik == 1)
     {
       ds.requestTemperatures();
@@ -85,37 +121,11 @@ if (!(Serial.available()))
       t2 = t2_averaged_reading(); 
        gafick1();
     }
-}
-  if ((incStr.indexOf("00"))>=0)
-  { // когда находимся на странице 0 обновляем компоненты
-      grafik = 0;
-      cle();
-      
-      String t0 = "\"" + String(t1) + "\"";  // выводим температуру и градусы цельсия 
-      SendData("t0.txt", t0);
-      delay(1000);
-
-      String t1 = "\"" + String(t2) + "\"";  // выводим температуру и градусы цельсия 
-      SendData("t1.txt", t1);
-      delay(1000);
   
-  } else if((incStr.indexOf("01"))>=0)
-  {
-     grafik = 0;
-  } else if((incStr.indexOf("02"))>=0)
-  {
-     grafik = 0;
-  } else if((incStr.indexOf("03"))>=0)
-  {
-     grafik = 0; 
-  } else if((incStr.indexOf("04"))>=0) // когда находимся на странице 4 обновляем компоненты
-  {
-       grafik = 1; 
-    
-  }
-
- 
   
+
+} 
+}  
 }
 // Автор Максим Селиванов
 void outNumber(char *component, uint32_t number){
