@@ -5,6 +5,6 @@
 Да в настройках PID регулятора задайте время dt равное 0,01 по умолчанию там 0,1. Сохраняйте время dt на 0 шаге, больше оно, не где не сохраняется.
 Видео выкладываю на Youtube https://www.youtube.com/@melodiay
 Мой сайт https://melodiay.ru/
-https://rutube.ru/channel/43595037/
+Видео выкладываю на Rutube https://rutube.ru/channel/43595037/
 ![Grafik_BGA](https://github.com/user-attachments/assets/19496c35-acb4-48dc-b71f-aa79f0a7cbc8)
 ![BGA_PGrafik](https://github.com/user-attachments/assets/b5af846a-0640-487a-ba6d-70bd3fe169ff)
