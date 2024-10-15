@@ -6,3 +6,5 @@
 Фото были сделаны к сожалению на 0,1 секунде, по этому график сильно проваливается.
 
  
+![Grafik_BGA](https://github.com/user-attachments/assets/25e35df3-1d92-46b1-b534-afc7ad1582c4)
+![BGA_PGrafik](https://github.com/user-attachments/assets/2238562b-5674-4b18-bfc4-2ee314de67bf)
