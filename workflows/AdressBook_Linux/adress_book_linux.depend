@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1731334825 source:/home/alexey/Yandex.Disk/Gtk4/AdressBook_Linux/main.c
+	"main.h"
+
+1731334648 /home/alexey/Yandex.Disk/Gtk4/AdressBook_Linux/main.h
+	<stdlib.h>
+	<sys/types.h>
+	<signal.h>
+	<unistd.h>
+	<string.h>
+	<gtk-4.0/gtk/gtk.h>
+	<math.h>
+	<ctype.h>
+	<sqlite3.h>
+

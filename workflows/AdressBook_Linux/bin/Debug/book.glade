@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <object class="GtkWindow">
+    <property name="child">
+      <object class="GtkBox" id="GtkBox2">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label" translatable="1">Настройки</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkFixed">
+            <property name="vexpand">1</property>
+            <child>
+              <object class="GtkLabel">
+                <layout>
+                  <property name="transform">translate(90, 4)</property>
+                </layout>
+                <property name="width-request">250</property>
+                <property name="height-request">30</property>
+                <property name="label" translatable="1">Разработчик: Быков Алексей</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <layout>
+                  <property name="transform">translate(2, 38)</property>
+                </layout>
+                <property name="width-request">100</property>
+                <property name="height-request">29</property>
+                <property name="label" translatable="1">Название</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="gCompany">
+                <layout>
+                  <property name="transform">translate(110, 37)</property>
+                </layout>
+                <property name="width-request">325</property>
+                <property name="height-request">30</property>
+                <property name="focusable">1</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <layout>
+                  <property name="transform">translate(2, 98)</property>
+                </layout>
+                <property name="width-request">100</property>
+                <property name="height-request">30</property>
+                <property name="label" translatable="1">Телефон</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="gTelefon">
+                <layout>
+                  <property name="transform">translate(110, 95)</property>
+                </layout>
+                <property name="width-request">325</property>
+                <property name="height-request">30</property>
+                <property name="focusable">1</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <layout>
+                  <property name="transform">translate(2, 153)</property>
+                </layout>
+                <property name="width-request">100</property>
+                <property name="height-request">30</property>
+                <property name="label" translatable="1">Адрес</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="gAdres">
+                <layout>
+                  <property name="transform">translate(110, 150)</property>
+                </layout>
+                <property name="width-request">325</property>
+                <property name="height-request">30</property>
+                <property name="focusable">1</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button4">
+            <property name="label" translatable="1">Закрыть</property>
+            <property name="focusable">1</property>
+            <property name="receives-default">1</property>
+            <signal name="clicked" handler="on_button4_clicked" swapped="no"/>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+  <object class="GtkWindow" id="wMain">
+    <signal name="destroy" handler="on_window_destroy" swapped="no"/>
+    <property name="child">
+      <object class="GtkBox" id="GtkBox1">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="valign">center</property>
+            <property name="label" translatable="1">Записная книга</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button1">
+            <property name="vexpand">1</property>
+            <property name="label" translatable="1">Записаная книга</property>
+            <property name="focusable">1</property>
+            <property name="receives-default">1</property>
+            <signal name="clicked" handler="on_button1_clicked" swapped="no"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button2">
+            <property name="vexpand">1</property>
+            <property name="label" translatable="1">Настройки</property>
+            <property name="focusable">1</property>
+            <property name="receives-default">1</property>
+            <signal name="clicked" handler="on_button2_clicked" swapped="no"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="button3">
+            <property name="vexpand">1</property>
+            <property name="label" translatable="1">Выход</property>
+            <property name="focusable">1</property>
+            <property name="receives-default">1</property>
+            <signal name="clicked" handler="gtk_main_quit" swapped="no"/>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>
