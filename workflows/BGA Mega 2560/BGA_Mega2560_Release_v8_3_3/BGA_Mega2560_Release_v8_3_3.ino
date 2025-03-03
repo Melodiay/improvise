@@ -2820,6 +2820,24 @@ if (!(nexSerial.available()))
   }   
   **/
   
+  
+  if (tempust1 == 0)
+  {
+    if(incStr.indexOf("c3-off") == 0) { reley_v=0; analogWrite(verhniy_1, 0);}
+    
+  } else if(tempust1 != 0)
+  {
+    if(incStr.indexOf("c3-on") == 1) { reley_v=1; }  
+  }  
+  if (tempust2 == 0)
+  {
+   if(incStr.indexOf("c0-off") == 0) { reley_n1=0; analogWrite(nigniy_1, 0);} 
+    
+  } else if (tempust2 != 0)
+  {
+    if(incStr.indexOf("c0-on") == 1) { reley_n1=1; } 
+  }
+  
   if(reley_n==1)
   {
     if ((tempust1 == 0) && (tempust2 == 0))
