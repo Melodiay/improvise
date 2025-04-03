@@ -24,9 +24,7 @@
 Видео выкладываю на Rutube https://rutube.ru/channel/43595037/
 ![Grafik_BGA](https://github.com/user-attachments/assets/93bceb1b-e945-4301-818e-119db6e9c5e7)
 ![BGA_PGrafik](https://github.com/user-attachments/assets/804e750b-7a06-4f33-a8aa-bf7017381bcc)
-![Сертификат](https://github.com/user-attachments/assets/bc485d15-5b45-444e-9c70-0fe39df0bce8)
-![загруженное](https://github.com/user-attachments/assets/91d8bd10-abfa-4345-9237-185b281be1f7)
-![загруженное ](https://github.com/user-attachments/assets/311f92bd-1bcd-4807-9817-8b32a3d01cab)
+
 
 
 
