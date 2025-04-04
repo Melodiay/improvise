@@ -22,6 +22,7 @@
 Видео выкладываю на Youtube https://www.youtube.com/@melodiay 
 Мой сайт https://melodiay.ru/
 Видео выкладываю на Rutube https://rutube.ru/channel/43595037/
+https://t.me/melodiay_ru Группа по паяльной станции и нетолько.
 ![Grafik_BGA](https://github.com/user-attachments/assets/93bceb1b-e945-4301-818e-119db6e9c5e7)
 ![BGA_PGrafik](https://github.com/user-attachments/assets/804e750b-7a06-4f33-a8aa-bf7017381bcc)
 
