@@ -2827,16 +2827,27 @@ if (!(nexSerial.available()))
     reley_v=0; analogWrite(verhniy_1, 0);
   } else if((tempust1 != 0) && (verhniynagrev == 1))
   {
-     reley_v=1;   
-  }  
+    reley_v=1;   
+  } else
+  {
+    reley_v=0; analogWrite(verhniy_1, 0);
+  }
+
+
+
   if ((tempust2 == 0) && (nigniynagrev == 0))
   {
     reley_n1=0; analogWrite(nigniy_1, 0);
   } else if ((tempust2 != 0) && (nigniynagrev == 1))
   {
     reley_n1=1;
+  } else
+  {
+    reley_n1=0; analogWrite(nigniy_1, 0);
   }
   
+
+
   if((reley_n==1) && (tempust1 == 0) && (tempust2 == 0))
   {
       termoprofily10 = 1;
