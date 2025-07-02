@@ -166,6 +166,9 @@ int   DTdown = 0;   // установить время итерации для g
 bool  hnup = 1;
 bool  hndown = 1;
 
+bool nigniynagrev = 0;
+bool verhniynagrev = 0;
+
 GyverPID pid(Kpv, Kiv, Kdv, GradSecv, Dtv);
 GyverPID pid2(Kpn, Kin, Kdn, GradSecn, Dtn);
 GyverRelay regulator(REVERSEI); // установка, гистерезис, направление регулирования автор https://alexgyver.ru/lessons/
@@ -2672,7 +2675,7 @@ void loop(void)
         if(reley_n==1)
         {
           Timer2.enableISR();
-          if (reley_n1==1)
+          if ((reley_n1==1) && (nigniynagrev == 1) && (tempust2 != 0))
           {
             pidCountrolN();// Пид регулирование
             myTimer0 = millis();
@@ -2683,7 +2686,7 @@ void loop(void)
             
             myTimer0 = millis();
           }
-          if (reley_v==1)
+          if ((reley_v==1) && (verhniynagrev == 1) && (tempust1 != 0))
           {
             pidCountrolV(); // Пид регулирование          
             myTimer0 = millis();
@@ -2701,15 +2704,29 @@ void loop(void)
         if(reley_n==1)
         {
           Timer2.enableISR();
-          if (reley_n1==1)
+          if ((reley_n1==1) && (nigniynagrev == 1) && (tempust2 != 0))
           {
             reguln();  // Гистерезис
             myTimer0 = millis(); 
-          }          
-          if(reley_v==1)
+          }else
+          {
+            reley_n1=0;
+            analogWrite(nigniy_1, 0);
+            
+            myTimer0 = millis();
+          }   
+
+
+          if((reley_v==1) && (verhniynagrev == 1) && (tempust1 != 0))
           {
             regul();   // Гистерезис
             myTimer0 = millis();   
+          }else
+          {
+            reley_v=0;
+            analogWrite(verhniy_1, 0);  
+            
+            myTimer0 = millis();
           }
           
         }
@@ -2805,27 +2822,34 @@ if (!(nexSerial.available()))
 
   
   
-  if (tempust1 == 0)
+  if ((tempust1 == 0) && (verhniynagrev == 0))
   {
-    if(incStr.indexOf("c3-off") == 0) { reley_v=0; analogWrite(verhniy_1, 0);}
-    
-  } else if(tempust1 != 0)
+    reley_v=0; analogWrite(verhniy_1, 0);
+  } else if((tempust1 != 0) && (verhniynagrev == 1))
   {
-    if(incStr.indexOf("c3-on") == 1) { reley_v=1; }  
-  }  
-  if (tempust2 == 0)
+    reley_v=1;   
+  } else
   {
-   if(incStr.indexOf("c0-off") == 0) { reley_n1=0; analogWrite(nigniy_1, 0);} 
-    
-  } else if (tempust2 != 0)
+    reley_v=0; analogWrite(verhniy_1, 0);
+  }
+
+
+
+  if ((tempust2 == 0) && (nigniynagrev == 0))
   {
-    if(incStr.indexOf("c0-on") == 1) { reley_n1=1; } 
+    reley_n1=0; analogWrite(nigniy_1, 0);
+  } else if ((tempust2 != 0) && (nigniynagrev == 1))
+  {
+    reley_n1=1;
+  } else
+  {
+    reley_n1=0; analogWrite(nigniy_1, 0);
   }
   
-  if(reley_n==1)
+
+
+  if((reley_n==1) && (tempust1 == 0) && (tempust2 == 0))
   {
-    if ((tempust1 == 0) && (tempust2 == 0))
-    {
       termoprofily10 = 1;
       Timer2.disableISR();
       shag = 0;
@@ -2834,8 +2858,6 @@ if (!(nexSerial.available()))
       reley_v=0;
       analogWrite(nigniy_1, 0);
       analogWrite(verhniy_1, 0);
-      
-    }
   } 
 
 
@@ -2877,13 +2899,8 @@ void pidCountrolN()
       pid2.output = pwmust2; //правил здесь 
       // analogWrite(nigniy_1, tunern.getOutput());
       
-      if(incStr.indexOf("c0-off") == 0) 
-      { 
-        reley_n1=0; analogWrite(nigniy_1, 0);
-      } else
-      {
-        analogWrite(nigniy_1, pid2.getResult());  // отправляем на мосфет
-      }
+      analogWrite(nigniy_1, pid2.getResult());  // отправляем на мосфет
+      
       
       // .getResultTimer() по сути возвращает regulator.output 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
@@ -2927,13 +2944,8 @@ void pidCountrolN()
       //analogWrite(nigniy_1, dimmer[0] = tunern.getOutput());  // отправляем на мосфет
       // .getResultTimer() по сути возвращает regulator.output 
       
-      if(incStr.indexOf("c0-off") == 0) 
-      { 
-        reley_n1=0; analogWrite(nigniy_1, 0);
-      } else
-      {
-        analogWrite(nigniy_1, dimmer[0] = pid2.getResult());  // отправляем на мосфет
-      }    
+      analogWrite(nigniy_1, dimmer[0] = pid2.getResult());  // отправляем на мосфет
+         
      
       // .getResultTimer() по сути возвращает regulator.output 
       // выводит в порт текстовые отладочные данные, включая коэффициенты
@@ -2984,13 +2996,8 @@ void pidCountrolV()
       //analogWrite(verhniy_1, tunerv.getOutput());
          
       
-      if(incStr.indexOf("c3-off") == 0) 
-      {
-         reley_v=0; analogWrite(verhniy_1, 0);
-      } else
-      {
-        analogWrite(verhniy_1, pid.getResult());  // отправляем на мосфет
-      }
+      analogWrite(verhniy_1, pid.getResult());  // отправляем на мосфет
+      
      /** 
       // .getResultTimer() по сути возвращает regulator.output
       
@@ -3031,16 +3038,8 @@ void pidCountrolV()
     {
       pid.output = pwmust1; //правил здесь
       //analogWrite(verhniy_1, dimmer[1] = tunerv.getOutput());
-          
-  
       
-      if(incStr.indexOf("c3-off") == 0) 
-      { 
-        reley_v=0; analogWrite(verhniy_1, 0);
-      }else
-      {
-        analogWrite(verhniy_1, dimmer[1] = pid.getResult());  // отправляем на мосфет
-      }
+      analogWrite(verhniy_1, dimmer[1] = pid.getResult());  // отправляем на мосфет
       
       // .getResultTimer() по сути возвращает regulator.output
 
@@ -3064,10 +3063,10 @@ void pidCountrolV()
       }**/
 
     
-    }else if(tempt1 >= tempust1)
+    }else if (tempt1 >= tempust1)
     {
       analogWrite(verhniy_1, 0);
-    } 
+    }
     
   }
 }
@@ -3663,27 +3662,21 @@ void AnalyseString(String incStr)
   }
   if (incStr.indexOf("c0-on") >= 0) 
   {      // тоже самое что и bt0
+    nigniynagrev = 1;
     
-      reley_n1=1;
-    
-       
-  }else if (incStr.indexOf("c0-off") >= 0) 
+     
+  }else if (incStr.indexOf("c0-off") >= 0)
   {
-    
-     reley_n1=0;
-     analogWrite(nigniy_1, 0);
+    nigniynagrev = 0;
   }
   if (incStr.indexOf("c3-on") >= 0)
   { 
+     verhniynagrev = 1; 
     
-      reley_v=1;
-    
-     
-  } else if (incStr.indexOf("c3-off") >= 0) 
+  } else if (incStr.indexOf("c3-off") >= 0)
   {
-    
-     reley_v=0;
-     analogWrite(verhniy_1, 0);
+    verhniynagrev = 0;
+
   }
   if (incStr.indexOf("coolerv-on") >= 0) 
   {      // тоже самое что и bt0
@@ -5561,8 +5554,14 @@ void AnalyseString(String incStr)
       outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
       if(shag == 0)
       {
+          reley_n1=0;
+          reley_v=0;
+          analogWrite(nigniy_1, 0);
+          analogWrite(verhniy_1, 0);
+          
        outNumber("shag.val", shag);  // Отображение числа в числовом компоненте shag
        outNumber("sec.val", sec);  // Отображение числа в числовом компоненте sec
+
        if (termoprofily == 0)
        {
 
@@ -5580,14 +5579,21 @@ void AnalyseString(String incStr)
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }
+         
+        if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
           analogWrite(verhniy_1, 0);
+          
+
       } else if (termoprofily == 1)
       {
          //shag = 0;
@@ -5604,14 +5610,21 @@ void AnalyseString(String incStr)
          temp2 = 160; // Нижний нагреватель Бессвинцовый выбрано 160 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2; 
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }  
+         
+        if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
-          analogWrite(verhniy_1, 0);              
+          analogWrite(verhniy_1, 0);
+
+
       } else if (termoprofily == 2)
       {
           EEPROM.get(227, dtv);	   
@@ -5689,14 +5702,21 @@ void AnalyseString(String incStr)
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }
+         
+        if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
-          analogWrite(verhniy_1, 0);         
+          analogWrite(verhniy_1, 0); 
+
+
        }  else if (termoprofily == 3)
       {
           //термопрофиль User 2
@@ -5777,14 +5797,21 @@ void AnalyseString(String incStr)
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }
+         
+        if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
-          analogWrite(verhniy_1, 0);         
+          analogWrite(verhniy_1, 0); 
+
+                
        } else if (termoprofily == 4)
       {
         //термопрофиль User 3
@@ -5866,14 +5893,20 @@ void AnalyseString(String incStr)
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }
+         
+        if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
-          analogWrite(verhniy_1, 0);         
+          analogWrite(verhniy_1, 0); 
+                  
        } else if (termoprofily == 5)
       {
         //термопрофиль User 4
@@ -5955,14 +5988,21 @@ void AnalyseString(String incStr)
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }
+         
+         if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
-          analogWrite(verhniy_1, 0);         
+          analogWrite(verhniy_1, 0);
+
+
        } else if (termoprofily == 6)
       {
         //термопрофиль User 5
@@ -6044,14 +6084,21 @@ void AnalyseString(String incStr)
          //temp2 = 160; // Нижний нагреватель Бессвинецовый выбрано 50 'C градусов
          outNumber("temp2.val", temp2);  // Отображение числа в числовом компоненте temp1
          tempust2 = temp2;
-         if (reley_n==1)
-         {
-           termoprofily1_9 = 1;
-         }
+         
+        if (reley_n1==1)
+        {
+          termoprofily1_9 = 1;
+        } else
+        {
+          termoprofily1_9 = 0;
+          
+        }
           reley_n1=0;
           reley_v=0;
           analogWrite(nigniy_1, 0);
-          analogWrite(verhniy_1, 0);         
+          analogWrite(verhniy_1, 0); 
+
+
        } 
 
      } else if(shag == 1)
